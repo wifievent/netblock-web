@@ -3,7 +3,7 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.json({ "hello!": "netblock!" });
+  res.download(__dirame + '../asdf.txt');
 });
 
 module.exports = router;
