@@ -8,7 +8,7 @@ const DownloadButton = (props) => {
         className="mt-4"
         variant="dark"
         size="lg"
-        onClick={() => alert("Coming Soon")}
+        onClick={() => (window.location.href = "/api/netblock")}
       >
         Download
       </Button>
