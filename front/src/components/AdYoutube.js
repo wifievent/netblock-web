@@ -10,7 +10,7 @@ class AdYoutube extends React.Component {
       },
     };
 
-    return <YouTube videoId="2ok1XDaFV-s" opts={opts} />;
+    return <YouTube videoId="KrABoQuG4oU" opts={opts} />;
   }
 }
 
