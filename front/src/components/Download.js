@@ -14,10 +14,6 @@ const Download = () => {
           <a href="https://nmap.org/npcap/dist/npcap-1.55.exe">
             Npcap 1.55 installer
           </a>
-          <br />
-          <a href="https://nmap.org/npcap/dist/npcap-sdk-1.11.zip">
-            Npcap SDK 1.11 (ZIP)
-          </a>
         </div>
         <ListGroup as="ul">
           <ListGroup.Item as="li">
