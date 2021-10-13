@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 const DownloadButton = (props) => {
   const redirect = () => {
     if (props.name === "windows") {
-      window.location.href = "/api/netblock/?os=window";
+      window.location.href = "/api/netblock/?os=windows";
     } else if (props.name === "linux") {
       window.location.href = "/api/netblock?os=linux";
     }
