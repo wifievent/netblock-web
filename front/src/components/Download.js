@@ -11,12 +11,12 @@ const Download = () => {
           <br />
           You need to install the below first
           <br />
-          (common)&nbsp;
+          (for Windows only)
+          <br />
           <a href="https://nmap.org/npcap/dist/npcap-1.55.exe">
             Npcap 1.55 installer
           </a>
           <br />
-          (for Windows only)&nbsp;
           <a href="https://www.microsoft.com/ko-kr/download/confirmation.aspx?id=48145">
             vc_redist.x86.exe
           </a>
