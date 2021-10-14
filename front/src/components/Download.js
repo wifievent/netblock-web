@@ -11,12 +11,12 @@ const Download = () => {
           <br />
           You need to install the below first
           <br />
-          (for Windows only)
-          <br />
+          (common)&nbsp;
           <a href="https://nmap.org/npcap/dist/npcap-1.55.exe">
             Npcap 1.55 installer
           </a>
           <br />
+          (for Windows only)&nbsp;
           <a href="https://www.microsoft.com/ko-kr/download/confirmation.aspx?id=48145">
             vc_redist.x86.exe
           </a>
@@ -29,6 +29,9 @@ const Download = () => {
             <DownloadButton name="linux" desc="for Linux (64bit)" />
           </ListGroup.Item>
         </ListGroup>
+        <div style={{ marginTop: "30px" }}>
+          Current Version : v{process.env.REACT_APP_SERVICE_VERSION}
+        </div>
       </Container>
     </>
   );
