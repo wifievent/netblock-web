@@ -17,7 +17,7 @@ const Download = () => {
             Npcap 1.55 installer
           </a>
           <br />
-          <a href="https://www.microsoft.com/ko-kr/download/confirmation.aspx?id=48145">
+          <a href="https://www.microsoft.com/ko-kr/download/details.aspx?id=48145">
             vc_redist.x86.exe
           </a>
         </div>
