@@ -9,10 +9,16 @@ const Download = () => {
         <div style={{ marginBottom: "30px" }}>
           Before installing our program
           <br />
-          You need to install the npcap 1.55 installer
+          You need to install the below first
           <br />
+          (common)&nbsp;
           <a href="https://nmap.org/npcap/dist/npcap-1.55.exe">
             Npcap 1.55 installer
+          </a>
+          <br />
+          (for Windows only)&nbsp;
+          <a href="https://www.microsoft.com/ko-kr/download/confirmation.aspx?id=48145">
+            vc_redist.x86.exe
           </a>
         </div>
         <ListGroup as="ul">

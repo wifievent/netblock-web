@@ -6,7 +6,7 @@ const DownloadButton = (props) => {
     if (props.name === "windows") {
       window.location.href = "/api/netblock/?os=windows";
     } else if (props.name === "linux") {
-      window.location.href = "/api/netblock?os=linux";
+      window.location.href = "/api/netblock/?os=linux";
     }
   };
   return (
