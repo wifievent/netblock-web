@@ -4,6 +4,7 @@ import { useState } from "react";
 import Header from "./components/Header";
 import MainPage from "./pages/MainPage";
 import DownloadPage from "./pages/DownloadPage";
+import HelpPage from "./pages/HelpPage";
 import AdModal from "./components/AdModal";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
@@ -38,6 +39,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={MainPage} />
           <Route exact path="/download" component={DownloadPage} />
+          <Route exact path="/help" component={HelpPage} />
         </Switch>
       </Container>
     </BrowserRouter>
