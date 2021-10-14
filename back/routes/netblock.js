@@ -1,8 +1,11 @@
+require('dotenv').config();
+
 const { DownloadLog, Os, Product } = require('../models')
 const express = require('express');
 const router = express.Router();
 
 router.get('/', async (req, res, next) => {
+  let version = process.env.NETBLOCK_VERSION;
   let os = req.query.os;
   if (!os)
     next();
@@ -10,9 +13,9 @@ router.get('/', async (req, res, next) => {
   try {
     let filepath;
     if (os === 'windows')
-      filepath = __dirname + '/../program/netblock-windows-installer.exe';
+      filepath = __dirname + '/../program/netblock-windows-installer-' + version + '.exe';
     else if (os === 'linux')
-      filepath = __dirname + '/../program/netblock-linux-installer';
+      filepath = __dirname + '/../program/netblock-linux-' + version + 'installer';
     else
       next();
     const os_ = await Os.findOne({
@@ -24,6 +27,7 @@ router.get('/', async (req, res, next) => {
       where: { name: 'NetBlock' },
     })
     await DownloadLog.create({
+      version: version,
       oId: os_.id,
       productId: product.id,
     })

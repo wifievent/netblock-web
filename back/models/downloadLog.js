@@ -1,5 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
   const downloadLog = sequelize.define('downloadLog', {
+    version: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   }, {
     paranoid: false,
   });
