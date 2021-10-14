@@ -8,7 +8,13 @@ router.get('/', async (req, res, next) => {
     next();
 
   try {
-    let filepath = __dirname + '/../program/netblock-' + os + '.txt';
+    let filepath;
+    if (os === 'windows')
+      filepath = __dirname + '/../program/netblock-windows-installer.exe';
+    else if (os === 'linux')
+      filepath = __dirname + '/../program/netblock-linux-installer';
+    else
+      next();
     const os_ = await Os.findOne({
       attributes: ['id'],
       where: { name: os }
