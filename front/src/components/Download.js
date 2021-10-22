@@ -7,9 +7,9 @@ const Download = () => {
     <>
       <Container className="Download">
         <div style={{ marginBottom: "30px" }}>
-          Before installing our program
+          First of all, you need to install the following programs
           <br />
-          You need to install the below first
+          before using NetBlock application.
           <br />
           (for Windows only)
           <br />
@@ -30,7 +30,7 @@ const Download = () => {
           </ListGroup.Item>
         </ListGroup>
         <div style={{ marginTop: "30px" }}>
-          Current Version : v{process.env.REACT_APP_SERVICE_VERSION}
+          Latest Version : v{process.env.REACT_APP_SERVICE_VERSION}
         </div>
       </Container>
     </>
