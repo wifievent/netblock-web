@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
   os.associate = (models) => {
-    os.hasMany(models.DownloadLog)
+    os.hasMany(models.DownloadLog);
   };
   return os;
 }

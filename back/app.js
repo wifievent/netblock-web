@@ -7,6 +7,7 @@ const helmet = require('helmet');
 
 const netblockRouter = require('./routes/netblock');
 
+const board = require('./routes/board');
 const app = express();
 sequelize.sync()
 
@@ -17,5 +18,13 @@ app.use(cookieParser());
 app.use(helmet());
 
 app.use('/netblock', netblockRouter);
+
+
+app
+    .post('/board/create', board.create)
+    .patch('/board/:id/update', board.update)
+    .delete('/board/:id/delete', board.remove)
+    .get('/board/read', board.read);
+
 
 module.exports = app;
