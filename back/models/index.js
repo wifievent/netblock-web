@@ -5,8 +5,8 @@ require('dotenv').config()
 const cls = require('cls-hooked')
 const namespace = cls.createNamespace('wifievent-namespace')
 const Sequelize = require('sequelize')
-const env = process.env
-const config = require(__dirname + '/../config/')[env.NODE_ENV]
+const env = process.env.NODE_ENV || 'development';
+const config = require('../config')[env]
 const db = {}
 
 Sequelize.useCLS(namespace);
@@ -15,6 +15,7 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 db.DownloadLog = require('./downloadLog')(sequelize, Sequelize);
 db.Os = require('./os')(sequelize, Sequelize);
 db.Product = require('./product')(sequelize, Sequelize);
+db.Board = require('./board')(sequelize, Sequelize);
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

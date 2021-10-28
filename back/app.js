@@ -21,10 +21,20 @@ app.use('/netblock', netblockRouter);
 
 
 app
-    .post('/board/create', board.create)
-    .patch('/board/:id/update', board.update)
-    .delete('/board/:id/delete', board.remove)
-    .get('/board/read', board.read);
+    .post('/board', board.create)
+    .patch('/board/:id', board.update)
+    .delete('/board/:id', board.remove)
+    .get('/board', board.read);
 
+//error handling
+app.use(function (err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get("env") === "development" ? err : {};
+
+    // render the error page
+    res.status(err.status || 500);
+    res.render("error");
+});
 
 module.exports = app;

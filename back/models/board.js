@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
     const board = sequelize.define('board', {
         name: {
-            type: DataTypes.STRING(10),
+            type: DataTypes.STRING(20),
             allowNull: false,
         },
         comment: {
@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         version: {
             type: DataTypes.STRING(10),
-            aloowNull: false,
+            allowNull: false,
         },
         os: {
             type: DataTypes.STRING(10),
-            aloowNull: false,
+            allowNull: false,
         },
     }, {
         timestamps: true,
