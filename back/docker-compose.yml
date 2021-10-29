@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  node:
+    container_name: wifievent-node
+    image: wifievent-node:0.1.0.0
+    build:
+      context: .
+      target: development
+      dockerfile: ./Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - DB_USER=${DB_USER}
+      - DB_PW=${DB_PW}
+      - DB_NAME=${DB_NAME}
+      - DB_HOST=${DB_HOST}
+      - DB_TYPE=${DB_TYPE}
+      - NETBLOCK_VERSION=${NETBLOCK_VERSION}
+    restart: unless-stopped
+  mariadb:
+    container_name: wifievent-db
+    image: mariadb:10
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./conf.d:/etc/mysql/conf.d
+    environment:
+      - TZ=Asia/Seoul
+      - MYSQL_ROOT_PASSWORD=${DB_PW}
+      - MYSQL_DATABASE=${DB_NAME}
+  adminer:
+    container_name: wifievent-adminer
+    image: adminer
+    ports:
+      - 8080:8080
