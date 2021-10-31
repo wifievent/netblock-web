@@ -1,8 +1,8 @@
-const { Board } = require('../../models');
+const { Feedback } = require('../../models');
 
 const create = async (req, res, next) => {
   const { name, comment, version, os } = req.body;
-  const result = await Board.create({
+  const result = await Feedback.create({
       name, comment, version, os
   }).catch((err) => {
       console.error(err);
@@ -12,7 +12,7 @@ const create = async (req, res, next) => {
 };
 
 const update = async (req, res, next) => {
-  const result = await Board.update({
+  const result = await Feedback.update({
     comment: req.body.comment,
   }, {
     where: { id: req.params.id },
@@ -24,7 +24,7 @@ const update = async (req, res, next) => {
 };
 
 const read = async (req, res, next) => {
-  const result = await Board.findAll().catch((err) => {
+  const result = await Feedback.findAll().catch((err) => {
     console.error(err);
     return next(err);
   });
@@ -32,7 +32,7 @@ const read = async (req, res, next) => {
 };
 
 const remove = async (req, res, next) => {
-  const result = await Board.destroy({ where: { id: req.params.id } }).catch((err) => {
+  const result = await Feedback.destroy({ where: { id: req.params.id } }).catch((err) => {
     console.error(err);
     return next(err);
   })
