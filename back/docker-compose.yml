@@ -3,11 +3,10 @@ version: "3.8"
 services:
   node:
     container_name: wifievent-node
-    image: wifievent-node:0.1.0.0
+    image: wifievent-node:0.1.0.2
     build:
       context: .
       target: development
-      dockerfile: ./Dockerfile
     ports:
       - 3000:3000
     volumes:
