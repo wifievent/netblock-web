@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const board = sequelize.define('board', {
+    const feedback = sequelize.define('feedback', {
         name: {
             type: DataTypes.STRING(20),
             allowNull: false,
@@ -19,5 +19,5 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         timestamps: true,
     });
-    return board;
+    return feedback;
 }

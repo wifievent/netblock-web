@@ -1,10 +1,8 @@
 require('dotenv').config();
 
-const { DownloadLog, Os, Product } = require('../models')
-const express = require('express');
-const router = express.Router();
+const { DownloadLog, Os, Product } = require('../../models')
 
-router.get('/', async (req, res, next) => {
+const download = async (req, res, next) => {
   let version = process.env.NETBLOCK_VERSION;
   let os = req.query.os;
   if (!os)
@@ -35,6 +33,8 @@ router.get('/', async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
+}
 
-module.exports = router;
+module.exports = {
+  download
+};
