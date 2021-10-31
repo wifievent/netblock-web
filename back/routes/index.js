@@ -3,9 +3,11 @@ const router = express.Router();
 
 const netblock = require('./netblock');
 const feedback = require('./feedback');
+const downloadLog = require('./downloadLog');
 
 router
     .use('/netblock', netblock)
-    .use('/feedback', feedback);
+    .use('/feedback', feedback)
+    .use('/downloadLog', downloadLog)
 
 module.exports = router;
