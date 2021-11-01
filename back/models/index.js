@@ -16,6 +16,7 @@ db.DownloadLog = require('./downloadLog')(sequelize, Sequelize);
 db.Os = require('./os')(sequelize, Sequelize);
 db.Product = require('./product')(sequelize, Sequelize);
 db.Feedback = require('./feedback')(sequelize, Sequelize);
+db.User = require('./user')(sequelize, Sequelize);
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
