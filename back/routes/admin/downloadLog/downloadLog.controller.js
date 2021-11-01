@@ -1,4 +1,4 @@
-const { DownloadLog } = require('../../models');
+const { DownloadLog } = require('../../../models');
 
 const read = async (req, res, next) => {
   try {
