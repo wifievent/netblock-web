@@ -1,6 +1,7 @@
 FROM node:14 AS development
 WORKDIR /usr/src/app
 COPY package*.json ./
-RUN npm install --only=development
+RUN npm install --only=development \
+  && npm install pm2 -g
 COPY . .
-CMD [ "node", "bin/www" ]
+CMD ["pm2-runtime", "start", "ecosystem.config.js"]
