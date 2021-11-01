@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('./feedback.controller');
+const { isLoggedIn, isNotLoggedIn } = require('../middlewares/middlewares');
 
 router
-  .post('/', controller.create)
-  .patch('/:id', controller.update)
-  .delete('/:id', controller.remove)
-  .get('/', controller.read);
+  .post('/', isLoggedIn, controller.create)
+  .patch('/:id', isLoggedIn, controller.update)
+  .delete('/:id', isLoggedIn, controller.remove)
+  .get('/', isLoggedIn, controller.read);
 
 module.exports = router;
