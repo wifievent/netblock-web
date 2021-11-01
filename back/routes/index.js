@@ -10,6 +10,6 @@ router
     .use('/netblock', netblock)
     .use('/feedback', feedback)
     .use('/downloadLog', downloadLog)
-    .user('/user', user);
+    .use('/user', user)
 
 module.exports = router;
