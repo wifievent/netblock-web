@@ -16,8 +16,16 @@ const Download = () => {
                   NetBlock 을 설치하기 이전에
                   <br />
                   다음 프로그램의 설치가 필요합니다.
+                  <br />
+                  <a href="https://nmap.org/npcap/dist/npcap-1.55.exe">
+                    Npcap 1.55 installer
+                  </a>
+                  <br />
+                  <a href="https://www.microsoft.com/ko-kr/download/confirmation.aspx?id=48145">
+                    vc_redist.x86.exe
+                  </a>
                 </Card.Text>
-                <DownloadButton />
+                <DownloadButton name="windows" />
               </Card.Body>
             </Card>
           </Col>
@@ -26,7 +34,7 @@ const Download = () => {
               <Card.Body className="cardBody">
                 <Card.Title className="cardTitle">Linux</Card.Title>
                 <Card.Text></Card.Text>
-                <DownloadButton />
+                <DownloadButton name="linux" />
               </Card.Body>
             </Card>
           </Col>
