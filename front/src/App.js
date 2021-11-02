@@ -6,7 +6,7 @@ import MainPage from "./pages/MainPage";
 import DownloadPage from "./pages/DownloadPage";
 import AboutPage from "./pages/AboutPage";
 import HelpPage from "./pages/HelpPage";
-import QnaPage from "./pages/QnaPage";
+import LoginPage from "./pages/LoginPage";
 import AdModal from "./components/AdModal";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
@@ -34,17 +34,19 @@ function App() {
 
   return (
     <BrowserRouter>
-      {show && <AdModal show={show} handleClose={handleClose}></AdModal>}
-      <Header />
-      {console.log(show)}
-      <Switch>
-        <Route exact path="/" component={MainPage} />
-        <Route exact path="/download" component={DownloadPage} />
-        <Route exact path="/help" component={HelpPage} />
-        <Route exact path="/about" component={AboutPage} />
-        <Route exact path="/qna" component={QnaPage} />
-      </Switch>
-      <Footer />
+      <div className="myflex">
+        {show && <AdModal show={show} handleClose={handleClose}></AdModal>}
+        <Header />
+        {console.log(show)}
+        <Switch>
+          <Route exact path="/" component={MainPage} />
+          <Route exact path="/download" component={DownloadPage} />
+          <Route exact path="/help" component={HelpPage} />
+          <Route exact path="/about" component={AboutPage} />
+          <Route exact path="/login" component={LoginPage} />
+        </Switch>
+        <Footer />
+      </div>
     </BrowserRouter>
   );
 }
