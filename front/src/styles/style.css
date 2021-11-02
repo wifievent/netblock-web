@@ -3,9 +3,12 @@
     position: sticky;
     top: 0;
     height: 80px;
+
+    z-index: 10;
 }
 
 .footerNav {
+    width: 100%;
     background-color: #080D2B;
     width: 100%;
     padding: 10px;
@@ -44,14 +47,36 @@
     font-size: 25px;
 }
 
+.notebook {
+    width: 700px;
+    padding-top: 30px;
+}
+
+@media (max-width: 800px) {
+    .notebook {
+        width: 100%;
+    }
+}
+
+.tableRow {
+    display: flex;
+    justify-content: center;
+}
+
 .downloadCont {
-    margin-top: 100px;
+    
 }
 
 .downBtn {
     font-size: 15px;
-    background-color: #31ECA9;
+    background-color: #1BB19F;
     border: none;
+}
+
+.rowCard {
+    display: flex;
+
+    justify-content: center;
 }
 
 .colCard {
@@ -84,7 +109,8 @@
 }
 
 .compContent {
-    margin-top: 100px;
+    font-weight: 700;
+    margin: 100px 0 100px 0;
     width: 100%;
     background-color: #151B43;
     color: #DADBDF;
@@ -99,7 +125,8 @@
 }
 
 .compTable {
-    color: #DADBDF;
+    text-align: center;
+    color: #B1B3BF;
 }   
 
 .faq {
@@ -122,4 +149,85 @@
 .faq-q {   
     margin: 10px;
     font-weight: 500;
+}
+
+@media (max-width: 992px) {
+    iframe {
+        width: 500px;
+    }
+}
+
+@media (max-width: 576px) {
+    iframe {
+        width: auto;
+        height: auto;
+    }
+}
+
+
+.myflex{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+
+tr th:nth-child(2) {
+    background-color: #a6a6d3;
+    border-radius: 10px 10px 0 0;
+}
+
+tr td:nth-child(2) {
+    background-color: #a6a6d3;
+    color : #07c854;
+}
+
+.tabColBottom td:nth-child(2) {
+    border-radius: 0 0 10px 10px;
+}
+
+.mediaHeader {
+    display: none;
+    color: white;
+}
+
+@media (max-width: 992px) {
+    .navbarHeader {
+        display: none;
+    }
+    .mediaHeader {
+        display: block;
+    }
+}
+
+@media (min-width: 993px) {
+    .collapseNavbar {
+        display: none;
+    }
+}
+
+
+@media (max-width: 560px) {
+    .headerNav {
+        padding: 0 5px 0 5px;
+    }
+}
+
+.collapseNavbar {
+    padding: 0;
+    background-color: #080D2B;
+    color: white;
+}
+
+.collapseNavLink {
+    color: white;
+}
+
+@media (max-width: 600px) {
+    .cardBody {
+        width: 100%;
+    }
+    .downloadCard {
+        width: 100%;
+    }
 }
