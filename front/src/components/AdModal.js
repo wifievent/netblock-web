@@ -6,7 +6,7 @@ const AdModal = ({ show, handleClose }) => {
   return (
     <div>
       <Container>
-        <Modal size="lg" show={show} onHide={handleClose}>
+        <Modal size="xl" show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title style={{ fontWeight: "600" }}>
               <span style={{ color: "#1BB19F" }}>NetBlock</span> 을 사용해보세요
