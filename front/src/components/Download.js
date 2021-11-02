@@ -6,10 +6,10 @@ import "../styles/style.css";
 const Download = () => {
   return (
     <>
-      <Container className="downloadCont">
-        <Row className="rowCard">
-          <Col className="colCard">
-            <Card className="downloadCard">
+      <Container fluid="sm" className="downloadCont">
+        <Row size="sm" className="rowCard">
+          <Col md="auto" className="colCard">
+            <Card className="downloadCard ">
               <Card.Body className="cardBody">
                 <Card.Title className="cardTitle">Windows</Card.Title>
                 <Card.Text style={{ paddingTop: "30px" }}>
@@ -29,7 +29,8 @@ const Download = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col className="colCard">
+
+          <Col md="auto" className="colCard">
             <Card className="downloadCard">
               <Card.Body className="cardBody">
                 <Card.Title className="cardTitle">Linux</Card.Title>
@@ -39,7 +40,6 @@ const Download = () => {
             </Card>
           </Col>
         </Row>
-
         <div className="version">
           Latest Version : v{process.env.REACT_APP_SERVICE_VERSION}
         </div>
