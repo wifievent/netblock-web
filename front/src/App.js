@@ -4,7 +4,6 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import MainPage from "./pages/MainPage";
 import DownloadPage from "./pages/DownloadPage";
-import AboutPage from "./pages/AboutPage";
 import HelpPage from "./pages/HelpPage";
 import LoginPage from "./pages/LoginPage";
 import AdModal from "./components/AdModal";
@@ -42,7 +41,6 @@ function App() {
           <Route exact path="/" component={MainPage} />
           <Route exact path="/download" component={DownloadPage} />
           <Route exact path="/help" component={HelpPage} />
-          <Route exact path="/about" component={AboutPage} />
           <Route exact path="/login" component={LoginPage} />
         </Switch>
         <Footer />
