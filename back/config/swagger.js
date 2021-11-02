@@ -1,20 +1,29 @@
-const definition = {
-  openapi: '3.0.0',
+const swaggerAutogen = require('swagger-autogen')();
+
+const doc = {
   info: {
-    title: 'WiFi Event API',
-    version: '0.0.0',
+      version: "0.0.0",
+      title: "WiFi Event API",
+      description: "WiFi Event"
   },
-  servers: [
-    {
-      url: 'http://localhost:3000',
-      description: 'local test',
-    }
-  ]
+  host: "localhost:3000",
+  basePath: "/",
+  schemes: ['http', 'https'],
+  consumes: ['application/json'],
+  produces: ['application/json'],
+  securityDefinitions: {
+      apiKeyAuth:{
+          type: "apiKey",
+          in: "header",       // can be "header", "query" or "cookie"
+          name: "X-API-KEY",  // name of the header, query parameter or cookie
+          description: "any description..."
+      }
+  },
 }
 
-const options = {
-  definition,
-  apis: [],
-};
+const outputFile = './config/swagger_output.json';
+const endpointsFiles = [
+  './routes/index.js',
+];
 
-module.exports = options;
+swaggerAutogen(outputFile, endpointsFiles, doc);

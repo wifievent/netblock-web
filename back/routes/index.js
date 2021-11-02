@@ -7,12 +7,11 @@ const downloadLog = require('./admin/downloadLog');
 const user = require('./user');
 const adminUser = require('./admin/user');
 
-router
-    .use('/netblock', netblock)
-    .use('/feedback', feedback)
-    .use('/user', user)
+router.use('/netblock', netblock)
+router.use('/feedback', feedback)
+router.use('/user', user)
 
-    .use('/admin/downloadLog', downloadLog)
-    .use('/admin/user', adminUser)
+router.use('/admin/downloadLog', downloadLog)
+router.use('/admin/user', adminUser)
 
 module.exports = router;
