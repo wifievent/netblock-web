@@ -1,9 +1,13 @@
 import React from "react";
 import { Container } from "react-bootstrap";
+import { useSpring, animated } from "react-spring";
 import "../styles/style.css";
-import notebook from "../img/NoteBook.png";
+import CompTable from "./CompTable";
+import NoteBookSvg from "./NoteBookSvg";
 
 const Contents = () => {
+  const props = useSpring({ opacity: 1, from: { opacity: 0 } });
+
   return (
     <>
       <div className="contentHead">
@@ -12,9 +16,12 @@ const Contents = () => {
           바로 만나보세요 !
         </div>
       </div>
-      <Container className="mt-5" style={{ width: "80vh" }}>
-        <img className="d-block w-100" alt="notebook" src={notebook} />
-      </Container>
+      <animated.div style={props}>
+        <Container className="mt-5" style={{ textAlign: "center" }}>
+          <NoteBookSvg />
+        </Container>
+      </animated.div>
+      <CompTable />
     </>
   );
 };

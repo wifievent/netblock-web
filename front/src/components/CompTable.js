@@ -1,40 +1,59 @@
 import React from "react";
-import { Table, Container } from "react-bootstrap";
+import { Table, Container, Row, Col } from "react-bootstrap";
+import { useSpring, animated } from "react-spring";
 import "../styles/style.css";
 
 const CompTable = () => {
+  const props = useSpring({ opacity: 1, from: { opacity: 0 } });
+
   return (
-    <div>
+    <div className="compContent">
       <Container>
-        <Table borderless="true" className="compTable">
-          <thead>
-            <tr>
-              <th></th>
-              <th>NetBlock</th>
-              <th>I사 공유기</th>
-              <th>G모 제품</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>품질</td>
-              <td>O</td>
-              <td>O</td>
-              <td>X</td>
-            </tr>
-            <tr>
-              <td>안정성</td>
-              <td>O</td>
-              <td>X</td>
-              <td>X</td>
-            </tr>
-            <tr>
-              <td>스근함</td>
-              <td colSpan="2">O</td>
-              <td>X</td>
-            </tr>
-          </tbody>
-        </Table>
+        <animated.div style={props}>
+          <Row className="tableRow">
+            <Col md="auto">
+              <div className="aboutDesc" style={{ fontSize: "25px" }}>
+                왜 <span style={{ fontWeight: "700" }}>NetBlock</span> 인가요 ?
+              </div>
+              <Table borderless="true" className="compTable">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th style={{ color: "white" }}>NetBlock</th>
+                    <th>G 제품</th>
+                    <th>A사 제품</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>추가 설치</td>
+                    <td>●</td>
+                    <td>O</td>
+                    <td>X</td>
+                  </tr>
+                  <tr>
+                    <td>직접 조작</td>
+                    <td>●</td>
+                    <td>X</td>
+                    <td>X</td>
+                  </tr>
+                  <tr>
+                    <td>자녀 계정</td>
+                    <td>●</td>
+                    <td>X</td>
+                    <td>X</td>
+                  </tr>
+                  <tr className="tabColBottom">
+                    <td>추가 인증</td>
+                    <td className="tableColBottom">●</td>
+                    <td>X</td>
+                    <td>X</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Col>
+          </Row>
+        </animated.div>
       </Container>
     </div>
   );
