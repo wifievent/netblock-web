@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js",
-    "swagger-autogen": "node config/swagger.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -26,7 +25,6 @@
     "sequelize-cli": "^6.2.0"
   },
   "devDependencies": {
-    "swagger-autogen": "^2.12.4",
     "swagger-ui-express": "^4.1.6"
   }
 }

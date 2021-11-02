@@ -1,0 +1,36 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "WiFi Event API",
+    "description": "https://wifievent.io",
+    "version": "0.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "localhost test"
+    }
+  ],
+  "paths": {
+    "/netblock": {
+      "get": {
+        "summary": "Download NetBlock program.",
+        "responses": {
+          "200": {
+            "description": "NetBlock program",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary",
+                  "example": "netblock-{os}-installer-{version}"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {}
+}
