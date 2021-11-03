@@ -12,8 +12,8 @@ const DownloadButton = (props) => {
   return (
     <>
       <div className="dBtnDiv">
-        <Button className="mt-1" variant="dark" size="lg" onClick={redirect}>
-          Download
+        <Button className="mt-1 downBtn" size="lg" onClick={redirect}>
+          다운로드
         </Button>
         <h5 className="btnDesc">{props.desc}</h5>
       </div>
