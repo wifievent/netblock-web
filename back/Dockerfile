@@ -1,7 +1,6 @@
 FROM node:14 AS development
+ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /
 WORKDIR /usr/src/app
 COPY package*.json ./
-RUN npm install --only=development \
+RUN npm install \
   && npm install pm2 -g
-COPY . .
-CMD ["pm2-runtime", "start", "ecosystem.config.js"]
