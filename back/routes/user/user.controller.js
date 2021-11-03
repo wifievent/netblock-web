@@ -1,6 +1,6 @@
 const { User } = require('../../models');
-const crypto = require('crypto');
 const passport = require('passport');
+const { getRandom, getHash } = require('../../hashing');
 
 //로그인
 const login = async (req, res, next) => {
@@ -26,33 +26,24 @@ const login = async (req, res, next) => {
 const register = async (req, res, next) => {
   const { uid, pw, name, email } = req.body;
   const is_admin = false;
+  try {
+    const already = await User.count({ where: { uid } });
+    if (already)
+      return res.status(304).json({ msg: "userid already exist" });
 
-  const result = await User.count({
-    where: {
-      uid: uid
-    }
-  }).catch((e) => {
-    console.error(err);
-    return next(err);
-  });
-
-  if (result === 1) {
-    return res.status(304).json({ msg: "userid already exist" });
-  }
-  else {
-    User.create({
+    const salt = getRandom();
+    await User.create({
       uid,
-      pw: crypto.createHash('sha512').update(pw).digest('base64'),
+      pw: getHash(pw, salt),
+      salt,
       name,
       email,
       is_admin
-    }).catch((e) => {
-      console.error(e);
-      return next(e);
     });
     return res.status(201).json({ msg: "register success" });
+  } catch (err) {
+      next(err);
   }
-
 }
 
 //유저 삭제

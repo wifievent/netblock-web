@@ -6,7 +6,11 @@ module.exports = (sequelize, DataTypes) => {
 			unique: true,
 		},
 		pw: {
-			type: DataTypes.STRING(512),
+			type: DataTypes.STRING(128),
+			allowNull: false,
+		},
+		salt: {
+			type: DataTypes.STRING(128),
 			allowNull: false,
 		},
 		name: {
