@@ -1,5 +1,5 @@
 const { User } = require('../../models');
-const bcrypt = require('bcrypt-nodejs');
+const crypto = require('crypto');
 const passport = require('passport');
 
 //로그인
@@ -9,6 +9,7 @@ const login = async (req, res, next) => {
       return next(authError);
     }
     if (!user) {
+      console.log(user);
       return res.status(401).json({ msg: "No Authentication" });
     }
     return req.login(user, (loginError) => {
@@ -39,32 +40,19 @@ const register = async (req, res, next) => {
     return res.status(304).json({ msg: "userid already exist" });
   }
   else {
-    bcrypt.genSalt(10, (err, salt) => {
-      if (err) {
-        return res.status(500).json({ msg: "Bcrypt genSalt error" });
-      }
-      else {
-        bcrypt.hash(pw, salt, null, (err, hash) => {
-          if (err) {
-            return res.status(500).json({ msg: "Bcrpyt hashing error" });
-          }
-          else {
-            User.create({
-              uid,
-              pw: bcrypt.hashSync(pw),
-              name,
-              email,
-              is_admin
-            }).catch((e) => {
-              console.error(e);
-              return next(e);
-            });
-            return res.status(201).json({ msg: "register success" });
-          }
-        });
-      }
-    })
+    User.create({
+      uid,
+      pw: crypto.createHash('sha512').update(pw).digest('base64'),
+      name,
+      email,
+      is_admin
+    }).catch((e) => {
+      console.error(e);
+      return next(e);
+    });
+    return res.status(201).json({ msg: "register success" });
   }
+
 }
 
 //유저 삭제

@@ -1,6 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const { User } = require('../models');
 
 module.exports = () => {
@@ -10,20 +10,17 @@ module.exports = () => {
   }, async (uid, pw, done) => {
     try {
       const exUser = await User.findOne({
-        where: { uid }
-      })
-      if (exUser) {
-        const result = await bcrypt.compare(pw, exUser.pw).catch((err) => console.error(err));
-        if (result) {
-          done(null, exUser);
-        } else {
-          done(null, false, { message: 'invalid pw' });
+        where: {
+          uid,
+          pw: crypto.createHash('sha512').update(pw).digest('base64')
         }
-      } else {
-        done(null, false, { message: 'invalid id' });
-      }
+      });
+      if (exUser)
+        return done(null, exUser);
+      else
+        done(null, false, { message: 'invalid info' });
     } catch (err) {
       done(err);
     }
-  }));
-};
+  }))
+}

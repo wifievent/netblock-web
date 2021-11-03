@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const user = sequelize.define('user', {
-    uid: {
+	const user = sequelize.define('user', {
+		uid: {
 			type: DataTypes.STRING(80),
 			allowNull: false,
 			unique: true,
@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
 		name: {
 			type: DataTypes.STRING(32),
 			allowNull: false,
-			unique: true,
 		},
 		email: {
 			type: DataTypes.STRING(128),
@@ -22,8 +21,8 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.BOOLEAN,
 			defaultValue: 0,
 		}
-  }, {})
-  user.associate = (models) => {
-  }
-  return user
+	}, {})
+	user.associate = (models) => {
+	}
+	return user
 }
