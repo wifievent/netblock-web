@@ -1,26 +1,28 @@
 import React from "react";
-import { Carousel } from "react-bootstrap";
-import card1 from "../img/01.png";
-import card2 from "../img/02.png";
-import card3 from "../img/03.png";
+import { Container } from "react-bootstrap";
+import { useSpring, animated } from "react-spring";
+import "../styles/style.css";
+import CompTable from "./CompTable";
+import NoteBookSvg from "./NoteBookSvg";
 
 const Contents = () => {
-  return (
-    <Carousel style={{ width: "80vh" }}>
-      <Carousel.Item>
-        <img className="d-block w-100" src={card1} alt="First slide" />
-        <Carousel.Caption></Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img className="d-block w-100" src={card2} alt="Second slide" />
-        <Carousel.Caption></Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img className="d-block w-100" src={card3} alt="Third slide" />
+  const props = useSpring({ opacity: 1, from: { opacity: 0 } });
 
-        <Carousel.Caption></Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
+  return (
+    <>
+      <div className="contentHead">
+        <div>
+          <span style={{ color: "#31ECA9" }}>WiFiEvent</span> 의 제품을 지금
+          바로 만나보세요 !
+        </div>
+      </div>
+      <animated.div style={props}>
+        <Container className="mt-5" style={{ textAlign: "center" }}>
+          <NoteBookSvg />
+        </Container>
+      </animated.div>
+      <CompTable />
+    </>
   );
 };
 

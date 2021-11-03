@@ -1,13 +1,14 @@
-import { Nav } from "react-bootstrap";
+import { Navbar } from "react-bootstrap";
 import React from "react";
+import "../styles/style.css";
 
 const Footer = () => {
   return (
-    <div>
-      <Nav className="footerNav" activeKey="/home">
-        <Nav.Item>NetBlock</Nav.Item>
-      </Nav>
-    </div>
+    <>
+      <Navbar className="footerNav">
+        <div className="footerContent">ⓒWiFiEvent</div>
+      </Navbar>
+    </>
   );
 };
 
