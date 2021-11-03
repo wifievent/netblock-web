@@ -6,7 +6,6 @@ const passport = require('passport');
 const login = async (req, res, next) => {
   passport.authenticate('local', (authError, user, info) => {
     if (authError) {
-      console.log(authError);
       return next(authError);
     }
     if (!user) {
