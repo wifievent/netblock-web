@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -63,7 +65,7 @@ module.exports =  async ({ app }) => {
     res.locals.message = err.message;
     res.locals.error = req.app.get("env") === "development" ? err : {};
 
-    // render the error page
+    console.error(err);
     res.status(err.status || 500).json(err.message);
   });
 

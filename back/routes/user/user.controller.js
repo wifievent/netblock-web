@@ -1,15 +1,15 @@
 const { User } = require('../../models');
-const bcrypt = require('bcrypt-nodejs');
 const passport = require('passport');
+const { getRandom, getHash } = require('../../hashing');
 
 //로그인
 const login = async (req, res, next) => {
   passport.authenticate('local', (authError, user, info) => {
     if (authError) {
-      console.log(authError);
       return next(authError);
     }
     if (!user) {
+      console.log(user);
       return res.status(401).json({ msg: "No Authentication" });
     }
     return req.login(user, (loginError) => {
@@ -26,45 +26,23 @@ const login = async (req, res, next) => {
 const register = async (req, res, next) => {
   const { uid, pw, name, email } = req.body;
   const is_admin = false;
+  try {
+    const already = await User.count({ where: { uid } });
+    if (already)
+      return res.status(304).json({ msg: "userid already exist" });
 
-  const result = await User.count({
-    where: {
-      uid: uid
-    }
-  }).catch((e) => {
-    console.error(err);
-    return next(err);
-  });
-
-  if (result === 1) {
-    return res.status(304).json({ msg: "userid already exist" });
-  }
-  else {
-    bcrypt.genSalt(10, (err, salt) => {
-      if (err) {
-        return res.status(500).json({ msg: "Bcrypt genSalt error" });
-      }
-      else {
-        bcrypt.hash(pw, salt, null, (err, hash) => {
-          if (err) {
-            return res.status(500).json({ msg: "Bcrpyt hashing error" });
-          }
-          else {
-            User.create({
-              uid,
-              pw: bcrypt.hashSync(pw),
-              name,
-              email,
-              is_admin
-            }).catch((e) => {
-              console.error(e);
-              return next(e);
-            });
-            return res.status(201).json({ msg: "register success" });
-          }
-        });
-      }
-    })
+    const salt = getRandom();
+    await User.create({
+      uid,
+      pw: getHash(pw, salt),
+      salt,
+      name,
+      email,
+      is_admin
+    });
+    return res.status(201).json({ msg: "register success" });
+  } catch (err) {
+      next(err);
   }
 }
 

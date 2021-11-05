@@ -2,4 +2,3 @@ node_modules/
 .env
 program/
 data/
-conf.d/
