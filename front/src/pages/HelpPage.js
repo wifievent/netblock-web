@@ -2,7 +2,7 @@ import React from "react";
 
 const HelpPage = () => {
   window.location.href =
-    "https://wifievent.notion.site/Read-me-74b608d4db3d4bd290e2a1c7b296a666";
+    "https://economic-asp-8f1.notion.site/Screen-0438e7e8ff4049279d570d09dc3d42dd"
   return <div></div>;
 };
 
