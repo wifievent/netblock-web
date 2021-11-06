@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -29,15 +28,14 @@ function App() {
   }, [show]);
 
   return (
-            <BrowserRouter>
+    <BrowserRouter>
       <div className="myflex">
         {show && <AdModal show={show} handleClose={handleClose}></AdModal>}
         <Header />
-<PageRoute />
-                <Footer />
+        <PageRoute />
+        <Footer />
       </div>
     </BrowserRouter>
-    
   );
 }
 
