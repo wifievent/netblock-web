@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from 'react';
 import {
   Nav,
   Navbar,
@@ -7,12 +7,22 @@ import {
   Col,
   Button,
   Collapse,
-} from "react-bootstrap";
-import "../styles/style.css";
-import MenuSVG from "./MenuSVG";
+} from 'react-bootstrap';
+import axios from '../axios';
+import '../styles/style.css';
+import MenuSVG from './MenuSVG';
 
 const Header = () => {
   const [open, setOpen] = useState(false);
+  const [session, setSession] = useState(false);
+
+  useEffect(() => {
+    axios.get('/user/session', null, { withCredentials: true }).then((res) => {
+      setSession(true);
+    });
+    console.log('useEffect');
+    console.log(session);
+  });
 
   return (
     <div>
@@ -30,7 +40,7 @@ const Header = () => {
             >
               <Navbar.Brand
                 href="/"
-                style={{ fontWeight: "600", color: "#DADBDF" }}
+                style={{ fontWeight: '600', color: '#DADBDF' }}
               >
                 WiFiEvent
               </Navbar.Brand>
@@ -40,27 +50,27 @@ const Header = () => {
                 <Nav.Link
                   href="/download"
                   className="navItem"
-                  style={{ color: "#AFAFB9", fontSize: "13px" }}
+                  style={{ color: '#AFAFB9', fontSize: '13px' }}
                 >
                   Download
                 </Nav.Link>
                 <Nav.Link
                   href="/help"
                   className="navItem"
-                  style={{ color: "#AFAFB9", fontSize: "13px" }}
+                  style={{ color: '#AFAFB9', fontSize: '13px' }}
                 >
                   Help
                 </Nav.Link>
                 <Nav.Link className="navItem" href="/login">
                   <Button
                     style={{
-                      border: "1px solid #27305D",
-                      borderRadius: "5px",
-                      padding: "0 15px",
-                      height: "22px",
-                      fontSize: "13px",
-                      backgroundColor: "#27305D",
-                      color: "#AFAFB9",
+                      border: '1px solid #27305D',
+                      borderRadius: '5px',
+                      padding: '0 15px',
+                      height: '22px',
+                      fontSize: '13px',
+                      backgroundColor: '#27305D',
+                      color: '#AFAFB9',
                     }}
                   >
                     Login
@@ -87,22 +97,21 @@ const Header = () => {
               <Nav>
                 <Nav.Link
                   href="/download"
-                  style={{ color: "#AFAFB9", fontSize: "13px" }}
+                  style={{ color: '#AFAFB9', fontSize: '13px' }}
                 >
                   Download
                 </Nav.Link>
                 <Nav.Link
                   href="/help"
-                  style={{ color: "#AFAFB9", fontSize: "13px" }}
+                  style={{ color: '#AFAFB9', fontSize: '13px' }}
                 >
                   Help
                 </Nav.Link>
-                <Nav.Link href="/login"
-                                  style={{ color: "#AFAFB9", fontSize: "13px" }}
->
-                  
-                    Login
-              
+                <Nav.Link
+                  href="/login"
+                  style={{ color: '#AFAFB9', fontSize: '13px' }}
+                >
+                  {session ? '로그아웃' : '로그인'}
                 </Nav.Link>
               </Nav>
             </div>
