@@ -77,10 +77,12 @@ const logout = async (req, res, next) => {
 
 const session = async (req, res, next) => {
   const user = req.user;
+  console.log(req.session)
   res.json({
     type: 'info',
     message: 'session OK!',
-    admin: user.dataValues.is_admin
+    admin: user.dataValues.is_admin,
+    session: req.session
   })
 }
 
