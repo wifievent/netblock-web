@@ -1,36 +1,496 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "title": "WiFi Event API",
-    "description": "https://wifievent.io",
-    "version": "0.0.0"
+  "openapi" : "3.0.0",
+  "info" : {
+    "version" : "1.0.0",
+    "title" : "WiFiEvent_API",
+    "description" : ""
   },
-  "servers": [
-    {
-      "url": "http://localhost:3000",
-      "description": "localhost test"
-    }
-  ],
-  "paths": {
-    "/netblock": {
-      "get": {
-        "summary": "Download NetBlock program.",
-        "responses": {
-          "200": {
-            "description": "NetBlock program",
-            "content": {
-              "application/octet-stream": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary",
-                  "example": "netblock-{os}-installer-{version}"
+  "servers" : [ {
+    "description" : "SwaggerHub API Auto Mocking",
+    "url" : "https://virtserver.swaggerhub.com/algosipdahack/WiFiEvent/1.0.0"
+  }, {
+    "description" : "SwaggerHub API Auto Mocking",
+    "url" : "https://virtserver.swaggerhub.com/algosipdahack/NetBlock/1.0.0"
+  }, {
+    "description" : "CRUD API 3000",
+    "url" : "http://localhost:3000"
+  }, {
+    "description" : "CRUD API 3001",
+    "url" : "http://localhost:3001"
+  } ],
+  "paths" : {
+    "/board" : {
+      "get" : {
+        "summary" : "Return All Board information",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "type" : "integer",
+                      "description" : "The board ID."
+                    },
+                    "name" : {
+                      "type" : "string",
+                      "description" : "The user name."
+                    },
+                    "comment" : {
+                      "type" : "string",
+                      "description" : "The content of comment."
+                    },
+                    "version" : {
+                      "type" : "string",
+                      "description" : "The version of program using."
+                    },
+                    "os" : {
+                      "type" : "string",
+                      "description" : "The type of os using."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      },
+      "post" : {
+        "summary" : "post a comment",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "name" : {
+                    "type" : "string",
+                    "description" : "The user name."
+                  },
+                  "comment" : {
+                    "type" : "string",
+                    "description" : "The content of comment."
+                  },
+                  "version" : {
+                    "type" : "string",
+                    "description" : "The version of program using."
+                  },
+                  "os" : {
+                    "type" : "string",
+                    "description" : "The type of os using."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "post success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "type" : "integer",
+                      "description" : "The board ID."
+                    },
+                    "name" : {
+                      "type" : "string",
+                      "description" : "The user name."
+                    },
+                    "comment" : {
+                      "type" : "string",
+                      "description" : "The content of comment."
+                    },
+                    "version" : {
+                      "type" : "string",
+                      "description" : "The version of program using."
+                    },
+                    "os" : {
+                      "type" : "string",
+                      "description" : "The type of os using."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      }
+    },
+    "/board/{id}" : {
+      "patch" : {
+        "summary" : "Modify comment",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "description" : "The ID of the board to return",
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer",
+                    "description" : "The board ID."
+                  },
+                  "name" : {
+                    "type" : "string",
+                    "description" : "The user name."
+                  },
+                  "comment" : {
+                    "type" : "string",
+                    "description" : "The content of comment."
+                  },
+                  "version" : {
+                    "type" : "string",
+                    "description" : "The version of program using."
+                  },
+                  "os" : {
+                    "type" : "string",
+                    "description" : "The type of os using."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "type" : "integer",
+                      "description" : "The board ID."
+                    },
+                    "name" : {
+                      "type" : "string",
+                      "description" : "The user name."
+                    },
+                    "comment" : {
+                      "type" : "string",
+                      "description" : "The content of comment."
+                    },
+                    "version" : {
+                      "type" : "string",
+                      "description" : "The version of program using."
+                    },
+                    "os" : {
+                      "type" : "string",
+                      "description" : "The type of os using."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "comment is not exist"
+          },
+          "500" : {
+            "description" : "Server error"
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Remove comment",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "description" : "The ID of the board to return",
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "cannot find id"
+          },
+          "500" : {
+            "description" : "Server error"
+          }
+        }
+      }
+    },
+    "/user/login" : {
+      "post" : {
+        "summary" : "login function",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "uid" : {
+                    "type" : "string",
+                    "description" : "The user id."
+                  },
+                  "pw" : {
+                    "type" : "string",
+                    "description" : "The user pw."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "login success"
+          },
+          "401" : {
+            "description" : "No Authentication"
+          }
+        }
+      }
+    },
+    "/user/register" : {
+      "post" : {
+        "summary" : "register function",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "uid" : {
+                    "type" : "string",
+                    "description" : "The user id."
+                  },
+                  "pw" : {
+                    "type" : "string",
+                    "description" : "The user pw."
+                  },
+                  "name" : {
+                    "type" : "string",
+                    "description" : "The user name."
+                  },
+                  "email" : {
+                    "type" : "string",
+                    "description" : "The user email."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "register success"
+          },
+          "304" : {
+            "description" : "userid already exist"
+          }
+        }
+      }
+    },
+    "/user/logout" : {
+      "get" : {
+        "summary" : "logout function & destroy session",
+        "responses" : {
+          "200" : {
+            "description" : "Logout success"
+          }
+        }
+      }
+    },
+    "/user/{id}" : {
+      "delete" : {
+        "summary" : "Remove comment",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "description" : "loginId(uid) of user",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Remove success"
+          },
+          "400" : {
+            "description" : "cannot find id"
+          },
+          "403" : {
+            "description" : "No Authentication"
+          }
+        }
+      }
+    },
+    "/user/session" : {
+      "get" : {
+        "summary" : "check session",
+        "responses" : {
+          "200" : {
+            "description" : "session ok",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "properties" : {
+                    "message" : {
+                      "type" : "string",
+                      "description" : "session Ok"
+                    },
+                    "admin" : {
+                      "type" : "string",
+                      "description" : "Is user admin?"
+                    },
+                    "session" : {
+                      "type" : "string",
+                      "description" : "the content of cookie, uid in passport"
+                    }
+                  }
                 }
               }
             }
           }
         }
       }
+    },
+    "/admin/downloadLog" : {
+      "get" : {
+        "summary" : "Return downloadLog",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "version" : {
+                      "type" : "string",
+                      "description" : "The version of program using."
+                    },
+                    "OsName" : {
+                      "type" : "string",
+                      "description" : "The type of os using."
+                    },
+                    "ProductName" : {
+                      "type" : "string",
+                      "description" : "The name of product"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      }
+    },
+    "/admin/user" : {
+      "get" : {
+        "summary" : "Return user information",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "uid" : {
+                      "type" : "string",
+                      "description" : "The user id."
+                    },
+                    "pw" : {
+                      "type" : "string",
+                      "description" : "The user pw."
+                    },
+                    "salt" : {
+                      "type" : "string",
+                      "description" : "Password salt."
+                    },
+                    "name" : {
+                      "type" : "string",
+                      "description" : "The user name."
+                    },
+                    "email" : {
+                      "type" : "string",
+                      "description" : "The user email."
+                    },
+                    "is_admin" : {
+                      "type" : "boolean",
+                      "description" : "Check if he is an administrator or not."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      }
+    },
+    "/admin/feedback" : {
+      "get" : {
+        "summary" : "Return user information",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "name" : {
+                      "type" : "string",
+                      "description" : "The user name."
+                    },
+                    "comment" : {
+                      "type" : "string",
+                      "description" : "The user's comment."
+                    },
+                    "version" : {
+                      "type" : "string",
+                      "description" : "The version of program using."
+                    },
+                    "os" : {
+                      "type" : "string",
+                      "description" : "The type of os using."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      }
     }
-  },
-  "components": {}
+  }
 }
