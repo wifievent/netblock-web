@@ -3,11 +3,12 @@ import { useState } from 'react';
 import axios from '../axios';
 import StyledCard from '../components/StyledCard';
 import Button from '../components/Button';
-import { Cookie } from 'react-cookie';
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const [inputId, setInputId] = useState('');
   const [inputPw, setInputPw] = useState('');
+  const [inputName, setInputName] = useState('');
+  const [inputEmail, setInputEmail] = useState('');
 
   const handleInputId = (e) => {
     setInputId(e.target.value);
@@ -17,29 +18,33 @@ const LoginPage = () => {
     setInputPw(e.target.value);
   };
 
-  const onClickLogin = () => {
+  const handleInputName = (e) => {
+    setInputName(e.target.value);
+  };
+
+  const handleInputEmail = (e) => {
+    setInputEmail(e.target.value);
+  };
+
+  const onClickRegister = () => {
     axios({
       method: 'post',
-      url: '/user/login',
+      url: '/user/register',
       data: {
         uid: inputId,
         pw: inputPw,
+        name: inputName,
+        email: inputEmail,
       },
     })
       .then((res) => {
-        console.log(res);
-        //document.location.href = '/';
+        window.location.href = '/login';
       })
       .catch();
   };
 
-  const onClickSignUp = () => {
-    window.location.href = '/register';
-  };
-
   return (
     <StyledCard>
-      <h2>Login</h2>
       <div>
         <label htmlFor="input_id">ID : </label>
         <input
@@ -59,11 +64,28 @@ const LoginPage = () => {
         />
       </div>
       <div>
-        <Button onClick={onClickSignUp}>Sign up</Button>
-        <Button onClick={onClickLogin}>Login</Button>
+        <label htmlFor="input_name">NAME : </label>
+        <input
+          type="text"
+          name="input_name"
+          value={inputName}
+          onChange={handleInputName}
+        />
+      </div>
+      <div>
+        <label htmlFor="input_email">EMAIL : </label>
+        <input
+          type="text"
+          email="input_email"
+          value={inputEmail}
+          onChange={handleInputEmail}
+        />
+      </div>
+      <div>
+        <Button onClick={onClickRegister}>Sign up</Button>
       </div>
     </StyledCard>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

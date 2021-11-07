@@ -1,13 +1,9 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { BrowserRouter } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import MainPage from "./pages/MainPage";
-import DownloadPage from "./pages/DownloadPage";
-import HelpPage from "./pages/HelpPage";
-import LoginPage from "./pages/LoginPage";
 import AdModal from "./components/AdModal";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import PageRoute from "./routes/PageRoute";
 import "./App.css";
 import "./components/style.css";
 
@@ -36,13 +32,7 @@ function App() {
       <div className="myflex">
         {show && <AdModal show={show} handleClose={handleClose}></AdModal>}
         <Header />
-        {console.log(show)}
-        <Switch>
-          <Route exact path="/" component={MainPage} />
-          <Route exact path="/download" component={DownloadPage} />
-          <Route exact path="/help" component={HelpPage} />
-          <Route exact path="/login" component={LoginPage} />
-        </Switch>
+        <PageRoute />
         <Footer />
       </div>
     </BrowserRouter>
