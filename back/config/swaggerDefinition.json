@@ -19,9 +19,9 @@
     "url" : "http://localhost:3001"
   } ],
   "paths" : {
-    "/board" : {
+    "/feedback" : {
       "get" : {
-        "summary" : "Return All Board information",
+        "summary" : "Return All Feedback information",
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -32,7 +32,7 @@
                   "properties" : {
                     "id" : {
                       "type" : "integer",
-                      "description" : "The board ID."
+                      "description" : "The feedback ID."
                     },
                     "name" : {
                       "type" : "string",
@@ -99,7 +99,7 @@
                   "properties" : {
                     "id" : {
                       "type" : "integer",
-                      "description" : "The board ID."
+                      "description" : "The feedback ID."
                     },
                     "name" : {
                       "type" : "string",
@@ -128,14 +128,14 @@
         }
       }
     },
-    "/board/{id}" : {
+    "/feedback/{id}" : {
       "patch" : {
         "summary" : "Modify comment",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
           "required" : true,
-          "description" : "The ID of the board to return",
+          "description" : "The ID of the feedback to return",
           "schema" : {
             "type" : "integer"
           }
@@ -148,7 +148,7 @@
                 "properties" : {
                   "id" : {
                     "type" : "integer",
-                    "description" : "The board ID."
+                    "description" : "The feedback ID."
                   },
                   "name" : {
                     "type" : "string",
@@ -181,7 +181,7 @@
                   "properties" : {
                     "id" : {
                       "type" : "integer",
-                      "description" : "The board ID."
+                      "description" : "The feedback ID."
                     },
                     "name" : {
                       "type" : "string",
@@ -218,7 +218,7 @@
           "name" : "id",
           "in" : "path",
           "required" : true,
-          "description" : "The ID of the board to return",
+          "description" : "The ID of the feedback to return",
           "schema" : {
             "type" : "integer"
           }
