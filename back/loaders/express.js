@@ -69,7 +69,7 @@ module.exports =  async ({ app }) => {
     res.status(err.status || 500).json(err.message);
   });
 
-  const port = normalizePort(process.env.PORT || '3000');
+  const port = normalizePort(process.env.PORT || '3004');
   app.set('port', port);
   
   const server = http.createServer(app);

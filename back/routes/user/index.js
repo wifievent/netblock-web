@@ -7,5 +7,6 @@ router.post('/login', isNotLoggedIn, controller.login);
 router.post('/register', isNotLoggedIn, controller.register);
 router.get('/logout', isLoggedIn, controller.logout);
 router.delete('/:id', isLoggedIn, controller.remove);
+router.get('/session', isLoggedIn, controller.session);
 
 module.exports = router;

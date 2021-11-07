@@ -42,7 +42,7 @@ const register = async (req, res, next) => {
     });
     return res.status(201).json({ msg: "register success" });
   } catch (err) {
-      next(err);
+    next(err);
   }
 }
 
@@ -73,9 +73,19 @@ const logout = async (req, res, next) => {
   return res.status(200).json({ msg: "Logout success" });
 }
 
+const session = async (req, res, next) => {
+  const user = req.user;
+  res.json({
+    type: 'info',
+    message: 'session OK!',
+    admin: user.dataValues.is_admin
+  })
+}
+
 module.exports = {
   login,
   register,
   remove,
-  logout
+  logout,
+  session
 }
