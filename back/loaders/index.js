@@ -9,7 +9,7 @@ const init = async ({ expressApp }) => {
   await sequelizeLoader();
   await passportLoader({ app: expressApp });
   await expressLoader({ app: expressApp });
-  if (process.env.NODE_ENV === 'deveopment') {
+  if (process.env.NODE_ENV === 'deveolpment') {
     await swaggerLoader({ app: expressApp });
   }
 };
