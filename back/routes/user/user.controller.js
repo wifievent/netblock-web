@@ -26,24 +26,26 @@ const login = async (req, res, next) => {
 const register = async (req, res, next) => {
   const { uid, pw, name, email } = req.body;
   const is_admin = false;
-  try {
-    const already = await User.count({ where: { uid } });
-    if (already)
-      return res.status(304).json({ msg: "userid already exist" });
+  const already = await User.count({ where: { uid } }).catch((err) => {
+    console.error(err);
+    return next(err);
+  });
+  if (already)
+    return res.status(304).json({ msg: "userid already exist" });
 
-    const salt = getRandom();
-    await User.create({
-      uid,
-      pw: getHash(pw, salt),
-      salt,
-      name,
-      email,
-      is_admin
-    });
-    return res.status(201).json({ msg: "register success" });
-  } catch (err) {
-    next(err);
-  }
+  const salt = getRandom();
+  await User.create({
+    uid,
+    pw: getHash(pw, salt),
+    salt,
+    name,
+    email,
+    is_admin
+  }).catch((err) => {
+    console.error(err);
+    return next(err);
+  });
+  return res.status(201).json({ msg: "register success" });
 }
 
 //유저 삭제
