@@ -2,7 +2,6 @@ const { User } = require('../../models');
 const passport = require('passport');
 const { getRandom, getHash } = require('../../hashing');
 const { smtpTransport } = require('../../config/email');
-const nodemailer = require('nodemailer');
 
 //로그인
 const login = async (req, res, next) => {
@@ -103,10 +102,10 @@ const auth = async (req, res, next) => {
   };
   const result = await smtpTransport.sendMail(mailOptions, (error, res) => {
     if (error) {
-      console.error(err);
-      return next(err);
+      console.error(error);
+      return next(error);
     } else {
-      return res.status(200).json({ msg: "Email send success", number });
+      res.status(200).json({ msg: "Email send success", number });
     }
     smtpTransport.close();
   });
