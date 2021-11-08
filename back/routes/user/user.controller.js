@@ -81,6 +81,7 @@ const logout = async (req, res, next) => {
   req.session.destroy(); //세션 파괴
   return res.status(200).json({ msg: "Logout success" });
 }
+
 //세션 체크
 const session = async (req, res, next) => {
   const user = req.user;
@@ -106,12 +107,13 @@ const auth = async (req, res, next) => {
     subject: "[NetBlock]인증 관련 이메일 입니다",
     text: "오른쪽 숫자 6자리를 입력해주세요 :" + number
   };
+  console.log(mailOptions);
   const result = await smtpTransport.sendMail(mailOptions, (error, res) => {
     if (error) {
       console.error(error);
-      return next(error);
+      next(error);
     } else {
-      res.status(200).json({ msg: "Email send success", number });
+      res.status(200).json({ number });
     }
     smtpTransport.close();
   });
