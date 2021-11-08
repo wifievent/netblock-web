@@ -30,9 +30,9 @@ const Header = () => {
         <Container>
           <Row className="w-100">
             <Col
-              xxl="9"
-              xl="9"
-              lg="8"
+              xxl="8"
+              xl="8"
+              lg="7"
               md="11"
               sm="10"
               xs="10"
@@ -63,6 +63,13 @@ const Header = () => {
                 </Nav.Link>
                 <Nav.Link
                   href="/qna"
+                  className="navItem"
+                  style={{ color: '#AFAFB9', fontSize: '13px' }}
+                >
+                  Q&A
+                </Nav.Link>
+                <Nav.Link
+                  href="/faq"
                   className="navItem"
                   style={{ color: '#AFAFB9', fontSize: '13px' }}
                 >
@@ -118,10 +125,10 @@ const Header = () => {
                   Help
                 </Nav.Link>
                 <Nav.Link
-                  href="FAQ"
+                  href="/faq"
                   style={{ color: '#AFAFB9', fontSize: '13px' }}
                 >
-                  QnA
+                  FAQ
                 </Nav.Link>
                 <Nav.Link
                   href={session ? 'logout' : 'login'}

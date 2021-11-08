@@ -5,7 +5,7 @@ import DownloadPage from '../pages/DownloadPage';
 import HelpPage from '../pages/HelpPage';
 import LoginPage from '../pages/LoginPage';
 import LogoutPage from '../pages/LogoutPage';
-import QnaPage from '../pages/QnaPage';
+import FaqPage from '../pages/FaqPage';
 import RegisterPage from '../pages/RegisterPage';
 
 const PageRoute = () => {
@@ -17,7 +17,7 @@ const PageRoute = () => {
       <Route exact path="/login" component={LoginPage} />
       <Route exact path="/logout" component={LogoutPage} />
       <Route exact path="/register" component={RegisterPage} />
-      <Route exact path="/qna" component={QnaPage} />
+      <Route exact path="/faq" component={FaqPage} />
     </Switch>
   );
 };
