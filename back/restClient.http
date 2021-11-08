@@ -46,6 +46,13 @@ Content-Type: application/json
     "email":"sophia5460@naver.com"
 }
 ###
+POST http://localhost:3000/user/check HTTP/1.1
+Content-Type: application/json
+
+{
+    "uid":"wefwdddesf"
+}
+###
 POST http://localhost:3000/feedback HTTP/1.1
 Content-Type: application/json
 

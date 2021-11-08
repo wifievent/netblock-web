@@ -27,12 +27,6 @@ const login = async (req, res, next) => {
 const register = async (req, res, next) => {
   const { uid, pw, name, email } = req.body;
   const is_admin = false;
-  const already = await User.count({ where: { uid } }).catch((err) => {
-    console.error(err);
-    return next(err);
-  });
-  if (already)
-    return res.status(304).json({ msg: "userid already exist" });
 
   const salt = getRandom();
   await User.create({
@@ -69,13 +63,25 @@ const remove = async (req, res, next) => {
   return res.status(200).json({ msg: "Remove success" });
 }
 
+//아이디 중복체크
+const check = async (req, res, next) => {
+  const { uid } = req.body;
+  const already = await User.count({ where: { uid } }).catch((err) => {
+    console.error(err);
+    return next(err);
+  });
+  if (already)
+    return res.status(409).json({ msg: "userid already exist" });
+  return res.status(200).json({ msg: "Available uid" });
+}
+
 //로그아웃
 const logout = async (req, res, next) => {
   req.logout();
   req.session.destroy(); //세션 파괴
   return res.status(200).json({ msg: "Logout success" });
 }
-
+//세션 체크
 const session = async (req, res, next) => {
   const user = req.user;
   console.log(req.session)
@@ -117,5 +123,6 @@ module.exports = {
   remove,
   logout,
   session,
-  auth
+  auth,
+  check
 }

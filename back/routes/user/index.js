@@ -9,4 +9,5 @@ router.get('/logout', isLoggedIn, controller.logout);
 router.delete('/:id', isLoggedIn, controller.remove);
 router.get('/session', isLoggedIn, controller.session);
 router.post('/emailauth', isNotLoggedIn, controller.auth);
+router.post('/check', isNotLoggedIn, controller.check);
 module.exports = router;
