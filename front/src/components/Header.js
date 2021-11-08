@@ -11,6 +11,7 @@ import {
 import axios from 'axios';
 import '../styles/style.css';
 import MenuSVG from './MenuSVG';
+import logo from '../img/wf_logo.png';
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -42,6 +43,7 @@ const Header = () => {
                 href="/"
                 style={{ fontWeight: '600', color: '#DADBDF' }}
               >
+                <img src={logo} alt="logo" style={{ width: '20px' }} />
                 WiFiEvent
               </Navbar.Brand>
             </Col>
