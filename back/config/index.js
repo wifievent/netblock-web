@@ -3,11 +3,11 @@ require('dotenv').config()
 const env = process.env
 
 const development = {
-  "username": "admin",
-  "password": "P@ssw0rd",
-  "database": "nodejs",
-  "host": "localhost",
-  "dialect": "mysql",
+  "username": env.DB_USER,
+  "password": env.DB_PW,
+  "database": env.DB_NAME,
+  "host": env.DB_HOST,
+  "dialect": env.DB_TYPE,
   "define": {
     "underscored": false,
     "freezeTableName": false,
