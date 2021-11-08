@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
     const feedback = sequelize.define('feedback', {
-        name: {
-            type: DataTypes.STRING(20),
+        title: {
+            type: DataTypes.TEXT,
             allowNull: false,
         },
         comment: {
@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         timestamps: true,
+        paranoid: true,
     });
+    feedback.associate = (models) => {
+        feedback.belongsTo(models.user, { foreignKey: 'commenter', targetKey: 'id' });
+    };
     return feedback;
 }
