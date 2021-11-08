@@ -8,7 +8,7 @@ import {
   Button,
   Collapse,
 } from 'react-bootstrap';
-import axios from '../axios';
+import axios from 'axios';
 import '../styles/style.css';
 import MenuSVG from './MenuSVG';
 
@@ -17,7 +17,7 @@ const Header = () => {
   const [session, setSession] = useState(false);
 
   useEffect(() => {
-    axios.get('/user/session', null, { withCredentials: true }).then((res) => {
+    axios.get('/user/session', {}, { withCredentials: true }).then((res) => {
       setSession(true);
     });
     console.log('useEffect');
@@ -61,7 +61,10 @@ const Header = () => {
                 >
                   Help
                 </Nav.Link>
-                <Nav.Link className="navItem" href="/login">
+                <Nav.Link
+                  className="navItem"
+                  href={session ? '/logout' : '/login'}
+                >
                   <Button
                     style={{
                       border: '1px solid #27305D',
@@ -73,7 +76,7 @@ const Header = () => {
                       color: '#AFAFB9',
                     }}
                   >
-                    Login
+                    {session ? 'logout' : 'login'}
                   </Button>
                 </Nav.Link>
               </Nav>
@@ -108,10 +111,10 @@ const Header = () => {
                   Help
                 </Nav.Link>
                 <Nav.Link
-                  href="/login"
+                  href={session ? 'logout' : 'login'}
                   style={{ color: '#AFAFB9', fontSize: '13px' }}
                 >
-                  {session ? '로그아웃' : '로그인'}
+                  {session ? 'logout' : 'login'}
                 </Nav.Link>
               </Nav>
             </div>

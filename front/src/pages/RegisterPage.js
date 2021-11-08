@@ -1,8 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
-import axios from '../axios';
+import axios from 'axios';
+import { Row, Col } from 'react-bootstrap';
 import StyledCard from '../components/StyledCard';
 import Button from '../components/Button';
+import '../styles/style.css';
 
 const RegisterPage = () => {
   const [inputId, setInputId] = useState('');
@@ -40,50 +42,74 @@ const RegisterPage = () => {
       .then((res) => {
         window.location.href = '/login';
       })
-      .catch();
+      .catch(() => {
+        alert('이미 존재하는 ID 입니다.');
+        window.location.href = '/register';
+      });
   };
 
   return (
-    <StyledCard>
-      <div>
-        <label htmlFor="input_id">ID : </label>
-        <input
-          type="text"
-          name="input_id"
-          value={inputId}
-          onChange={handleInputId}
-        />
-      </div>
-      <div>
-        <label htmlFor="input_pw">PW : </label>
-        <input
-          type="password"
-          name="input_pw"
-          value={inputPw}
-          onChange={handleInputPw}
-        />
-      </div>
-      <div>
-        <label htmlFor="input_name">NAME : </label>
-        <input
-          type="text"
-          name="input_name"
-          value={inputName}
-          onChange={handleInputName}
-        />
-      </div>
-      <div>
-        <label htmlFor="input_email">EMAIL : </label>
-        <input
-          type="text"
-          email="input_email"
-          value={inputEmail}
-          onChange={handleInputEmail}
-        />
-      </div>
-      <div>
+    <StyledCard type="register">
+      <h2>회원가입</h2>
+      <Row>
+        <Col>
+          <label htmlFor="input_id">ID </label>
+        </Col>
+        <Col>
+          <input
+            className="inputCom"
+            type="text"
+            name="input_id"
+            value={inputId}
+            onChange={handleInputId}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <label htmlFor="input_pw">비밀번호</label>
+        </Col>
+        <Col>
+          <input
+            className="inputCom"
+            type="password"
+            name="input_pw"
+            value={inputPw}
+            onChange={handleInputPw}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <label htmlFor="input_name">이름</label>
+        </Col>
+        <Col>
+          <input
+            className="inputCom"
+            type="text"
+            name="input_name"
+            value={inputName}
+            onChange={handleInputName}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <label htmlFor="input_email">e-mail</label>
+        </Col>
+        <Col>
+          <input
+            className="inputCom"
+            type="text"
+            email="input_email"
+            value={inputEmail}
+            onChange={handleInputEmail}
+          />
+        </Col>
+      </Row>
+      <Row>
         <Button onClick={onClickRegister}>Sign up</Button>
-      </div>
+      </Row>
     </StyledCard>
   );
 };
