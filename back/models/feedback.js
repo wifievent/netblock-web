@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         paranoid: true,
     });
     feedback.associate = (models) => {
-        feedback.belongsTo(models.user, { foreignKey: 'commenter', targetKey: 'id' });
+        feedback.belongsTo(models.User, { foreignKey: 'commenter', targetKey: 'id' });
     };
     return feedback;
 }

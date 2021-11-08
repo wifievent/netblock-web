@@ -43,7 +43,7 @@ const update = async (req, res, next) => {
     return next(err);
   });
   if (!result) {
-    return res.status(400).json({ msg: "cannot find comment" });
+    return res.status(400).json({ msg: "fail to modify" });
   }
   return res.status(200).json(result);
 };
@@ -52,7 +52,7 @@ const update = async (req, res, next) => {
 const readAll = async (req, res, next) => {
   const uid = req.user.dataValues.uid;
   const result = await Feedback.findAll({
-    attributes: ['id', 'title', 'created_at'],
+    attributes: ['id', 'title', 'createdAt'],
     include: {
       model: User,
       where: {
