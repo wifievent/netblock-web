@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
 		}
 	}, {})
 	user.associate = (models) => {
-		user.hasMany(models.feedback, { foreignKey: 'commenter', sourceKey: 'id' });
+		user.hasMany(models.Feedback, { foreignKey: 'commenter', sourceKey: 'id' });
 	};
 	return user
 }
