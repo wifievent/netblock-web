@@ -40,4 +40,4 @@ services:
     container_name: wifievent-adminer
     image: adminer
     ports:
-      - 8080:8080
+      - 8082:8082

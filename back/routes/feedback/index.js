@@ -4,9 +4,10 @@ const controller = require('./feedback.controller');
 const { isLoggedIn, isNotLoggedIn } = require('../middlewares/middlewares');
 
 router
+  .get('/', isLoggedIn, controller.readAll)
   .post('/', isLoggedIn, controller.create)
   .patch('/:id', isLoggedIn, controller.update)
   .delete('/:id', isLoggedIn, controller.remove)
-  .get('/', isLoggedIn, controller.read);
+  .get('/:id', isLoggedIn, controller.read);
 
 module.exports = router;

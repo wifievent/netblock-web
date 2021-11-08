@@ -1,6 +1,8 @@
 const { User } = require('../../models');
 const passport = require('passport');
 const { getRandom, getHash } = require('../../hashing');
+const { smtpTransport } = require('../../config/email');
+const nodemailer = require('nodemailer');
 
 //로그인
 const login = async (req, res, next) => {
@@ -85,11 +87,38 @@ const session = async (req, res, next) => {
     session: req.session
   })
 }
+var generateRandom = function (min, max) {
+  var ranNum = Math.floor(Math.random() * (max - min + 1)) + min;
+  return ranNum;
+}
+
+const auth = {
+  SendEmail: async (req, res) => {
+    const number = generateRandom(111111, 999999)
+    const { email } = req.body;
+    const mailOptions = {
+      from: "sopahia4460@gmail.com",
+      to: email,
+      subject: "[NetBlock]인증 관련 이메일 입니다",
+      text: "오른쪽 숫자 6자리를 입력해주세요 :" + number
+    };
+    const result = await smtpTransport.sendMail(mailOptions, (error, res) => {
+      if (error) {
+        console.error(err);
+        return next(err);
+      } else {
+        return res.status(200).json({ msg: "Email send success", number });
+      }
+      smtpTransport.close();
+    });
+  }
+}
 
 module.exports = {
   login,
   register,
   remove,
   logout,
-  session
+  session,
+  auth
 }
