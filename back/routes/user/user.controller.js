@@ -101,7 +101,7 @@ const auth = async (req, res, next) => {
   const number = generateRandom(111111, 999999)
   const { email } = req.body;
   const mailOptions = {
-    from: "sopahia4460@gmail.com",
+    from: smtpTransport.options.auth.user,
     to: email,
     subject: "[NetBlock]인증 관련 이메일 입니다",
     text: "오른쪽 숫자 6자리를 입력해주세요 :" + number
