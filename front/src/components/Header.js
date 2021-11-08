@@ -62,6 +62,13 @@ const Header = () => {
                   Help
                 </Nav.Link>
                 <Nav.Link
+                  href="/qna"
+                  className="navItem"
+                  style={{ color: '#AFAFB9', fontSize: '13px' }}
+                >
+                  FAQ
+                </Nav.Link>
+                <Nav.Link
                   className="navItem"
                   href={session ? '/logout' : '/login'}
                 >
@@ -109,6 +116,12 @@ const Header = () => {
                   style={{ color: '#AFAFB9', fontSize: '13px' }}
                 >
                   Help
+                </Nav.Link>
+                <Nav.Link
+                  href="FAQ"
+                  style={{ color: '#AFAFB9', fontSize: '13px' }}
+                >
+                  QnA
                 </Nav.Link>
                 <Nav.Link
                   href={session ? 'logout' : 'login'}

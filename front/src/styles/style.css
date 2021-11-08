@@ -144,9 +144,14 @@
 
 .faq-hr {
     width: 80%;
+    background-color: #BAC3D4;
 }
 
-.faq-q {   
+.faq-q {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
     margin: 10px;
     font-weight: 500;
 }
