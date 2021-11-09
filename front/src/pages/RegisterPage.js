@@ -64,7 +64,7 @@ const RegisterPage = () => {
 
   const emailHandler = () => {
     axios
-      .post('/user/email', {
+      .post('/api/user/email', {
         email: submit.inputEmail,
       })
       .then((res) => {
@@ -77,7 +77,7 @@ const RegisterPage = () => {
 
   const authHandler = () => {
     axios
-      .post('/user/auth', {
+      .post('/api/user/auth', {
         number: submit.inputAuth,
       })
       .then((res) => {
@@ -90,7 +90,7 @@ const RegisterPage = () => {
 
   const idHandler = () => {
     axios
-      .post('/user/check', {
+      .post('/api/user/check', {
         uid: submit.inputId,
       })
       .then((res) => {
@@ -108,7 +108,7 @@ const RegisterPage = () => {
     if (inputState && idChk && pwChk && auth) {
       axios({
         method: 'post',
-        url: '/user/register',
+        url: '/api/user/register',
         data: {
           uid: submit.inputId,
           pw: submit.inputPw,

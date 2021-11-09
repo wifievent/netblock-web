@@ -25,7 +25,7 @@ const LoginPage = () => {
 
   const onClickLogin = () => {
     axios
-      .post('/user/login', {
+      .post('/api/user/login', {
         uid: inputId,
         pw: inputPw,
       })
