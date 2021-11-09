@@ -32,6 +32,10 @@ const LoginPage = () => {
       .then((res) => {
         console.log(res);
         window.location.href = '/';
+      })
+      .catch((err) => {
+        console.log(err);
+        alert('ID 또는 비밀번호를 확인해주세요');
       });
   };
 
@@ -68,7 +72,7 @@ const LoginPage = () => {
       </Row>
       <Row>
         <Col>
-          <StyledA href="/register">Sign up</StyledA>
+          <StyledA href="/register/terms">Sign up</StyledA>
         </Col>
         <Col style={{ justifyContent: 'right' }}>
           <Button onClick={onClickLogin}>Login</Button>

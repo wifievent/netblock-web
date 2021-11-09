@@ -1,116 +1,212 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Row, Col } from 'react-bootstrap';
-import StyledCard from '../components/StyledCard';
+import { Container, Row } from 'react-bootstrap';
 import Button from '../components/Button';
-import '../styles/style.css';
+
+const container = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: 'auto',
+};
+
+const hr = {
+  backgroundColor: '#BAC3D4',
+  width: '100%',
+  margin: '1rem',
+};
+
+const row = {
+  margin: '0.5rem',
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+};
 
 const RegisterPage = () => {
-  const [inputId, setInputId] = useState('');
-  const [inputPw, setInputPw] = useState('');
-  const [inputName, setInputName] = useState('');
-  const [inputEmail, setInputEmail] = useState('');
+  const [submit, setSubmit] = useState({
+    inputId: '',
+    inputPw: '',
+    inputPwChk: '',
+    inputName: '',
+    inputEmail: '',
+    inputAuth: '',
+  });
+  const [auth, setAuth] = useState(false); // 이메일 인증완료 여부 체크
+  const [inputState, setInputState] = useState(false); // 다 차있는지 체크
+  const [pwChk, setPwChk] = useState(false); // 비번과 확인 같은지 체크
+  const [idChk, setIdChk] = useState(false); // id 중복체크 완료 여부 체크
 
-  const handleInputId = (e) => {
-    setInputId(e.target.value);
+  useEffect(() => {
+    let count = Object.keys(submit)
+      .map((key) => submit[key])
+      .filter((input) => input !== '');
+    if (count.length === 6) {
+      setInputState(true);
+    } else {
+      setInputState(false);
+    }
+  }, [submit]);
+
+  useEffect(() => {
+    if (submit.inputPw === submit.inputPwChk) {
+      setPwChk(true);
+    } else {
+      setPwChk(false);
+    }
+  }, [submit]);
+
+  const handleInput = (e) => {
+    setSubmit({ ...submit, [e.target.id]: e.target.value });
   };
 
-  const handleInputPw = (e) => {
-    setInputPw(e.target.value);
-  };
-
-  const handleInputName = (e) => {
-    setInputName(e.target.value);
-  };
-
-  const handleInputEmail = (e) => {
-    setInputEmail(e.target.value);
-  };
-
-  const onClickRegister = () => {
-    axios({
-      method: 'post',
-      url: '/user/register',
-      data: {
-        uid: inputId,
-        pw: inputPw,
-        name: inputName,
-        email: inputEmail,
-      },
-    })
+  const authHandler = () => {
+    axios
+      .post('/user/auth', {
+        number: submit.inputAuth,
+      })
       .then((res) => {
-        window.location.href = '/login';
+        setAuth(true);
       })
       .catch(() => {
-        alert('이미 존재하는 ID 입니다.');
-        window.location.href = '/register';
+        setAuth(false);
       });
   };
 
+  const idHandler = () => {
+    axios
+      .post('/user/check', {
+        uid: submit.inputId,
+      })
+      .then((res) => {
+        setIdChk(true);
+      })
+      .catch(() => {
+        setIdChk(false);
+      });
+  };
+
+  const onClickRegister = () => {
+    if (inputState && idChk && pwChk && auth) {
+      axios({
+        method: 'post',
+        url: '/user/register',
+        data: {
+          uid: submit.inputId,
+          pw: submit.inputPw,
+          name: submit.inputName,
+          email: submit.inputEmail,
+        },
+      })
+        .then((res) => {
+          window.location.href = '/login';
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   return (
-    <StyledCard type="register">
-      <h2>회원가입</h2>
-      <Row>
-        <Col>
-          <label htmlFor="input_id">ID </label>
-        </Col>
-        <Col>
-          <input
-            className="inputCom"
-            type="text"
-            name="input_id"
-            value={inputId}
-            onChange={handleInputId}
-          />
-        </Col>
+    <Container style={container}>
+      <Row style={row}>
+        <h2 style={{ textAlign: 'center' }}>회원가입</h2>
       </Row>
-      <Row>
-        <Col>
-          <label htmlFor="input_pw">비밀번호</label>
-        </Col>
-        <Col>
+
+      <hr style={hr} />
+
+      <Row style={row}>
+        <div>
+          <label htmlFor="input_id">ID</label>
+          <div>
+            <input
+              type="text"
+              name="input_id"
+              id="inputId"
+              value={submit.inputId}
+              onChange={handleInput}
+            />
+            <Button onClick={idHandler}>중복체크</Button>
+          </div>
+        </div>
+      </Row>
+      <Row style={row}>
+        <label htmlFor="input_pw">비밀번호</label>
+        <div>
           <input
-            className="inputCom"
             type="password"
             name="input_pw"
-            value={inputPw}
-            onChange={handleInputPw}
+            id="inputPw"
+            value={submit.inputPw}
+            onChange={handleInput}
           />
-        </Col>
+        </div>
       </Row>
-      <Row>
-        <Col>
-          <label htmlFor="input_name">이름</label>
-        </Col>
-        <Col>
+      <Row style={row}>
+        <label htmlFor="input_pw">비밀번호 확인</label>
+        <div>
           <input
-            className="inputCom"
+            type="password"
+            name="input_pw_chk"
+            id="inputPwChk"
+            value={submit.inputPwChk}
+            onChange={handleInput}
+          />
+          {submit.inputPw !== '' && pwChk ? (
+            <span style={{ color: '#31ECA9' }}> ✔</span>
+          ) : submit.inputPwChk === '' ? (
+            ''
+          ) : (
+            <span style={{ color: 'red' }}> ❌</span>
+          )}
+        </div>
+      </Row>
+      <Row style={row}>
+        <label htmlFor="input_name">이름</label>
+        <div>
+          <input
             type="text"
             name="input_name"
-            value={inputName}
-            onChange={handleInputName}
+            id="inputName"
+            value={submit.inputName}
+            onChange={handleInput}
           />
-        </Col>
+        </div>
       </Row>
-      <Row>
-        <Col>
-          <label htmlFor="input_email">e-mail</label>
-        </Col>
-        <Col>
+      <Row style={row}>
+        <label htmlFor="input_email">e-mail</label>
+        <div>
           <input
-            className="inputCom"
             type="text"
-            email="input_email"
-            value={inputEmail}
-            onChange={handleInputEmail}
+            name="input_email"
+            id="inputEmail"
+            value={submit.inputEmail}
+            onChange={handleInput}
           />
-        </Col>
+        </div>
+      </Row>
+      <Row style={row}>
+        <label htmlFor="input_email">인증번호</label>
+        <div>
+          <input
+            type="text"
+            name="input_auth"
+            id="inputAuth"
+            value={submit.inputAuth}
+            onChange={handleInput}
+          />
+
+          <Button onClick={authHandler}>인증확인</Button>
+        </div>
       </Row>
       <Row>
-        <Button onClick={onClickRegister}>Sign up</Button>
+        <Button style={{ marginTop: '1rem' }} onClick={onClickRegister}>
+          Sign up
+        </Button>
       </Row>
-    </StyledCard>
+    </Container>
   );
 };
 
