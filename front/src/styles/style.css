@@ -269,3 +269,15 @@ tr td:nth-child(2) {
         width: 150px;
     }
 }
+
+button:disabled {
+    background: #00D288;
+}
+
+button:not(:disabled) {
+    background: #31ECA9;
+}
+
+button:hover {
+    background: #00D288;
+}
