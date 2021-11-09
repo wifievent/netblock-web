@@ -1,28 +1,158 @@
-import React from "react";
-import { Container } from "react-bootstrap";
-import { useSpring, animated } from "react-spring";
-import "../styles/style.css";
-import CompTable from "./CompTable";
-import NoteBookSvg from "./NoteBookSvg";
+import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import Fade from 'react-reveal/Fade';
+import '../styles/style.css';
+import CompTable from './CompTable';
+import NoteBookSvg from './NoteBookSvg';
+import noWifi from '../img/no-wifi.png';
 
-const Contents = () => {
-  const props = useSpring({ opacity: 1, from: { opacity: 0 } });
+const contentHead = {
+  width: '100%',
+  height: '220px',
+  backgroundColor: '#080D2B',
+  color: '#DADBDF',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontWeight: '500',
+  fontSize: '28px',
+};
 
+const landingH1 = {
+  color: '#767676',
+  textAlign: 'center',
+  fontSize: '30px',
+  fontWeight: '500',
+  margin: '5vw 0 5vw 0',
+};
+
+const landingH2 = {
+  color: '#767676',
+  textAlign: 'center',
+  fontSize: '28px',
+  fontWeight: '400',
+  marginBottom: '5vw',
+};
+
+const landingH3 = {
+  color: '#767676',
+  textAlign: 'center',
+  fontSize: '25px',
+  fontWeight: '400',
+  marginBottom: '5vw',
+};
+
+const landingLeft = {
+  color: '#151B43',
+  textAlign: 'left',
+  fontSize: '25px',
+  fontWeight: '500',
+  width: '90%',
+};
+
+const landingDiv = {
+  margin: '20vh 0 20vh 0',
+};
+
+const img = {
+  width: '30vw',
+};
+
+const col = {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  lineHeight: '2',
+};
+
+const landingHighlight = {
+  backgroundColor: '#151B43',
+  color: '#767676',
+  textAlign: 'center',
+  fontSize: '30px',
+  fontWeight: '500',
+  padding: '5vw 0 5vw 0',
+};
+
+const highlight = {
+  fontWeight: '700',
+  color: '#DADBDF',
+};
+
+const LandingPic = () => {
   return (
-    <>
-      <div className="contentHead">
-        <div>
-          <span style={{ color: "#31ECA9" }}>WiFiEvent</span> 의 제품을 지금
-          바로 만나보세요 !
+    <Fade bottom>
+      <div style={landingDiv}>
+        <Row style={{ margin: '0' }}>
+          <Col style={col}>
+            <img style={img} src={noWifi} alt="no-wifi" />
+          </Col>
+          <Col style={col}>
+            <div style={landingLeft}>
+              <span style={{ color: 'black', fontWeight: '700' }}>
+                NetBlock
+              </span>
+              은 자녀의 인터넷 사용을
+              <br />
+              <span style={{ color: 'crimson', fontWeight: '700' }}>
+                완벽하게
+              </span>{' '}
+              차단시킬 수 있습니다
+            </div>
+          </Col>
+        </Row>
+      </div>
+    </Fade>
+  );
+};
+
+const LandingText = () => {
+  return (
+    <Fade bottom>
+      <div style={landingDiv}>
+        <div style={landingH1}>
+          모두가 잠든 새벽...
+          <br />
+          자녀가 밤새 게임을 하는 건 아닌지 불안하신가요?
+        </div>
+        <div style={landingH2}>
+          스마트폰을 손에서 내려놓지 못하는 자녀와
+          <br />
+          갈등을 겪고 계신가요?
+        </div>
+        <div style={landingH3}>그래서 준비했습니다</div>
+        <div style={landingHighlight}>
+          <span style={highlight}>NetBlock 과 함께라면 걱정 </span>
+          <span style={{ fontWeight: 'bold', color: 'crimson' }}>STOP ‼</span>
         </div>
       </div>
-      <animated.div style={props}>
-        <Container className="mt-5" style={{ textAlign: "center" }}>
+    </Fade>
+  );
+};
+
+const Contents = () => {
+  return (
+    <div>
+      <Fade>
+        <div style={contentHead}>
+          <div>
+            <span style={{ color: '#31ECA9' }}>WiFiEvent</span> 의 제품을 지금
+            바로 만나보세요 !
+          </div>
+        </div>
+      </Fade>
+      <div>
+        <Container className="mt-5" style={{ textAlign: 'center' }}>
           <NoteBookSvg />
         </Container>
-      </animated.div>
-      <CompTable />
-    </>
+      </div>
+      <LandingText />
+      <LandingPic />
+      <Fade bottom>
+        <CompTable />
+      </Fade>
+    </div>
   );
 };
 
