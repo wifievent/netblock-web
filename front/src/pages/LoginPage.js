@@ -1,9 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
-import axios from '../axios';
+import axios from 'axios';
+import styled from 'styled-components';
+import { Row, Col } from 'react-bootstrap';
 import StyledCard from '../components/StyledCard';
 import Button from '../components/Button';
-import { Cookie } from 'react-cookie';
+import '../styles/style.css';
+
+const StyledA = styled.a`
+  margin: 0 20px 0 0;
+`;
 
 const LoginPage = () => {
   const [inputId, setInputId] = useState('');
@@ -18,50 +24,60 @@ const LoginPage = () => {
   };
 
   const onClickLogin = () => {
-    axios({
-      method: 'post',
-      url: '/user/login',
-      data: {
+    axios
+      .post('/user/login', {
         uid: inputId,
         pw: inputPw,
-      },
-    })
+      })
       .then((res) => {
         console.log(res);
-        //document.location.href = '/';
+        window.location.href = '/';
       })
-      .catch();
-  };
-
-  const onClickSignUp = () => {
-    window.location.href = '/register';
+      .catch((err) => {
+        console.log(err);
+        alert('ID 또는 비밀번호를 확인해주세요');
+      });
   };
 
   return (
-    <StyledCard>
-      <h2>Login</h2>
-      <div>
-        <label htmlFor="input_id">ID : </label>
-        <input
-          type="text"
-          name="input_id"
-          value={inputId}
-          onChange={handleInputId}
-        />
-      </div>
-      <div>
-        <label htmlFor="input_pw">PW : </label>
-        <input
-          type="password"
-          name="input_pw"
-          value={inputPw}
-          onChange={handleInputPw}
-        />
-      </div>
-      <div>
-        <Button onClick={onClickSignUp}>Sign up</Button>
-        <Button onClick={onClickLogin}>Login</Button>
-      </div>
+    <StyledCard type="login">
+      <h2>로그인</h2>
+      <Row>
+        <Col>
+          <label htmlFor="input_id">ID&nbsp;</label>
+        </Col>
+        <Col>
+          <input
+            className="inputCom"
+            type="text"
+            name="input_id"
+            value={inputId}
+            onChange={handleInputId}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <label htmlFor="input_pw">PW&nbsp;</label>
+        </Col>
+        <Col>
+          <input
+            className="inputCom"
+            type="password"
+            name="input_pw"
+            value={inputPw}
+            onChange={handleInputPw}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <StyledA href="/register/terms">Sign up</StyledA>
+        </Col>
+        <Col style={{ justifyContent: 'right' }}>
+          <Button onClick={onClickLogin}>Login</Button>
+        </Col>
+      </Row>
     </StyledCard>
   );
 };

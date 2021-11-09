@@ -8,16 +8,17 @@ import {
   Button,
   Collapse,
 } from 'react-bootstrap';
-import axios from '../axios';
+import axios from 'axios';
 import '../styles/style.css';
 import MenuSVG from './MenuSVG';
+import logo from '../img/wf_logo.png';
 
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [session, setSession] = useState(false);
 
   useEffect(() => {
-    axios.get('/user/session', null, { withCredentials: true }).then((res) => {
+    axios.get('/user/session', {}, { withCredentials: true }).then((res) => {
       setSession(true);
     });
     console.log('useEffect');
@@ -30,9 +31,9 @@ const Header = () => {
         <Container>
           <Row className="w-100">
             <Col
-              xxl="9"
-              xl="9"
-              lg="8"
+              xxl="8"
+              xl="8"
+              lg="7"
               md="11"
               sm="10"
               xs="10"
@@ -40,8 +41,13 @@ const Header = () => {
             >
               <Navbar.Brand
                 href="/"
-                style={{ fontWeight: '600', color: '#DADBDF' }}
+                style={{
+                  fontWeight: '600',
+                  color: '#DADBDF',
+                  fontSize: '23px',
+                }}
               >
+                <img src={logo} alt="logo" style={{ width: '30px' }} />
                 WiFiEvent
               </Navbar.Brand>
             </Col>
@@ -61,7 +67,24 @@ const Header = () => {
                 >
                   Help
                 </Nav.Link>
-                <Nav.Link className="navItem" href="/login">
+                <Nav.Link
+                  href="/qna"
+                  className="navItem"
+                  style={{ color: '#AFAFB9', fontSize: '13px' }}
+                >
+                  Q&A
+                </Nav.Link>
+                <Nav.Link
+                  href="/faq"
+                  className="navItem"
+                  style={{ color: '#AFAFB9', fontSize: '13px' }}
+                >
+                  FAQ
+                </Nav.Link>
+                <Nav.Link
+                  className="navItem"
+                  href={session ? '/logout' : '/login'}
+                >
                   <Button
                     style={{
                       border: '1px solid #27305D',
@@ -73,7 +96,7 @@ const Header = () => {
                       color: '#AFAFB9',
                     }}
                   >
-                    Login
+                    {session ? 'logout' : 'login'}
                   </Button>
                 </Nav.Link>
               </Nav>
@@ -108,10 +131,22 @@ const Header = () => {
                   Help
                 </Nav.Link>
                 <Nav.Link
-                  href="/login"
+                  href="/qna"
                   style={{ color: '#AFAFB9', fontSize: '13px' }}
                 >
-                  {session ? '로그아웃' : '로그인'}
+                  Q&A
+                </Nav.Link>
+                <Nav.Link
+                  href="/faq"
+                  style={{ color: '#AFAFB9', fontSize: '13px' }}
+                >
+                  FAQ
+                </Nav.Link>
+                <Nav.Link
+                  href={session ? 'logout' : 'login'}
+                  style={{ color: '#AFAFB9', fontSize: '13px' }}
+                >
+                  {session ? 'logout' : 'login'}
                 </Nav.Link>
               </Nav>
             </div>
