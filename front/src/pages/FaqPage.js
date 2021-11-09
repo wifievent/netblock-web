@@ -96,7 +96,7 @@ const Faq = () => {
           </button>
           <Collapse in={open4}>
             <div id="faq-text" style={textStyle}>
-              NetBlock Inpath환경으로 디바이스를 차단시키기 때문에
+              NetBlock은 Inpath환경으로 디바이스를 차단시키기 때문에
               <br />
               서버의 부담이 적습니다.
             </div>

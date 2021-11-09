@@ -62,6 +62,19 @@ const RegisterPage = () => {
     setSubmit({ ...submit, [e.target.id]: e.target.value });
   };
 
+  const emailHandler = () => {
+    axios
+      .post('/user/email', {
+        email: submit.inputEmail,
+      })
+      .then((res) => {
+        alert('해당 이메일로 인증번호를 발송하였습니다.');
+      })
+      .catch((err) => {
+        console.log();
+      });
+  };
+
   const authHandler = () => {
     axios
       .post('/user/auth', {
@@ -81,9 +94,12 @@ const RegisterPage = () => {
         uid: submit.inputId,
       })
       .then((res) => {
+        alert('사용할 수 있는 ID 입니다.');
+
         setIdChk(true);
       })
       .catch(() => {
+        alert('사용할 수 없는 ID 입니다.');
         setIdChk(false);
       });
   };
@@ -185,6 +201,8 @@ const RegisterPage = () => {
             value={submit.inputEmail}
             onChange={handleInput}
           />
+
+          <Button onClick={emailHandler}>보내기</Button>
         </div>
       </Row>
       <Row style={row}>

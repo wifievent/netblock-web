@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { axios } from 'axios';
+import axios from 'axios';
 import Button from '../components/Button';
 
 const row = {
@@ -60,7 +60,8 @@ const QnaPage = () => {
         os: selectedOs,
       })
       .then((res) => {
-        alert('작성 완료');
+        alert('문의 글 등록이 완료되었습니다');
+        window.location.href = '/';
       })
       .catch((err) => {
         console.log(err.data);
@@ -74,8 +75,10 @@ const QnaPage = () => {
         <hr className="faq-hr" />
         <div style={div}>
           <Row style={row}>
-            <Col>제목</Col>
-            <Col>
+            <Col xs={5} md={2}>
+              제목
+            </Col>
+            <Col xs={7} md={10}>
               <input
                 style={{ width: '100%' }}
                 type="text"
