@@ -41,9 +41,13 @@ const Header = () => {
             >
               <Navbar.Brand
                 href="/"
-                style={{ fontWeight: '600', color: '#DADBDF' }}
+                style={{
+                  fontWeight: '600',
+                  color: '#DADBDF',
+                  fontSize: '23px',
+                }}
               >
-                <img src={logo} alt="logo" style={{ width: '20px' }} />
+                <img src={logo} alt="logo" style={{ width: '30px' }} />
                 WiFiEvent
               </Navbar.Brand>
             </Col>
@@ -125,6 +129,12 @@ const Header = () => {
                   style={{ color: '#AFAFB9', fontSize: '13px' }}
                 >
                   Help
+                </Nav.Link>
+                <Nav.Link
+                  href="/qna"
+                  style={{ color: '#AFAFB9', fontSize: '13px' }}
+                >
+                  Q&A
                 </Nav.Link>
                 <Nav.Link
                   href="/faq"

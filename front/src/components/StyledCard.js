@@ -22,6 +22,7 @@ const cardStyleLarge = {
   border: '1px solid #bac3d4',
   borderRadius: '10px',
   minWidth: '280px',
+  maxWidth: '500px',
   height: '400px',
   textAlign: 'center',
   display: 'flex',
