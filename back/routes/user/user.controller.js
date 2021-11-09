@@ -2,7 +2,6 @@ const { User } = require('../../models');
 const passport = require('passport');
 const { getRandom, getHash } = require('../../hashing');
 const { smtpTransport } = require('../../config/email');
-const nodemailer = require('nodemailer');
 
 //로그인
 const login = async (req, res, next) => {
@@ -28,12 +27,6 @@ const login = async (req, res, next) => {
 const register = async (req, res, next) => {
   const { uid, pw, name, email } = req.body;
   const is_admin = false;
-  const already = await User.count({ where: { uid } }).catch((err) => {
-    console.error(err);
-    return next(err);
-  });
-  if (already)
-    return res.status(304).json({ msg: "userid already exist" });
 
   const salt = getRandom();
   await User.create({
@@ -70,6 +63,18 @@ const remove = async (req, res, next) => {
   return res.status(200).json({ msg: "Remove success" });
 }
 
+//아이디 중복체크
+const check = async (req, res, next) => {
+  const { uid } = req.body;
+  const already = await User.count({ where: { uid } }).catch((err) => {
+    console.error(err);
+    return next(err);
+  });
+  if (already)
+    return res.status(409).json({ msg: "userid already exist" });
+  return res.status(200).json({ msg: "Available uid" });
+}
+
 //로그아웃
 const logout = async (req, res, next) => {
   req.logout();
@@ -77,6 +82,7 @@ const logout = async (req, res, next) => {
   return res.status(200).json({ msg: "Logout success" });
 }
 
+//세션 체크
 const session = async (req, res, next) => {
   const user = req.user;
   console.log(req.session)
@@ -96,17 +102,18 @@ const auth = async (req, res, next) => {
   const number = generateRandom(111111, 999999)
   const { email } = req.body;
   const mailOptions = {
-    from: "sopahia4460@gmail.com",
+    from: smtpTransport.options.auth.user,
     to: email,
     subject: "[NetBlock]인증 관련 이메일 입니다",
     text: "오른쪽 숫자 6자리를 입력해주세요 :" + number
   };
+  console.log(mailOptions);
   const result = await smtpTransport.sendMail(mailOptions, (error, res) => {
     if (error) {
-      console.error(err);
-      return next(err);
+      console.error(error);
+      next(error);
     } else {
-      return res.status(200).json({ msg: "Email send success", number });
+      res.status(200).json({ number });
     }
     smtpTransport.close();
   });
@@ -118,5 +125,6 @@ module.exports = {
   remove,
   logout,
   session,
-  auth
+  auth,
+  check
 }
