@@ -53,7 +53,7 @@ const QnaPage = () => {
 
   const onClickButton = () => {
     axios
-      .post('/feedback', {
+      .post('/api/feedback', {
         title: inputTitle,
         comment: inputContent,
         version: selectedVersion,
