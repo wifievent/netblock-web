@@ -100,25 +100,24 @@ var generateRandom = function (min, max) {
 
 //router.post('/email', isNotLoggedIn, controller.email);
 const email = async (req, res, next) => {
-  const number = generateRandom(111111, 999999)
-  const { email } = req.body;
-  const mailOptions = {
-    from: smtpTransport.options.auth.user,
-    to: email,
-    subject: "[NetBlock]인증 관련 이메일 입니다",
-    text: "오른쪽 숫자 6자리를 입력해주세요 :" + number
-  };
-  smtpTransport.options.auth.number = number;
-  console.log(smtpTransport.options.auth.number);
-  const result = await smtpTransport.sendMail(mailOptions, (error, res) => {
-    if (error) {
-      console.error(error);
-      next(error);
-    } else {
-      res.status(200).json({ msg: "Send email success" });
-    }
+  try {
+    const number = generateRandom(111111, 999999)
+    const { email } = req.body;
+    const mailOptions = {
+      from: smtpTransport.options.auth.user,
+      to: email,
+      subject: "[NetBlock]인증 관련 이메일 입니다",
+      text: "오른쪽 숫자 6자리를 입력해주세요 :" + number
+    };
+    smtpTransport.options.auth.number = number;
+    
+    await smtpTransport.sendMail(mailOptions);
     smtpTransport.close();
-  })
+
+    return res.status(200).json({ msg: "Send email success" });
+  } catch (err) {
+    res.next(err);
+  }
 }
 
 //router.post('/auth', isNotLoggedIn, controller.auth);
