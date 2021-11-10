@@ -69,13 +69,7 @@ const Header = () => {
                 >
                   Help
                 </Nav.Link>
-                <Nav.Link
-                  href="/qna"
-                  className="navItem"
-                  style={{ color: '#AFAFB9', fontSize: '13px' }}
-                >
-                  Q&A
-                </Nav.Link>
+
                 <Nav.Link
                   href="/faq"
                   className="navItem"
@@ -132,12 +126,7 @@ const Header = () => {
                 >
                   Help
                 </Nav.Link>
-                <Nav.Link
-                  href="/qna"
-                  style={{ color: '#AFAFB9', fontSize: '13px' }}
-                >
-                  Q&A
-                </Nav.Link>
+
                 <Nav.Link
                   href="/faq"
                   style={{ color: '#AFAFB9', fontSize: '13px' }}
