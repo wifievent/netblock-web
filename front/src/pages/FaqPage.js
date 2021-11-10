@@ -13,6 +13,7 @@ const textStyle = {
 };
 
 const Faq = () => {
+  const [openEmail, setOpenEmail] = useState(false);
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
@@ -22,6 +23,22 @@ const Faq = () => {
     <>
       <div className="faq">FAQ</div>
       <div className="faqCont">
+        <hr className="faq-hr" />
+        <div className="faq-q">
+          <button
+            style={btnStyle}
+            onClick={() => setOpenEmail(!openEmail)}
+            aria-controls="faq-text"
+            aria-expanded={openEmail}
+          >
+            Q. 사용하다가 궁금한 점은 어디로 문의하면 되나요 ?
+          </button>
+          <Collapse in={openEmail}>
+            <div id="faq-text" style={textStyle}>
+              [wifievent21@gmail.com] 로 이메일 보내주시면 답변해드립니다.
+            </div>
+          </Collapse>
+        </div>
         <hr className="faq-hr" />
         <div className="faq-q">
           <button
@@ -62,6 +79,11 @@ const Faq = () => {
               차단시키고 싶은 디바이스의 정책을 걸어놓은 시간에
               <br />
               프로그램도 실행되고 있어야 차단이 가능합니다.
+              <br />
+              NetBlock은 Inpath환경으로 디바이스를 차단하므로 서버의 부담이
+              적습니다.
+              <br />
+              따라서 프로그램을 항상 켜놓으셔도 상관없습니다.
             </div>
           </Collapse>
         </div>
@@ -79,26 +101,8 @@ const Faq = () => {
             <div id="faq-text" style={textStyle}>
               NetBlock은 윈도우 환경의 경우
               <br />
-              다운로드 버튼 위에 있는 두개의 프로그램을 설치해야 실행이
+              다운로드 버튼 위에 있는 두 개의 프로그램을 설치해야 실행이
               가능합니다.
-            </div>
-          </Collapse>
-        </div>
-        <hr className="faq-hr" />
-        <div className="faq-q">
-          <button
-            style={btnStyle}
-            onClick={() => setOpen4(!open4)}
-            aria-controls="faq-text"
-            aria-expanded={open4}
-          >
-            Q. 프로그램을 실행할 경우 컴퓨터의 부하는 없나요?
-          </button>
-          <Collapse in={open4}>
-            <div id="faq-text" style={textStyle}>
-              NetBlock은 Inpath환경으로 디바이스를 차단시키기 때문에
-              <br />
-              서버의 부담이 적습니다.
             </div>
           </Collapse>
         </div>

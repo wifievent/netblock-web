@@ -6,7 +6,6 @@ import HelpPage from '../pages/HelpPage';
 import LoginPage from '../pages/LoginPage';
 import LogoutPage from '../pages/LogoutPage';
 import FaqPage from '../pages/FaqPage';
-import QnaPage from '../pages/QnaPage';
 import RegisterPage from '../pages/RegisterPage';
 import TermsPage from '../pages/TermsPage';
 
@@ -21,7 +20,6 @@ const PageRoute = () => {
       <Route exact path="/register/terms" component={TermsPage} />
       <Route exact path="/register" component={RegisterPage} />
       <Route exact path="/faq" component={FaqPage} />
-      <Route exact path="/qna" component={QnaPage} />
     </Switch>
   );
 };
