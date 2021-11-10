@@ -1,7 +1,7 @@
-import React from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
-import DownloadButton from "../components/DownloadButton";
-import "../styles/style.css";
+import React from 'react';
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import DownloadButton from '../components/DownloadButton';
+import '../styles/style.css';
 
 const Download = () => {
   return (
@@ -12,7 +12,7 @@ const Download = () => {
             <Card className="downloadCard ">
               <Card.Body className="cardBody">
                 <Card.Title className="cardTitle">Windows</Card.Title>
-                <Card.Text style={{ paddingTop: "30px" }}>
+                <Card.Text style={{ paddingTop: '30px' }}>
                   NetBlock 을 설치하기 이전에
                   <br />
                   다음 프로그램의 설치가 필요합니다.
@@ -21,7 +21,7 @@ const Download = () => {
                     Npcap 1.55 installer
                   </a>
                   <br />
-                  <a href="https://www.microsoft.com/ko-kr/download/confirmation.aspx?id=48145">
+                  <a href="https://www.microsoft.com/ko-kr/download/details.aspx?id=48145">
                     vc_redist.x86.exe
                   </a>
                 </Card.Text>
