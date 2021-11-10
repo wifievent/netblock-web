@@ -17,6 +17,8 @@ DB_TYPE=mariadb
 NODE_ENV=development
 NETBLOCK_VERSION=v0.8.0.1
 COOKIE_SECRET=secret
+MAIL_ID=mailid
+MAIL_PW=mailpw
 ```
 
 ## Launch

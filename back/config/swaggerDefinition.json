@@ -12,16 +12,13 @@
     "description" : "SwaggerHub API Auto Mocking",
     "url" : "https://virtserver.swaggerhub.com/algosipdahack/NetBlock/1.0.0"
   }, {
-    "description" : "CRUD API 3000",
+    "description" : "CRUD API",
     "url" : "http://localhost:3000"
-  }, {
-    "description" : "CRUD API 3001",
-    "url" : "http://localhost:3001"
   } ],
   "paths" : {
     "/feedback" : {
       "get" : {
-        "summary" : "Return All Feedback information",
+        "summary" : "Return All FeedBack of specific user information",
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -32,28 +29,23 @@
                   "properties" : {
                     "id" : {
                       "type" : "integer",
-                      "description" : "The feedback ID."
+                      "description" : "The Feedback ID."
                     },
-                    "name" : {
+                    "title" : {
                       "type" : "string",
-                      "description" : "The user name."
+                      "description" : "The title of Feedback."
                     },
-                    "comment" : {
-                      "type" : "string",
-                      "description" : "The content of comment."
-                    },
-                    "version" : {
-                      "type" : "string",
-                      "description" : "The version of program using."
-                    },
-                    "os" : {
-                      "type" : "string",
-                      "description" : "The type of os using."
+                    "createdAt" : {
+                      "type" : "object",
+                      "description" : "The time of created."
                     }
                   }
                 }
               }
             }
+          },
+          "400" : {
+            "description" : "cannot find comment"
           },
           "500" : {
             "description" : "server error"
@@ -68,9 +60,9 @@
               "schema" : {
                 "type" : "object",
                 "properties" : {
-                  "name" : {
+                  "title" : {
                     "type" : "string",
-                    "description" : "The user name."
+                    "description" : "The title of Feedback"
                   },
                   "comment" : {
                     "type" : "string",
@@ -91,36 +83,7 @@
         },
         "responses" : {
           "201" : {
-            "description" : "post success",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "object",
-                  "properties" : {
-                    "id" : {
-                      "type" : "integer",
-                      "description" : "The feedback ID."
-                    },
-                    "name" : {
-                      "type" : "string",
-                      "description" : "The user name."
-                    },
-                    "comment" : {
-                      "type" : "string",
-                      "description" : "The content of comment."
-                    },
-                    "version" : {
-                      "type" : "string",
-                      "description" : "The version of program using."
-                    },
-                    "os" : {
-                      "type" : "string",
-                      "description" : "The type of os using."
-                    }
-                  }
-                }
-              }
-            }
+            "description" : "post success"
           },
           "500" : {
             "description" : "server error"
@@ -129,13 +92,53 @@
       }
     },
     "/feedback/{id}" : {
+      "get" : {
+        "summary" : "Return specific FeedBack information",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "description" : "The ID of the Feedback to read",
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "title" : {
+                      "type" : "string",
+                      "description" : "The title of Feedback."
+                    },
+                    "comment" : {
+                      "type" : "string",
+                      "description" : "The content of comment."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "cannot find comment"
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      },
       "patch" : {
         "summary" : "Modify comment",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
           "required" : true,
-          "description" : "The ID of the feedback to return",
+          "description" : "The ID of the Feedback to patch",
           "schema" : {
             "type" : "integer"
           }
@@ -146,13 +149,9 @@
               "schema" : {
                 "type" : "object",
                 "properties" : {
-                  "id" : {
-                    "type" : "integer",
-                    "description" : "The feedback ID."
-                  },
-                  "name" : {
+                  "title" : {
                     "type" : "string",
-                    "description" : "The user name."
+                    "description" : "The title of Feedback."
                   },
                   "comment" : {
                     "type" : "string",
@@ -179,13 +178,9 @@
                 "schema" : {
                   "type" : "object",
                   "properties" : {
-                    "id" : {
-                      "type" : "integer",
-                      "description" : "The feedback ID."
-                    },
-                    "name" : {
+                    "title" : {
                       "type" : "string",
-                      "description" : "The user name."
+                      "description" : "The title of Feedback."
                     },
                     "comment" : {
                       "type" : "string",
@@ -205,7 +200,7 @@
             }
           },
           "400" : {
-            "description" : "comment is not exist"
+            "description" : "cannot find comment"
           },
           "500" : {
             "description" : "Server error"
@@ -218,7 +213,7 @@
           "name" : "id",
           "in" : "path",
           "required" : true,
-          "description" : "The ID of the feedback to return",
+          "description" : "The ID of the Feedback to remove",
           "schema" : {
             "type" : "integer"
           }
@@ -228,7 +223,7 @@
             "description" : "OK"
           },
           "400" : {
-            "description" : "cannot find id"
+            "description" : "cannot find comment"
           },
           "500" : {
             "description" : "Server error"
@@ -374,6 +369,93 @@
         }
       }
     },
+    "/user/email" : {
+      "post" : {
+        "summary" : "send email authentication code",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "email" : {
+                    "type" : "string",
+                    "description" : "The user email."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Send email success"
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      }
+    },
+    "/user/auth" : {
+      "post" : {
+        "summary" : "check email authentication code",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "number" : {
+                    "type" : "integer",
+                    "description" : "Authentication code"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Email authentication success"
+          },
+          "401" : {
+            "description" : "Wrong number"
+          }
+        }
+      }
+    },
+    "/user/check" : {
+      "post" : {
+        "summary" : "check duplicate uid",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "uid" : {
+                    "type" : "string",
+                    "description" : "The user id."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Available uid"
+          },
+          "409" : {
+            "description" : "userid already exist"
+          },
+          "500" : {
+            "description" : "server error"
+          }
+        }
+      }
+    },
     "/admin/downloadLog" : {
       "get" : {
         "summary" : "Return downloadLog",
@@ -427,10 +509,6 @@
                       "type" : "string",
                       "description" : "The user pw."
                     },
-                    "salt" : {
-                      "type" : "string",
-                      "description" : "Password salt."
-                    },
                     "name" : {
                       "type" : "string",
                       "description" : "The user name."
@@ -447,6 +525,9 @@
                 }
               }
             }
+          },
+          "400" : {
+            "description" : "cannot find user"
           },
           "500" : {
             "description" : "server error"
@@ -465,9 +546,13 @@
                 "schema" : {
                   "type" : "object",
                   "properties" : {
-                    "name" : {
+                    "commenter" : {
+                      "type" : "integer",
+                      "description" : "The user id."
+                    },
+                    "title" : {
                       "type" : "string",
-                      "description" : "The user name."
+                      "description" : "The comment's title."
                     },
                     "comment" : {
                       "type" : "string",
@@ -480,11 +565,18 @@
                     "os" : {
                       "type" : "string",
                       "description" : "The type of os using."
+                    },
+                    "createdAt" : {
+                      "type" : "object",
+                      "description" : "The time of created."
                     }
                   }
                 }
               }
             }
+          },
+          "400" : {
+            "description" : "cannot find feedback"
           },
           "500" : {
             "description" : "server error"

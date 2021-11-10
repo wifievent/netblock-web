@@ -3,4 +3,3 @@ node_modules/
 program/
 data/
 restClient.http/
-config/email.js
