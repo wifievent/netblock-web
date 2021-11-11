@@ -62,7 +62,7 @@ module.exports =  async ({ app }) => {
     app.use(cors({
       origin: '*',
       credentials: true
-    }))
+    }));
   } else {
     app.use(helmet());
   }
