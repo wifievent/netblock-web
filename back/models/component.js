@@ -1,13 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
   const component = sequelize.define('component', {
-		tag: {
-			type: DataTypes.STRING(15),
+		title: {
+			type: DataTypes.STRING(50),
 			allowNull: false,
 		},
-		style: {
+		content: {
 			type: DataTypes.TEXT,
-			allowNull: true,
-		}
+			allowNull: false,
+		},
   }, {})
   component.associate = (models) => {
   }
