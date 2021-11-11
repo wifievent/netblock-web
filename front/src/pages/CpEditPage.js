@@ -1,15 +1,25 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Container, Row } from 'react-bootstrap';
+import Fade from 'react-reveal/Fade';
+import { Container } from 'react-bootstrap';
 import axios from 'axios';
 import Button from '../components/Button';
 
-const row = {
-  margin: '1rem',
-  width: '80%',
+const contentHead = {
+  width: '100%',
+  height: '220px',
+  backgroundColor: '#080D2B',
+  color: '#DADBDF',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontWeight: '500',
+  fontSize: '28px',
+  marginBottom: '3rem',
 };
 
 const title = {
+  width: '100%',
   padding: '0',
 };
 
@@ -26,9 +36,15 @@ const textArea = {
   height: '200px',
 };
 
+const input = {
+  width: '100%',
+  marginBottom: '1rem',
+};
+
 const CpEditPage = () => {
   const [inputTitle, setInputTitle] = useState('');
   const [inputContent, setInputContent] = useState('');
+  const [inputImage, setInputImage] = useState('');
 
   useEffect(() => {
     axios
@@ -49,74 +65,85 @@ const CpEditPage = () => {
 
   const handleImageChange = (e) => {
     const img = e.target.files[0];
-    const formData = new FormData();
-    formData.append('name', img);
-    console.log(formData);
-    for (const keyValue of formData) console.log(keyValue);
-    axios.post('/cp/img', formData).then((res) => {
-      console.log(res);
-    });
+    setInputImage(img);
   };
 
   const onClickButton = () => {
-    axios
-      .post('', {
-        title: inputTitle,
-        comment: inputContent,
+    if (inputTitle === '') {
+      alert('제목을 입력하세요');
+    } else if (inputContent === '') {
+      alert('내용을 입력하세요');
+    } else {
+      const formData = new FormData();
+      formData.append('title', inputTitle);
+      formData.append('content', inputContent);
+      formData.append('img', inputImage);
+
+      axios({
+        method: 'post',
+        url: '/api/cp/component',
+        data: formData,
+        headers: { 'Content-Type': 'multipart/form-data' },
       })
-      .then((res) => {
-        window.location.href = '/';
-      })
-      .catch((err) => {
-        console.log(err.data);
-      });
+        .then((res) => {
+          alert('저장되었습니다');
+          window.location.href = '/template';
+        })
+        .catch((err) => {
+          console.log(err.data);
+        });
+    }
   };
 
   return (
-    <Container>
-      <div className="faq">Captive Portal 수정</div>
-      <div className="faqCont">
-        <hr className="faq-hr" />
-        <div style={div}>
-          <form>
-            <Row style={row}>
-              <div style={title}>제목</div>
-
-              <input
-                style={{ width: '100%' }}
-                type="text"
-                name="input_title"
-                onChange={handleInputTItle}
-              />
-            </Row>
-            <Row style={row}>
-              <div style={title}>내용</div>
-              <textarea
-                style={textArea}
-                name="input_content"
-                onChange={handleInputContent}
-              ></textarea>
-            </Row>
-            <Row style={row}>
-              <div style={title}>이미지</div>
-              <input
-                style={{ padding: '0' }}
-                type="file"
-                name="img"
-                accept="image/*"
-                onChange={handleImageChange}
-              />
-            </Row>
-
-            <Row style={row}>
-              <div style={{ textAlign: 'center' }}>
-                <Button onClick={onClickButton}>저장</Button>
-              </div>
-            </Row>
-          </form>
+    <div>
+      <Fade>
+        <div style={contentHead}>
+          <div>
+            <span style={{ color: '#31ECA9' }}>Captive Portal</span> 을
+            꾸며보세요 !
+          </div>
         </div>
-      </div>
-    </Container>
+      </Fade>
+      <Container>
+        <div className="faqCont">
+          <div style={div}>
+            <div style={title}>제목</div>
+
+            <input
+              style={{ width: '100%' }}
+              type="text"
+              name="title"
+              id="title"
+              required="true"
+              onChange={handleInputTItle}
+            />
+
+            <div style={title}>내용</div>
+            <textarea
+              style={textArea}
+              name="content"
+              id="content"
+              required="true"
+              onChange={handleInputContent}
+            ></textarea>
+
+            <div style={title}>이미지</div>
+            <input
+              style={input}
+              type="file"
+              name="img"
+              id="img"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
+            <Button style={{ marginBottom: '1rem' }} onClick={onClickButton}>
+              저장
+            </Button>
+          </div>
+        </div>
+      </Container>
+    </div>
   );
 };
 
