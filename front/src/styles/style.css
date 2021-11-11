@@ -259,14 +259,14 @@ tr td:nth-child(2) {
     }
 }
 
-button:disabled {
+.termsBtn:disabled {
     background: #00D288;
 }
 
-button:not(:disabled) {
+.termsBtn:not(:disabled) {
     background: #31ECA9;
 }
 
-button:hover {
+.termsBtn:hover {
     background: #00D288;
 }
