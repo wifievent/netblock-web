@@ -1,16 +1,19 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
 
-const netblock = require('./netblock');
+const nb = require('./nb');
 const feedback = require('./feedback');
 const user = require('./user');
-const cp = require('./captive_portal');
+const cp = require('./cp');
 
 const downloadLog = require('./admin/downloadLog');
 const adminUser = require('./admin/user');
 const adminFeedback = require('./admin/feedBack');
 
-router.use('/netblock', netblock)
+router.use('/images', express.static(path.resolve(__dirname, '..', 'uploads')))
+
+router.use('/netblock', nb)
 router.use('/feedback', feedback)
 router.use('/user', user)
 router.use('/cp', cp)

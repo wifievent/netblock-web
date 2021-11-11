@@ -3,4 +3,5 @@ node_modules/
 program/
 data/
 restClient.http/
-uploads
+uploads/*
+!uploads/.gitkeep
