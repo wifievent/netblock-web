@@ -68,6 +68,208 @@
                 }
               }
             }
+          },
+          "409" : {
+            "description" : "duplicated",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "example" : "component duplicated"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch" : {
+        "summary" : "update template component",
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "title" : {
+                    "type" : "string",
+                    "example" : "hello! this isn't wifievent"
+                  },
+                  "content" : {
+                    "type" : "string",
+                    "example" : "whatever.."
+                  },
+                  "img" : {
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "update success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "example" : "component update success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "example" : "invalid input"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get" : {
+        "summary" : "template component read",
+        "responses" : {
+          "200" : {
+            "description" : "update success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "type" : "integer",
+                      "example" : 2,
+                      "description" : "component index"
+                    },
+                    "title" : {
+                      "type" : "string",
+                      "example" : "hello! this is wifievent",
+                      "description" : "component title"
+                    },
+                    "content" : {
+                      "type" : "string",
+                      "example" : "netblock, captive portal",
+                      "description" : "component content"
+                    },
+                    "file" : {
+                      "type" : "object",
+                      "properties" : {
+                        "id" : {
+                          "type" : "integer",
+                          "example" : 2,
+                          "description" : "file index"
+                        },
+                        "src" : {
+                          "type" : "string",
+                          "example" : "cat.jpeg",
+                          "description" : "file original name"
+                        },
+                        "size" : {
+                          "type" : "integer",
+                          "example" : 1234,
+                          "description" : "file size"
+                        },
+                        "sid" : {
+                          "type" : "string",
+                          "example" : "676fe334b41247b47d6c0c4d12ec8f9de37a38004a8157275099a8f6915334b98dc9c4fd7c6b8f07096ae5de436678609b87a426a469b86497635f3ec1a3efc2",
+                          "description" : "file identifier (for download file)"
+                        },
+                        "filename" : {
+                          "type" : "string",
+                          "example" : "ac307436671757a7c4ddbece670529eee3180cca572a0d7ca6a7f32505b5318d9e031004810da429fd6e1a7b94f09f97b2476c0f04f97cffa88e941ba0408389.png",
+                          "description" : "file real path (for access file)"
+                        },
+                        "createdAt" : {
+                          "type" : "string",
+                          "format" : "date-time",
+                          "example" : "2021-07-21T17:32:28Z"
+                        },
+                        "updatedAt" : {
+                          "type" : "string",
+                          "format" : "date-time",
+                          "example" : "2021-07-21T17:32:28Z"
+                        },
+                        "deletedAt" : {
+                          "type" : "string",
+                          "format" : "date-time",
+                          "example" : null
+                        },
+                        "userId" : {
+                          "type" : "integer",
+                          "example" : 1,
+                          "description" : "uploader"
+                        },
+                        "componentId" : {
+                          "type" : "integer",
+                          "example" : 2
+                        }
+                      }
+                    },
+                    "userId" : {
+                      "type" : "integer",
+                      "example" : 1,
+                      "description" : "writer"
+                    },
+                    "createdAt" : {
+                      "type" : "string",
+                      "format" : "date-time",
+                      "example" : "2021-07-21T17:32:28Z"
+                    },
+                    "updatedAt" : {
+                      "type" : "string",
+                      "format" : "date-time",
+                      "example" : "2021-07-21T17:32:28Z"
+                    },
+                    "deletedAt" : {
+                      "type" : "string",
+                      "format" : "date-time",
+                      "example" : null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/uploads/{filename}" : {
+      "get" : {
+        "summary" : "access file to url",
+        "parameters" : [ {
+          "name" : "filename",
+          "in" : "path",
+          "required" : true,
+          "description" : "filename",
+          "schema" : {
+            "type" : "string",
+            "example" : "ac307436671757a7c4ddbece670529eee3180cca572a0d7ca6a7f32505b5318d9e031004810da429fd6e1a7b94f09f97b2476c0f04f97cffa88e941ba0408389.png"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "file access"
           }
         }
       }
@@ -298,10 +500,12 @@
                 "properties" : {
                   "uid" : {
                     "type" : "string",
+                    "example" : "test",
                     "description" : "The user id."
                   },
                   "pw" : {
                     "type" : "string",
+                    "example" : "test",
                     "description" : "The user pw."
                   }
                 }
@@ -330,18 +534,22 @@
                 "properties" : {
                   "uid" : {
                     "type" : "string",
+                    "example" : "test",
                     "description" : "The user id."
                   },
                   "pw" : {
                     "type" : "string",
+                    "example" : "test",
                     "description" : "The user pw."
                   },
                   "name" : {
                     "type" : "string",
+                    "example" : "test",
                     "description" : "The user name."
                   },
                   "email" : {
                     "type" : "string",
+                    "example" : "test@test.com",
                     "description" : "The user email."
                   }
                 }

@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
     sid: {
       type: DataTypes.STRING(128),
       allowNull: false,
+    },
+    filename: {
+      type: DataTypes.STRING(135),
+      allowNull: false,
     }
   }, {})
   file.associate = (models) => {

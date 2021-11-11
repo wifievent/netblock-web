@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {})
   component.associate = (models) => {
 		component.hasOne(models.File);
+		component.belongsTo(models.User);
   }
   return component
 }
