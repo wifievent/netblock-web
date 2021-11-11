@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
   }, {})
   component.associate = (models) => {
+		component.hasOne(models.File);
   }
   return component
 }

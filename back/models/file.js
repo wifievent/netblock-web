@@ -8,13 +8,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    fid: {
+    sid: {
       type: DataTypes.STRING(128),
       allowNull: false,
     }
   }, {})
   file.associate = (models) => {
     file.belongsTo(models.User);
+    file.belongsTo(models.Component);
   }
   return file
 }
