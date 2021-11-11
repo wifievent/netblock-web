@@ -6,16 +6,72 @@
     "description" : ""
   },
   "servers" : [ {
-    "description" : "SwaggerHub API Auto Mocking",
-    "url" : "https://virtserver.swaggerhub.com/algosipdahack/WiFiEvent/1.0.0"
-  }, {
-    "description" : "SwaggerHub API Auto Mocking",
-    "url" : "https://virtserver.swaggerhub.com/algosipdahack/NetBlock/1.0.0"
-  }, {
     "description" : "CRUD API",
     "url" : "http://localhost:3000"
   } ],
   "paths" : {
+    "/cp/component" : {
+      "post" : {
+        "summary" : "create template component",
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "title" : {
+                    "type" : "string",
+                    "example" : "hello! this is wifievent"
+                  },
+                  "content" : {
+                    "type" : "string",
+                    "example" : "netblock, captive portal"
+                  },
+                  "img" : {
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "post success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "example" : "component create success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "example" : "invalid input"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/feedback" : {
       "get" : {
         "summary" : "Return All FeedBack of specific user information",
