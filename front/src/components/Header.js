@@ -77,6 +77,16 @@ const Header = () => {
                 >
                   FAQ
                 </Nav.Link>
+                {session ? (
+                  <Nav.Link
+                    href="/edit"
+                    className="navItem"
+                    style={{ color: '#AFAFB9', fontSize: '13px' }}
+                  >
+                    Edit
+                  </Nav.Link>
+                ) : null}
+
                 <Nav.Link
                   className="navItem"
                   href={session ? '/logout' : '/login'}
@@ -133,6 +143,16 @@ const Header = () => {
                 >
                   FAQ
                 </Nav.Link>
+
+                {session ? (
+                  <Nav.Link
+                    href="/edit"
+                    style={{ color: '#AFAFB9', fontSize: '13px' }}
+                  >
+                    Edit
+                  </Nav.Link>
+                ) : null}
+
                 <Nav.Link
                   href={session ? 'logout' : 'login'}
                   style={{ color: '#AFAFB9', fontSize: '13px' }}

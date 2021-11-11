@@ -8,6 +8,8 @@ import LogoutPage from '../pages/LogoutPage';
 import FaqPage from '../pages/FaqPage';
 import RegisterPage from '../pages/RegisterPage';
 import TermsPage from '../pages/TermsPage';
+import CpEditPage from '../pages/CpEditPage';
+import TemplatePage from '../pages/TemplatePage';
 
 const PageRoute = () => {
   return (
@@ -20,6 +22,8 @@ const PageRoute = () => {
       <Route exact path="/register/terms" component={TermsPage} />
       <Route exact path="/register" component={RegisterPage} />
       <Route exact path="/faq" component={FaqPage} />
+      <Route exact path="/edit" component={CpEditPage} />
+      <Route exact path="/template" component={TemplatePage} />
     </Switch>
   );
 };
