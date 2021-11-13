@@ -26,7 +26,7 @@ const login = async (req, res, next) => {
 //회원가입
 const register = async (req, res, next) => {
   const { uid, pw, name, email } = req.body;
-  const is_admin = false;
+  const isAdmin = false;
 
   const salt = getRandom();
   await User.create({
@@ -35,7 +35,7 @@ const register = async (req, res, next) => {
     salt,
     name,
     email,
-    is_admin
+    isAdmin
   }).catch((err) => {
     console.error(err);
     return next(err);
@@ -49,7 +49,7 @@ const remove = async (req, res, next) => {
   const id = req.params.id;
 
   //관리자도 아니고 해당 유저가 아니라면
-  if (uid != id && !req.user.dataValues.is_admin) return res.status(403).json({ msg: "No Authentication" });
+  if (uid != id && !req.user.dataValues.isAdmin) return res.status(403).json({ msg: "No Authentication" });
 
   //유저 삭제
   const result = User.destroy({
@@ -89,7 +89,7 @@ const session = async (req, res, next) => {
   res.json({
     type: 'info',
     message: 'session OK!',
-    admin: user.dataValues.is_admin,
+    admin: user.dataValues.isAdmin,
     session: req.session
   })
 }
@@ -110,7 +110,7 @@ const email = async (req, res, next) => {
       text: "오른쪽 숫자 6자리를 입력해주세요 :" + number
     };
     smtpTransport.options.auth.number = number;
-    
+
     await smtpTransport.sendMail(mailOptions);
     smtpTransport.close();
 

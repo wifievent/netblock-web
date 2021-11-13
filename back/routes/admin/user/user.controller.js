@@ -2,7 +2,7 @@ const { User } = require('../../../models')
 
 const read = async (req, res, next) => {
   const result = await User.findAll({
-    attributes: ['uid', 'pw', 'name', 'email', 'is_admin'],
+    attributes: ['uid', 'pw', 'name', 'email', 'isAdmin'],
   }).catch((err) => {
     console.error(err);
     return next(err);
