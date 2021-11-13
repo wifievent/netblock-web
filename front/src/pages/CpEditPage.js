@@ -42,15 +42,41 @@ const input = {
 };
 
 const CpEditPage = () => {
+  const [state, setState] = useState(false);
   const [inputTitle, setInputTitle] = useState('');
   const [inputContent, setInputContent] = useState('');
   const [inputImage, setInputImage] = useState('');
+  const [image, setImage] = useState('');
 
   useEffect(() => {
     axios
       .get('/api/user/session', {}, { withCredentials: true })
       .then((res) => {})
       .catch((err) => {
+        window.location.href = '/';
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get('/api/cp/component')
+      .then((res) => {
+        if (res.data === null) {
+          setState(false);
+        } else {
+          setState(true);
+          setInputTitle(res.data.title);
+          setInputContent(res.data.content);
+          if (res.data.file === null) {
+            // 파일 없음
+          } else {
+            setImage(res.data.file.filename);
+            console.log(image);
+          }
+        }
+      })
+      .catch((err) => {
+        alert('로그인이 필요합니다.');
         window.location.href = '/';
       });
   }, []);
@@ -73,25 +99,52 @@ const CpEditPage = () => {
       alert('제목을 입력하세요');
     } else if (inputContent === '') {
       alert('내용을 입력하세요');
-    } else {
       const formData = new FormData();
       formData.append('title', inputTitle);
       formData.append('content', inputContent);
       formData.append('img', inputImage);
+    } else {
+      if (state === true) {
+        // 이미 컴포넌트 존재 patch
+        const formData = new FormData();
+        formData.append('title', inputTitle);
+        formData.append('content', inputContent);
+        formData.append('img', inputImage);
 
-      axios({
-        method: 'post',
-        url: '/api/cp/component',
-        data: formData,
-        headers: { 'Content-Type': 'multipart/form-data' },
-      })
-        .then((res) => {
-          alert('저장되었습니다');
-          window.location.href = '/template';
+        axios({
+          method: 'patch',
+          url: '/api/cp/component',
+          data: formData,
+          headers: { 'Content-Type': 'multipart/form-data' },
         })
-        .catch((err) => {
-          console.log(err.data);
-        });
+          .then((res) => {
+            alert('저장되었습니다');
+            window.location.href = '/template';
+          })
+          .catch((err) => {
+            console.log(err.data);
+          });
+        alert('post');
+      } else {
+        // 컴포넌트 새로 작성 post
+        const formData = new FormData();
+        formData.append('title', inputTitle);
+        formData.append('content', inputContent);
+        formData.append('img', inputImage);
+
+        axios({
+          method: 'post',
+          url: '/api/cp/component',
+          data: formData,
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+          .then((res) => {
+            window.location.href = '/template';
+          })
+          .catch((err) => {
+            console.log(err.data);
+          });
+      }
     }
   };
 
@@ -116,6 +169,7 @@ const CpEditPage = () => {
               name="title"
               id="title"
               required="true"
+              value={inputTitle}
               onChange={handleInputTItle}
             />
 
@@ -125,8 +179,14 @@ const CpEditPage = () => {
               name="content"
               id="content"
               required="true"
+              value={inputContent}
               onChange={handleInputContent}
             ></textarea>
+
+            <img
+              src={`http://localhost:3001/uploads/${image}`}
+              alt="미리보기"
+            />
 
             <div style={title}>이미지</div>
             <input

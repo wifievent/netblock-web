@@ -7,6 +7,7 @@ import {
   Col,
   Button,
   Collapse,
+  NavDropdown,
 } from 'react-bootstrap';
 import axios from 'axios';
 import '../styles/style.css';
@@ -78,13 +79,21 @@ const Header = () => {
                   FAQ
                 </Nav.Link>
                 {session ? (
-                  <Nav.Link
-                    href="/edit"
+                  <NavDropdown
+                    href="/mypage"
+                    id="navDropLarge"
                     className="navItem"
-                    style={{ color: '#AFAFB9', fontSize: '13px' }}
+                    title="MyPage"
+                    menuVariant="dark"
+                    style={{ fontSize: '13px' }}
                   >
-                    Edit
-                  </Nav.Link>
+                    <NavDropdown.Item className="navDropItem" href="/edit">
+                      Edit Content
+                    </NavDropdown.Item>
+                    <NavDropdown.Item className="navDropItem" href="/template">
+                      Edit Template
+                    </NavDropdown.Item>
+                  </NavDropdown>
                 ) : null}
 
                 <Nav.Link
@@ -145,12 +154,19 @@ const Header = () => {
                 </Nav.Link>
 
                 {session ? (
-                  <Nav.Link
-                    href="/edit"
-                    style={{ color: '#AFAFB9', fontSize: '13px' }}
+                  <NavDropdown
+                    id="navDropSmall"
+                    menuVariant="dark"
+                    href="/mypage"
+                    title="MyPage"
                   >
-                    Edit
-                  </Nav.Link>
+                    <NavDropdown.Item className="navDropItem" href="/edit">
+                      Edit Content
+                    </NavDropdown.Item>
+                    <NavDropdown.Item className="navDropItem" href="/template">
+                      Edit Template
+                    </NavDropdown.Item>
+                  </NavDropdown>
                 ) : null}
 
                 <Nav.Link
