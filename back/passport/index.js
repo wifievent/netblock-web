@@ -8,14 +8,12 @@ module.exports = () => {
     });
 
     passport.deserializeUser(async (id, done) => {
-        try {
-            const user = await User.findOne({ where: id });
-            if (!user)
-                return done(null, false, { message: 'Incorrect id' });
-            done(null, user);
-        } catch (err) {
+        const user = await User.findOne({ where: id }).catch((err) => {
             done(err);
-        }
+        });
+        if (!user)
+            return done(null, false, { message: 'Incorrect id' });
+        done(null, user);
     });
     local();
 };
