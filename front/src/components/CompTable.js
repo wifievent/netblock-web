@@ -1,25 +1,23 @@
-import React from "react";
-import { Table, Container, Row, Col } from "react-bootstrap";
-import { useSpring, animated } from "react-spring";
-import "../styles/style.css";
+import React from 'react';
+import { Table, Container, Row, Col } from 'react-bootstrap';
+import Fade from 'react-reveal/Fade';
+import '../styles/style.css';
 
 const CompTable = () => {
-  const props = useSpring({ opacity: 1, from: { opacity: 0 } });
-
   return (
     <div className="compContent">
       <Container>
-        <animated.div style={props}>
+        <div>
           <Row className="tableRow">
             <Col md="auto">
               <div className="aboutDesc">
-                왜 <span style={{ fontWeight: "700" }}>NetBlock</span> 인가요 ?
+                왜 <span style={{ fontWeight: '700' }}>NetBlock</span> 인가요 ?
               </div>
               <Table borderless="true" className="compTable">
                 <thead>
                   <tr>
                     <th></th>
-                    <th style={{ color: "white" }}>NetBlock</th>
+                    <th style={{ color: 'white' }}>NetBlock</th>
                     <th>G 제품</th>
                     <th>A사 제품</th>
                   </tr>
@@ -53,7 +51,7 @@ const CompTable = () => {
               </Table>
             </Col>
           </Row>
-        </animated.div>
+        </div>
       </Container>
     </div>
   );
