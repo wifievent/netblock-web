@@ -22,8 +22,6 @@ const PageRoute = () => {
       <Route exact path="/register/terms" component={TermsPage} />
       <Route exact path="/register" component={RegisterPage} />
       <Route exact path="/faq" component={FaqPage} />
-      <Route exact path="/edit" component={CpEditPage} />
-      <Route exact path="/template" component={TemplatePage} />
     </Switch>
   );
 };

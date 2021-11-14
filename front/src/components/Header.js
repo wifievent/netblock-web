@@ -78,23 +78,6 @@ const Header = () => {
                 >
                   FAQ
                 </Nav.Link>
-                {session ? (
-                  <NavDropdown
-                    href="/mypage"
-                    id="navDropLarge"
-                    className="navItem"
-                    title="MyPage"
-                    menuVariant="dark"
-                    style={{ fontSize: '13px' }}
-                  >
-                    <NavDropdown.Item className="navDropItem" href="/edit">
-                      Edit Content
-                    </NavDropdown.Item>
-                    <NavDropdown.Item className="navDropItem" href="/template">
-                      Edit Template
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                ) : null}
 
                 <Nav.Link
                   className="navItem"
@@ -152,22 +135,6 @@ const Header = () => {
                 >
                   FAQ
                 </Nav.Link>
-
-                {session ? (
-                  <NavDropdown
-                    id="navDropSmall"
-                    menuVariant="dark"
-                    href="/mypage"
-                    title="MyPage"
-                  >
-                    <NavDropdown.Item className="navDropItem" href="/edit">
-                      Edit Content
-                    </NavDropdown.Item>
-                    <NavDropdown.Item className="navDropItem" href="/template">
-                      Edit Template
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                ) : null}
 
                 <Nav.Link
                   href={session ? 'logout' : 'login'}
