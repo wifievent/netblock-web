@@ -2,19 +2,19 @@ module.exports = (sequelize, DataTypes) => {
   const file = sequelize.define('file', {
     src: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     size: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: false
     },
     sid: {
       type: DataTypes.STRING(128),
-      allowNull: false,
+      allowNull: false
     },
     filename: {
       type: DataTypes.STRING(135),
-      allowNull: false,
+      allowNull: false
     }
   }, {})
   file.associate = (models) => {

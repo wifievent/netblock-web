@@ -1,11 +1,7 @@
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
   const downloadLog = sequelize.define('downloadLog', {
-    version: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    }
   }, {
-    paranoid: false,
+    paranoid: false
   });
   downloadLog.associate = (models) => {
     downloadLog.belongsTo(models.Os);

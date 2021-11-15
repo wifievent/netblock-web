@@ -2,23 +2,23 @@ module.exports = (sequelize, DataTypes) => {
     const feedback = sequelize.define('feedback', {
         title: {
             type: DataTypes.TEXT,
-            allowNull: false,
+            allowNull: false
         },
         comment: {
             type: DataTypes.TEXT,
-            allowNull: true,
+            allowNull: true
         },
         version: {
             type: DataTypes.STRING(10),
-            allowNull: false,
+            allowNull: false
         },
         os: {
             type: DataTypes.STRING(10),
-            allowNull: false,
-        },
+            allowNull: false
+        }
     }, {
         timestamps: true,
-        paranoid: true,
+        paranoid: true
     });
     feedback.associate = (models) => {
         feedback.belongsTo(models.User, { foreignKey: 'commenter', targetKey: 'id' });

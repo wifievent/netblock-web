@@ -3,6 +3,6 @@ module.exports = {
     name: "dev",
     script: "./app.js",
     watch: true,
-    ignore_watch: [ "data/*", "uploads/*"],
+    ignoreWatch: [ "data/*", "uploads/*"]
   }]
 }

@@ -6,7 +6,7 @@ module.exports = async () => {
     .then(() => {
       console.log('db connection established');
     })
-    .catch(err => {
+    .catch((err) => {
       console.error('db connection error:', err);
     });
   
@@ -14,7 +14,7 @@ module.exports = async () => {
     .then(() => {
       console.log('db sync success')
     })
-    .catch(err => {
+    .catch((err) => {
       console.error('db sync error:', err);
     })
 }

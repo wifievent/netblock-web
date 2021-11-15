@@ -2,8 +2,8 @@ require('dotenv').config();
 const { DownloadLog, Os, Product } = require('../../models')
 
 const download = async (req, res, next) => {
-  let version = process.env.NETBLOCK_VERSION;
-  let os = req.query.os;
+  const version = process.env.NETBLOCK_VERSION;
+  const os = req.query.os;
   if (!os) {
     next();
   }

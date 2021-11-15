@@ -20,7 +20,7 @@ db.User = require('./user')(sequelize, Sequelize);
 db.Page = require('./page')(sequelize, Sequelize);
 db.File = require('./file')(sequelize, Sequelize);
 
-Object.keys(db).forEach(modelName => {
+Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
     db[modelName].associate(db)
   }

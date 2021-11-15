@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('./feedback.controller');
-const { isLoggedIn, isNotLoggedIn } = require('../middlewares/middlewares');
+const { isLoggedIn } = require('../middlewares/middlewares');
 
 router
   .get('/', isLoggedIn, controller.readAll)

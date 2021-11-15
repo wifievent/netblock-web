@@ -2,7 +2,7 @@ const swaggerDefinition = require('./swaggerDefinition.json')
 
 const options = {
   swaggerDefinition,
-  apis: [],
+  apis: []
 }
 
 module.exports = options;
