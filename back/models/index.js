@@ -17,10 +17,10 @@ db.Os = require('./os')(sequelize, Sequelize);
 db.Product = require('./product')(sequelize, Sequelize);
 db.Feedback = require('./feedback')(sequelize, Sequelize);
 db.User = require('./user')(sequelize, Sequelize);
-db.Component = require('./component')(sequelize, Sequelize);
+db.Page = require('./page')(sequelize, Sequelize);
 db.File = require('./file')(sequelize, Sequelize);
 
-Object.keys(db).forEach(modelName => {
+Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
     db[modelName].associate(db)
   }

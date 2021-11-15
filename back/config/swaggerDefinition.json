@@ -220,7 +220,7 @@
                           "example" : 1,
                           "description" : "uploader"
                         },
-                        "componentId" : {
+                        "pageId" : {
                           "type" : "integer",
                           "example" : 2
                         }
@@ -781,7 +781,7 @@
                       "type" : "string",
                       "description" : "The user email."
                     },
-                    "is_admin" : {
+                    "isAdmin" : {
                       "type" : "boolean",
                       "description" : "Check if he is an administrator or not."
                     }

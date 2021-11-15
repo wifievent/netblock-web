@@ -3,33 +3,33 @@ module.exports = (sequelize, DataTypes) => {
 		uid: {
 			type: DataTypes.STRING(80),
 			allowNull: false,
-			unique: true,
+			unique: true
 		},
 		pw: {
 			type: DataTypes.STRING(128),
-			allowNull: false,
+			allowNull: false
 		},
 		salt: {
 			type: DataTypes.STRING(128),
-			allowNull: false,
+			allowNull: false
 		},
 		name: {
 			type: DataTypes.STRING(32),
-			allowNull: false,
+			allowNull: false
 		},
 		email: {
 			type: DataTypes.STRING(128),
-			allowNull: false,
+			allowNull: false
 		},
-		is_admin: {
+		isAdmin: {
 			type: DataTypes.BOOLEAN,
-			defaultValue: 0,
+			defaultValue: 0
 		}
 	}, {})
 	user.associate = (models) => {
 		user.hasMany(models.Feedback, { foreignKey: 'commenter', sourceKey: 'id' });
 		user.hasMany(models.File);
-		user.hasOne(models.Component);
+		user.hasOne(models.Page);
 	};
 	return user
 }

@@ -10,27 +10,30 @@ const http = require('http');
 
 const routes = require('../routes');
 
-module.exports =  async ({ app }) => {
-  function normalizePort(val) {
+module.exports = async ({ app }) => {
+  var normalizePort = function (val) {
     const port = parseInt(val, 10);
-  
-    if (isNaN(port))
+
+    if (isNaN(port)) {
       return val;
-  
-    if (port >= 0)
+    }
+
+    if (port >= 0) {
       return port;
-  
+    }
+
     return false;
   }
-  
-  function onError(error) {
-    if (error.syscall !== 'listen')
+
+  var onError = function (error) {
+    if (error.syscall !== 'listen') {
       throw error;
-  
+    }
+
     var bind = typeof port === 'string'
       ? 'Pipe ' + port
       : 'Port ' + port;
-  
+
     switch (error.code) {
       case 'EACCES':
         console.error(bind + ' requires elevated privileges');
@@ -44,15 +47,15 @@ module.exports =  async ({ app }) => {
         throw error;
     }
   }
-  
-  function onListening() {
+
+  var onListening = function () {
     const addr = server.address();
     const bind = typeof addr === 'string'
       ? 'pipe ' + addr
       : 'port ' + addr.port;
     debug('Listening on ' + bind);
   }
-  
+
   app.use(logger('dev'));
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
@@ -66,11 +69,11 @@ module.exports =  async ({ app }) => {
   } else {
     app.use(helmet());
   }
-  
+
   app.use('/', routes);
-  
+
   //error handling
-  app.use(function (err, req, res, next) {
+  app.use(function (err, req, res) {
     res.locals.message = err.message;
     res.locals.error = req.app.get("env") === "development" ? err : {};
 
@@ -80,11 +83,11 @@ module.exports =  async ({ app }) => {
 
   const port = normalizePort(process.env.PORT || '3000');
   app.set('port', port);
-  
+
   const server = http.createServer(app);
   server.listen(port);
   server.on('error', onError);
   server.on('listening', onListening);
-  
+
   return app;
 }

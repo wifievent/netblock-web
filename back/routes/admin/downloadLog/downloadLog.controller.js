@@ -1,12 +1,13 @@
 const { DownloadLog } = require('../../../models');
-
+const logger = require('../../../config/winston');
 const read = async (req, res, next) => {
-  try {
-    const result = await DownloadLog.findAll();
-    return res.status(200).json(result);
-  } catch (err) {
-    next(err);
-  }
+  const result = await DownloadLog.findAll().catch((err) => {
+    console.error(err);
+    logger.error(err);
+    return next(err);
+  });
+  logger.info('get downloadLog success');
+  return res.status(200).json(result);
 }
 
 module.exports = {
