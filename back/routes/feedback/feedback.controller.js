@@ -1,4 +1,5 @@
 const { Feedback, User } = require('../../models');
+const logger = require('../../config/winston');
 
 //.post('/', isLoggedIn, controller.create)
 const create = async (req, res, next) => {
@@ -8,6 +9,10 @@ const create = async (req, res, next) => {
     where: {
       uid: uid
     }
+  }).catch((err) => {
+    logger.error(err);
+    console.error(err);
+    return next(err);
   });
 
   const { title, comment, version, os } = req.body;
@@ -18,14 +23,17 @@ const create = async (req, res, next) => {
     version,
     os
   }).catch((err) => {
+    logger.error(err);
     console.error(err);
     return next(err);
   });
 
   if (!result) {
-    return res.status(400).json({ msg: "comment is not exist" });
+    logger.error("feedback is not exist");
+    return res.status(400).json({ msg: "feedback is not exist" });
   }
-  return res.status(201).json({ msg: "post comment success" });
+  logger.info('post feedback success');
+  return res.status(201).json({ msg: "post feedback success" });
 };
 
 //.patch('/:id', isLoggedIn, controller.update)
@@ -39,12 +47,15 @@ const update = async (req, res, next) => {
   }, {
     where: { id: req.params.id }
   }).catch((err) => {
+    logger.error(err);
     console.error(err);
     return next(err);
   });
   if (!result) {
+    logger.error("fail to modify");
     return res.status(400).json({ msg: "fail to modify" });
   }
+  logger.info('patch feedback success');
   return res.status(200).json(result);
 };
 
@@ -60,13 +71,16 @@ const readAll = async (req, res, next) => {
       }
     }
   }).catch((err) => {
+    logger.error(err);
     console.error(err);
     return next(err);
   });
 
   if (!result) {
-    return res.status(400).json({ msg: "cannot find comment" });
+    logger.error("cannot find feedback");
+    return res.status(400).json({ msg: "cannot find feedback" });
   }
+  logger.info('get feedbackAll success');
   return res.status(200).json(result);
 
 }
@@ -80,12 +94,15 @@ const read = async (req, res, next) => {
       id: id
     }
   }).catch((err) => {
+    logger.error(err);
     console.error(err);
     return next(err);
   });
   if (!result) {
-    return res.status(400).json({ msg: "cannot find comment" });
+    logger.error("cannot find feedback");
+    return res.status(400).json({ msg: "cannot find feedback" });
   }
+  logger.info('get feedback success');
   return res.status(200).json(result);
 };
 
@@ -93,12 +110,15 @@ const read = async (req, res, next) => {
 const remove = async (req, res, next) => {
   const result = await Feedback.destroy({ where: { id: req.params.id } }).catch((err) => {
     console.error(err);
+    logger.error(err);
     return next(err);
   })
   if (result) {
+    logger.info('delete feedback success');
     return res.status(200).json(result);
   }
   else {
+    logger.error("cannot find feedback");
     return res.status(403).json(result);
   }
 };
