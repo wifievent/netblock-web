@@ -37,7 +37,7 @@ const update = async (req, res, next) => {
     os,
     version
   }, {
-    where: { id: req.params.id },
+    where: { id: req.params.id }
   }).catch((err) => {
     console.error(err);
     return next(err);
@@ -95,10 +95,12 @@ const remove = async (req, res, next) => {
     console.error(err);
     return next(err);
   })
-  if (result)
+  if (result) {
     return res.status(200).json(result);
-  else
+  }
+  else {
     return res.status(403).json(result);
+  }
 };
 
 module.exports = {
