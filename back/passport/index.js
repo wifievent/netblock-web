@@ -11,8 +11,9 @@ module.exports = () => {
         const user = await User.findOne({ where: id }).catch((err) => {
             done(err);
         });
-        if (!user)
+        if (!user) {
             return done(null, false, { message: 'Incorrect id' });
+        }
         done(null, user);
     });
     local();

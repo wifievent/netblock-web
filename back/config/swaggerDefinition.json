@@ -220,7 +220,7 @@
                           "example" : 1,
                           "description" : "uploader"
                         },
-                        "componentId" : {
+                        "pageId" : {
                           "type" : "integer",
                           "example" : 2
                         }

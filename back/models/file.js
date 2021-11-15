@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {})
   file.associate = (models) => {
     file.belongsTo(models.User);
-    file.belongsTo(models.Component);
+    file.belongsTo(models.Page);
   }
   return file
 }
