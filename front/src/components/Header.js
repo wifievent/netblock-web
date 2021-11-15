@@ -57,6 +57,14 @@ const Header = () => {
             <Col xl="3" lg="4" className="navbarHeader">
               <Nav className="me-auto">
                 <Nav.Link
+                  href="/about"
+                  className="navItem"
+                  style={{ color: '#AFAFB9', fontSize: '13px' }}
+                >
+                  About
+                </Nav.Link>
+
+                <Nav.Link
                   href="/download"
                   className="navItem"
                   style={{ color: '#AFAFB9', fontSize: '13px' }}
@@ -116,6 +124,12 @@ const Header = () => {
           <Collapse in={open}>
             <div id="collapse-menu">
               <Nav>
+                <Nav.Link
+                  href="/about"
+                  style={{ color: '#AFAFB9', fontSize: '13px' }}
+                >
+                  About
+                </Nav.Link>
                 <Nav.Link
                   href="/download"
                   style={{ color: '#AFAFB9', fontSize: '13px' }}

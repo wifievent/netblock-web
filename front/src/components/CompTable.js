@@ -1,6 +1,5 @@
 import React from 'react';
 import { Table, Container, Row, Col } from 'react-bootstrap';
-import Fade from 'react-reveal/Fade';
 import '../styles/style.css';
 
 const CompTable = () => {

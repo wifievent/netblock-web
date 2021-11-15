@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import MainPage from '../pages/MainPage';
+import AboutPage from '../pages/AboutPage';
 import DownloadPage from '../pages/DownloadPage';
 import HelpPage from '../pages/HelpPage';
 import LoginPage from '../pages/LoginPage';
@@ -15,6 +16,7 @@ const PageRoute = () => {
   return (
     <Switch>
       <Route exact path="/" component={MainPage} />
+      <Route exact path="/about" component={AboutPage} />
       <Route exact path="/download" component={DownloadPage} />
       <Route exact path="/help" component={HelpPage} />
       <Route exact path="/login" component={LoginPage} />
