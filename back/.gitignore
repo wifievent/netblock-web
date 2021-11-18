@@ -4,4 +4,5 @@ program/
 data/
 restClient.http/
 uploads/*
-!uploads/.gitkeep
+!uploads/.gitkeep/
+logs
