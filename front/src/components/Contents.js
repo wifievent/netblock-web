@@ -186,12 +186,12 @@ const Contents = () => {
       </div>
       <LandingText />
       <LandingPic />
-      <ImgHead />
-      <VpnYoutube />
-      <ImgContent />
       <Fade bottom>
         <CompTable />
       </Fade>
+      <ImgHead />
+      <ImgContent />
+      <VpnYoutube />
     </div>
   );
 };
