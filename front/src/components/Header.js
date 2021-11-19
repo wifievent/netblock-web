@@ -14,6 +14,11 @@ import '../styles/style.css';
 import MenuSVG from './MenuSVG';
 import logo from '../img/wf_logo.png';
 
+const link = {
+  color: '#AFAFB9',
+  fontSize: '12px',
+};
+
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [session, setSession] = useState(false);
@@ -56,34 +61,18 @@ const Header = () => {
             </Col>
             <Col xl="3" lg="4" className="navbarHeader">
               <Nav className="me-auto">
-                <Nav.Link
-                  href="/about"
-                  className="navItem"
-                  style={{ color: '#AFAFB9', fontSize: '13px' }}
-                >
+                <Nav.Link href="/about" className="navItem" style={link}>
                   About
                 </Nav.Link>
 
-                <Nav.Link
-                  href="/download"
-                  className="navItem"
-                  style={{ color: '#AFAFB9', fontSize: '13px' }}
-                >
+                <Nav.Link href="/download" className="navItem" style={link}>
                   Download
                 </Nav.Link>
-                <Nav.Link
-                  href="/help"
-                  className="navItem"
-                  style={{ color: '#AFAFB9', fontSize: '13px' }}
-                >
+                <Nav.Link href="/help" className="navItem" style={link}>
                   Help
                 </Nav.Link>
 
-                <Nav.Link
-                  href="/faq"
-                  className="navItem"
-                  style={{ color: '#AFAFB9', fontSize: '13px' }}
-                >
+                <Nav.Link href="/faq" className="navItem" style={link}>
                   FAQ
                 </Nav.Link>
 
@@ -124,36 +113,21 @@ const Header = () => {
           <Collapse in={open}>
             <div id="collapse-menu">
               <Nav>
-                <Nav.Link
-                  href="/about"
-                  style={{ color: '#AFAFB9', fontSize: '13px' }}
-                >
+                <Nav.Link href="/about" style={link}>
                   About
                 </Nav.Link>
-                <Nav.Link
-                  href="/download"
-                  style={{ color: '#AFAFB9', fontSize: '13px' }}
-                >
+                <Nav.Link href="/download" style={link}>
                   Download
                 </Nav.Link>
-                <Nav.Link
-                  href="/help"
-                  style={{ color: '#AFAFB9', fontSize: '13px' }}
-                >
+                <Nav.Link href="/help" style={link}>
                   Help
                 </Nav.Link>
 
-                <Nav.Link
-                  href="/faq"
-                  style={{ color: '#AFAFB9', fontSize: '13px' }}
-                >
+                <Nav.Link href="/faq" style={link}>
                   FAQ
                 </Nav.Link>
 
-                <Nav.Link
-                  href={session ? 'logout' : 'login'}
-                  style={{ color: '#AFAFB9', fontSize: '13px' }}
-                >
+                <Nav.Link href={session ? 'logout' : 'login'} style={link}>
                   {session ? 'logout' : 'login'}
                 </Nav.Link>
               </Nav>
