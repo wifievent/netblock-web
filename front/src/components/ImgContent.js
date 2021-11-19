@@ -8,9 +8,6 @@ import Con5 from '../img/con5.png';
 import Con6 from '../img/con6.png';
 import Con7 from '../img/con7.png';
 import Con8 from '../img/con8.png';
-import Con9 from '../img/con9.png';
-import Con10 from '../img/con10.png';
-
 import '../styles/style.css';
 
 const ImgContent = () => {
@@ -39,12 +36,6 @@ const ImgContent = () => {
       </Fade>
       <Fade>
         <img className="imgContent" src={Con8} alt="content8" />
-      </Fade>
-      <Fade>
-        <img className="imgContentHead" src={Con9} alt="content9" />
-      </Fade>
-      <Fade>
-        <img className="imgContentHead" src={Con10} alt="content10" />
       </Fade>
     </div>
   );

@@ -6,6 +6,7 @@ import CompTable from './CompTable';
 import NoteBookSvg from './NoteBookSvg';
 import noWifi from '../img/no-wifi.png';
 import AdYoutube from './AdYoutube';
+import ImgHead from './ImgHead';
 import ImgContent from './ImgContent';
 
 const contentHead = {
@@ -185,6 +186,7 @@ const Contents = () => {
       </div>
       <LandingText />
       <LandingPic />
+      <ImgHead />
       <VpnYoutube />
       <ImgContent />
       <Fade bottom>
