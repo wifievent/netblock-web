@@ -1,3 +1,9 @@
+@media (max-width: 400px) {
+    #root {
+        font-size: 1px;
+    }
+}
+
 .headerNav {
     background-color: #080D2B;
     position: sticky;
@@ -158,6 +164,13 @@
     }
 }
 
+@media (max-width: 300px) {
+    iframe {
+        width: 100%;
+        height: auto;
+    }
+}
+
 
 .myflex{
     display: flex;
@@ -284,4 +297,38 @@ tr td:nth-child(2) {
 .navDropItem {
     color: #AFAFB9;
     font-size: 13px;
+}
+
+.imgDiv {
+    text-align: center;
+}
+
+.imgContent {
+    width: 800px;
+    margin: 5rem 0 5rem 0;
+}
+
+.imgContentHead {
+    width: 800px;
+    margin: 3rem 0 3rem 0;
+}
+
+@media (max-width: 800px) {
+    .imgContent {
+        width: 500px;
+    }
+
+    .imgContentHead {
+        width: 600px;
+    }
+}
+
+@media (max-width: 600px) {
+    .imgContent {
+        width: 80%;
+    }
+
+    .imgContentHead {
+        width: 100%;
+    }
 }

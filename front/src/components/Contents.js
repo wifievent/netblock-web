@@ -6,6 +6,7 @@ import CompTable from './CompTable';
 import NoteBookSvg from './NoteBookSvg';
 import noWifi from '../img/no-wifi.png';
 import AdYoutube from './AdYoutube';
+import ImgContent from './ImgContent';
 
 const contentHead = {
   width: '100%',
@@ -53,6 +54,7 @@ const landingLeft = {
 };
 
 const landingDiv = {
+  width: '100%',
   margin: '20vh 0 20vh 0',
 };
 
@@ -88,6 +90,7 @@ const highlight = {
 };
 
 const youtube = {
+  width: '100%',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -183,6 +186,7 @@ const Contents = () => {
       <LandingText />
       <LandingPic />
       <VpnYoutube />
+      <ImgContent />
       <Fade bottom>
         <CompTable />
       </Fade>
