@@ -7,6 +7,7 @@ import {
   Col,
   Button,
   Collapse,
+  NavDropdown,
 } from 'react-bootstrap';
 import axios from 'axios';
 import '../styles/style.css';
@@ -56,6 +57,14 @@ const Header = () => {
             <Col xl="3" lg="4" className="navbarHeader">
               <Nav className="me-auto">
                 <Nav.Link
+                  href="/about"
+                  className="navItem"
+                  style={{ color: '#AFAFB9', fontSize: '13px' }}
+                >
+                  About
+                </Nav.Link>
+
+                <Nav.Link
                   href="/download"
                   className="navItem"
                   style={{ color: '#AFAFB9', fontSize: '13px' }}
@@ -77,6 +86,7 @@ const Header = () => {
                 >
                   FAQ
                 </Nav.Link>
+
                 <Nav.Link
                   className="navItem"
                   href={session ? '/logout' : '/login'}
@@ -115,6 +125,12 @@ const Header = () => {
             <div id="collapse-menu">
               <Nav>
                 <Nav.Link
+                  href="/about"
+                  style={{ color: '#AFAFB9', fontSize: '13px' }}
+                >
+                  About
+                </Nav.Link>
+                <Nav.Link
                   href="/download"
                   style={{ color: '#AFAFB9', fontSize: '13px' }}
                 >
@@ -133,6 +149,7 @@ const Header = () => {
                 >
                   FAQ
                 </Nav.Link>
+
                 <Nav.Link
                   href={session ? 'logout' : 'login'}
                   style={{ color: '#AFAFB9', fontSize: '13px' }}

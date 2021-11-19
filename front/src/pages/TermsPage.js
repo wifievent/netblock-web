@@ -263,6 +263,7 @@ const TermsPage = () => {
         />
       </div>
       <button
+        className="termsBtn"
         style={button}
         disabled={!checked}
         onClick={() => {

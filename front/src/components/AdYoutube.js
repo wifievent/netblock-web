@@ -1,5 +1,5 @@
-import React from "react";
-import YouTube from "react-youtube";
+import React from 'react';
+import YouTube from 'react-youtube';
 
 class AdYoutube extends React.Component {
   render() {
@@ -10,7 +10,7 @@ class AdYoutube extends React.Component {
       },
     };
 
-    return <YouTube videoId="KrABoQuG4oU" opts={opts} />;
+    return <YouTube videoId={this.props.vId} opts={opts} />;
   }
 }
 
