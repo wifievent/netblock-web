@@ -65,9 +65,20 @@ const Header = () => {
                   About
                 </Nav.Link>
 
-                <Nav.Link href="/download" className="navItem" style={link}>
-                  Download
-                </Nav.Link>
+                <NavDropdown
+                  id="navDropSmall"
+                  className="navItem"
+                  title="Download"
+                  menuVariant="dark"
+                  style={{ fontSize: '12px' }}
+                >
+                  <NavDropdown.Item className="navDropItem" href="/nbdownload">
+                    NetBlock
+                  </NavDropdown.Item>
+                  <NavDropdown.Item className="navDropItem" href="/cpdownload">
+                    Captive Portal
+                  </NavDropdown.Item>
+                </NavDropdown>
                 <Nav.Link href="/help" className="navItem" style={link}>
                   Help
                 </Nav.Link>
@@ -116,9 +127,20 @@ const Header = () => {
                 <Nav.Link href="/about" style={link}>
                   About
                 </Nav.Link>
-                <Nav.Link href="/download" style={link}>
-                  Download
-                </Nav.Link>
+                <NavDropdown
+                  id="navDropSmall"
+                  className="navItem"
+                  title="Download"
+                  menuVariant="dark"
+                  style={link}
+                >
+                  <NavDropdown.Item className="navDropItem" href="/nbdownload">
+                    NetBlock
+                  </NavDropdown.Item>
+                  <NavDropdown.Item className="navDropItem" href="/cpdownload">
+                    Captive Portal
+                  </NavDropdown.Item>
+                </NavDropdown>
                 <Nav.Link href="/help" style={link}>
                   Help
                 </Nav.Link>
