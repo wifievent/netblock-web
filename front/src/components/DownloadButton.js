@@ -1,12 +1,17 @@
-import React from "react";
-import { Button } from "react-bootstrap";
+import React from 'react';
+import { Button } from 'react-bootstrap';
 
 const DownloadButton = (props) => {
   const redirect = () => {
-    if (props.name === "windows") {
-      window.location.href = "/api/netblock/?os=windows";
-    } else if (props.name === "linux") {
-      window.location.href = "/api/netblock/?os=linux";
+    // 모달 띄운 후 리다이렉트
+    if (props.name === 'nbWindows') {
+      window.location.href = '/api/netblock/?os=windows';
+    } else if (props.name === 'nbLinux') {
+      window.location.href = '/api/netblock/?os=linux';
+    } else if (props.name === 'cpWindows') {
+      window.location.href = '/api/cp/?os=windows';
+    } else if (props.name === 'cpLinux') {
+      window.location.href = '/api/cp/?os=linux';
     }
   };
   return (

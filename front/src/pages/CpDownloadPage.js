@@ -1,8 +1,12 @@
 import React from 'react';
+import Download from '../components/Download';
 
 const CpDownloadPage = () => {
-  window.location.href = 'https://github.com/wifievent/cp/releases';
-  return <div></div>;
+  return (
+    <div className="downloadPage">
+      <Download></Download>
+    </div>
+  );
 };
 
 export default CpDownloadPage;

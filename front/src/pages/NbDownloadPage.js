@@ -5,7 +5,7 @@ import '../styles/style.css';
 const NbDownloadPage = () => {
   return (
     <div className="downloadPage">
-      <Download></Download>
+      <Download name="nb"></Download>
     </div>
   );
 };
