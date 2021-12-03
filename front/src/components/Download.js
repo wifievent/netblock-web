@@ -42,7 +42,7 @@ const Download = (props) => {
             </Col>
           </Row>
           <div className="version">
-            Latest Version : v{process.env.REACT_APP_SERVICE_VERSION}
+            Latest Version : v{process.env.REACT_APP_NB_VERSION}
           </div>
         </Container>
       ) : (
@@ -69,7 +69,7 @@ const Download = (props) => {
             </Col>
           </Row>
           <div className="version">
-            Latest Version : v{process.env.REACT_APP_SERVICE_VERSION}
+            Latest Version : v{process.env.REACT_APP_CP_VERSION}
           </div>
         </Container>
       )}
