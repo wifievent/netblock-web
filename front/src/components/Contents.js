@@ -189,9 +189,9 @@ const Contents = () => {
       <Fade bottom>
         <CompTable />
       </Fade>
-      <ImgHead />
       <ImgContent />
       <VpnYoutube />
+      <ImgHead />
     </div>
   );
 };
