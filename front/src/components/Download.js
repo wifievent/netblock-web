@@ -13,7 +13,7 @@ const Download = (props) => {
               <Card className="downloadCard ">
                 <Card.Body className="cardBody">
                   <Card.Title className="cardTitle">Windows</Card.Title>
-                  <Card.Text style={{ paddingTop: '30px' }}>
+                  <Card.Text style={{ paddingTop: '0' }}>
                     NetBlock 을 설치하기 이전에
                     <br />
                     다음 프로그램의 설치가 필요합니다.
@@ -52,6 +52,7 @@ const Download = (props) => {
               <Card className="downloadCard ">
                 <Card.Body className="cardBody">
                   <Card.Title className="cardTitle">Windows</Card.Title>
+                  <Card.Text style={{ paddingTop: '20px' }}></Card.Text>
                   <DownloadButton name="cpWindows" />
                 </Card.Body>
               </Card>
