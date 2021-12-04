@@ -14,7 +14,7 @@ const AdModal = ({ show, handleClose }) => {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <AdYoutube vId="KrABoQuG4oU" />
+            <AdYoutube vId="KrABoQuG4oU" auto="1" />
           </Modal.Body>
           <Modal.Footer>
             <Button
