@@ -8,8 +8,9 @@ const { imgUp } = require(path.resolve(__dirname, '..', '..', 'multer'));
 
 router.get('/', controller.download);
 
-router.post('/component', isLoggedIn, imgUp, pageController.create);
-router.patch('/component', isLoggedIn, imgUp, pageController.update);
-router.get('/component', isLoggedIn, pageController.read);
+router.post('/page', isLoggedIn, imgUp, pageController.create);
+router.patch('/page/:id', isLoggedIn, imgUp, pageController.update);
+router.get('/page', isLoggedIn, pageController.read);
+router.get('/page/:id', isLoggedIn, pageController.read);
 
 module.exports = router;

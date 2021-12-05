@@ -12,19 +12,6 @@ const create = async (req, res, next) => {
     return res.status(400).json({ msg: 'invalid input' });
   }
 
-  const already = await Page.count({
-    where: { userId }
-  }).catch((err) => {
-    console.error(err);
-    logger.error(err);
-    return next(err);
-  });
-
-  if (already) {
-    logger.error('page duplicated');
-    return res.status(409).json({ msg: 'page duplicated' });
-  }
-
   await sequelize.transaction(async t => {
     const user = await User.findByPk(userId).catch((err) => {
       console.error(err);
@@ -69,11 +56,11 @@ const create = async (req, res, next) => {
 const update = async (req, res, next) => {
   const userId = req.user.id;
   const { title, content } = req.body;
-
   if (!title || !content) {
     logger.error('invalid input');
     return res.status(400).json({ msg: 'invalid input' });
   }
+  
   const page = await Page.findOne({
     where: { userId }
   }).catch((err) => {
