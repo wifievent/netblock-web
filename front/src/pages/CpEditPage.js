@@ -36,38 +36,38 @@ const CpEditPage = (props) => {
   const [inputImage, setInputImage] = useState('');
   const [image, setImage] = useState('');
 
-  // useEffect(() => {
-  //   axios
-  //     .get('/api/user/session', {}, { withCredentials: true })
-  //     .then((res) => {})
-  //     .catch((err) => {
-  //       window.location.href = '/';
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get('/api/user/session', {}, { withCredentials: true })
+      .then((res) => {})
+      .catch((err) => {
+        window.location.href = '/';
+      });
+  }, []);
 
-  // useEffect(() => {
-  //   axios
-  //     .get('/api/cp/component')
-  //     .then((res) => {
-  //       if (res.data === null) {
-  //         setState(false);
-  //       } else {
-  //         setState(true);
-  //         setInputTitle(res.data.title);
-  //         setInputContent(res.data.content);
-  //         if (res.data.file === null) {
-  //           // 파일 없음
-  //         } else {
-  //           setImage(res.data.file.filename);
-  //           console.log(image);
-  //         }
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       alert('로그인이 필요합니다.');
-  //       window.location.href = '/';
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get('/api/cp/component')
+      .then((res) => {
+        if (res.data === null) {
+          setState(false);
+        } else {
+          setState(true);
+          setInputTitle(res.data.title);
+          setInputContent(res.data.content);
+          if (res.data.file === null) {
+            // 파일 없음
+          } else {
+            setImage(res.data.file.filename);
+            console.log(image);
+          }
+        }
+      })
+      .catch((err) => {
+        alert('로그인이 필요합니다.');
+        window.location.href = '/';
+      });
+  }, []);
 
   const handleInputTItle = (e) => {
     setInputTitle(e.target.value);
