@@ -11,7 +11,7 @@ const http = require('http');
 const routes = require('../routes');
 
 module.exports = async ({ app }) => {
-  var normalizePort = function (val) {
+  const normalizePort = function (val) {
     const port = parseInt(val, 10);
 
     if (isNaN(port)) {
@@ -25,7 +25,7 @@ module.exports = async ({ app }) => {
     return false;
   }
 
-  var onError = function (error) {
+  const onError = function (error) {
     if (error.syscall !== 'listen') {
       throw error;
     }
@@ -48,7 +48,7 @@ module.exports = async ({ app }) => {
     }
   }
 
-  var onListening = function () {
+  const onListening = function () {
     const addr = server.address();
     const bind = typeof addr === 'string'
       ? 'pipe ' + addr
@@ -73,10 +73,7 @@ module.exports = async ({ app }) => {
   app.use('/', routes);
 
   //error handling
-  app.use(function (err, req, res) {
-    res.locals.message = err.message;
-    res.locals.error = req.app.get("env") === "development" ? err : {};
-
+  app.use(function (err, req, res, next) {
     console.error(err);
     res.status(err.status || 500).json(err.message);
   });
