@@ -79,6 +79,10 @@ const Header = () => {
                     Captive Portal
                   </NavDropdown.Item>
                 </NavDropdown>
+                {session ? <Nav.Link href="/edit" className="navItem" style={link}>
+                  Edit
+                </Nav.Link> : null}
+                
                 <Nav.Link href="/help" className="navItem" style={link}>
                   Help
                 </Nav.Link>
@@ -141,6 +145,11 @@ const Header = () => {
                     Captive Portal
                   </NavDropdown.Item>
                 </NavDropdown>
+
+                <Nav.Link href="/edit" style={link}>
+                  Edit
+                </Nav.Link>
+
                 <Nav.Link href="/help" style={link}>
                   Help
                 </Nav.Link>

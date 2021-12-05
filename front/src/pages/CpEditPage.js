@@ -4,19 +4,7 @@ import Fade from 'react-reveal/Fade';
 import { Container } from 'react-bootstrap';
 import axios from 'axios';
 import Button from '../components/Button';
-
-const contentHead = {
-  width: '100%',
-  height: '220px',
-  backgroundColor: '#080D2B',
-  color: '#DADBDF',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  fontWeight: '500',
-  fontSize: '28px',
-  marginBottom: '3rem',
-};
+import ContentHeader from '../components/ContentHeader';
 
 const title = {
   width: '100%',
@@ -41,45 +29,45 @@ const input = {
   marginBottom: '1rem',
 };
 
-const CpEditPage = () => {
+const CpEditPage = (props) => {
   const [state, setState] = useState(false);
   const [inputTitle, setInputTitle] = useState('');
   const [inputContent, setInputContent] = useState('');
   const [inputImage, setInputImage] = useState('');
   const [image, setImage] = useState('');
 
-  useEffect(() => {
-    axios
-      .get('/api/user/session', {}, { withCredentials: true })
-      .then((res) => {})
-      .catch((err) => {
-        window.location.href = '/';
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get('/api/user/session', {}, { withCredentials: true })
+  //     .then((res) => {})
+  //     .catch((err) => {
+  //       window.location.href = '/';
+  //     });
+  // }, []);
 
-  useEffect(() => {
-    axios
-      .get('/api/cp/component')
-      .then((res) => {
-        if (res.data === null) {
-          setState(false);
-        } else {
-          setState(true);
-          setInputTitle(res.data.title);
-          setInputContent(res.data.content);
-          if (res.data.file === null) {
-            // 파일 없음
-          } else {
-            setImage(res.data.file.filename);
-            console.log(image);
-          }
-        }
-      })
-      .catch((err) => {
-        alert('로그인이 필요합니다.');
-        window.location.href = '/';
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get('/api/cp/component')
+  //     .then((res) => {
+  //       if (res.data === null) {
+  //         setState(false);
+  //       } else {
+  //         setState(true);
+  //         setInputTitle(res.data.title);
+  //         setInputContent(res.data.content);
+  //         if (res.data.file === null) {
+  //           // 파일 없음
+  //         } else {
+  //           setImage(res.data.file.filename);
+  //           console.log(image);
+  //         }
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       alert('로그인이 필요합니다.');
+  //       window.location.href = '/';
+  //     });
+  // }, []);
 
   const handleInputTItle = (e) => {
     setInputTitle(e.target.value);
@@ -150,14 +138,7 @@ const CpEditPage = () => {
 
   return (
     <div>
-      <Fade>
-        <div style={contentHead}>
-          <div>
-            <span style={{ color: '#31ECA9' }}>Captive Portal</span> 을
-            꾸며보세요 !
-          </div>
-        </div>
-      </Fade>
+      <ContentHeader title="Captive Portal" content=" 을 꾸며보세요 !" />
       <Container>
         <div className="faqCont">
           <div style={div}>
