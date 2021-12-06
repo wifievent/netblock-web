@@ -30,7 +30,7 @@ const login = async (req, res, next) => {
 const register = async (req, res, next) => {
   const isAdmin = false;
   const { uid, pw, name, email } = req.body;
-  if (Number.isNaN(uid) || !pw || !name || !email) {
+  if (!uid || Number.isNaN(uid) || !pw || !name || !email) {
     logger.error('invalid input');
     return res.status(400).json({ msg: "invalid input" });
   }
@@ -129,7 +129,7 @@ const email = async (req, res) => {
 
 const auth = async (req, res) => {
   const { number } = req.body;
-  if (Number.isNaN(number)) {
+  if (!number || Number.isNaN(number)) {
     return res.status(400).json({ msg: "invalid input" });
   }
   if (number !== smtpTransport.options.auth.number) {
