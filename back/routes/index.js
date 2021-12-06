@@ -8,7 +8,6 @@ const cp = require('./cp');
 
 const downloadLog = require('./admin/downloadLog');
 const adminUser = require('./admin/user');
-const adminFeedback = require('./admin/feedBack');
 
 router.use('/images', express.static(path.resolve(__dirname, '..', 'uploads')))
 
@@ -18,6 +17,5 @@ router.use('/cp', cp)
 
 router.use('/admin/downloadLog', downloadLog)
 router.use('/admin/user', adminUser)
-router.use('/admin/feedback', adminFeedback)
 
 module.exports = router;
