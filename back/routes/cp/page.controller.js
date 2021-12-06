@@ -157,8 +157,22 @@ const read = async (req, res, next) => {
   return res.status(200).json(page);
 }
 
+const render = async (req, res, next) => {
+  const pid = req.params.id;
+  console.log(pid);
+  const page = await Page.findOne({
+    where: { pid }
+  });
+
+  const file = await File.findOne({
+    where: { pageId: page.id }
+  })
+  return res.render(page.name, { title: page.title, content: page.content });
+}
+
 module.exports = {
   create,
   update,
-  read
+  read,
+  render
 }

@@ -4,6 +4,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
+const path = require('path');
 const helmet = require('helmet');
 const debug = require('debug')('back:server');
 const http = require('http');
@@ -60,6 +61,9 @@ module.exports = async ({ app }) => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
+  app.use('/static', express.static(path.resolve(__dirname, '..', 'public')));
+  app.set('views', path.resolve(__dirname, '..', 'templates'));
+  app.set('view engine', 'pug');
 
   if (process.env.NODE_ENV === 'development') {
     app.use(cors({
