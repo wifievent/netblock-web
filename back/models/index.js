@@ -15,7 +15,6 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 db.DownloadLog = require('./downloadLog')(sequelize, Sequelize);
 db.Os = require('./os')(sequelize, Sequelize);
 db.Product = require('./product')(sequelize, Sequelize);
-db.Feedback = require('./feedback')(sequelize, Sequelize);
 db.User = require('./user')(sequelize, Sequelize);
 db.Page = require('./page')(sequelize, Sequelize);
 db.File = require('./file')(sequelize, Sequelize);
