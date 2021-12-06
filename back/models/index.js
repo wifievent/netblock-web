@@ -19,6 +19,7 @@ db.Feedback = require('./feedback')(sequelize, Sequelize);
 db.User = require('./user')(sequelize, Sequelize);
 db.Page = require('./page')(sequelize, Sequelize);
 db.File = require('./file')(sequelize, Sequelize);
+db.Template = require('./template')(sequelize, Sequelize);
 
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
