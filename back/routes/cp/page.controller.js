@@ -140,7 +140,7 @@ const read = async (req, res, next) => {
   const userId = req.user.id;
 
   let page;
-  if (Number.isNaN(pageId)) {
+  if (!pageId) {
     page = await Page.findAll({
       where: { userId },
       include: {
@@ -148,6 +148,9 @@ const read = async (req, res, next) => {
       }
     });
   } else {
+    if (Number.isNaN(pageId)) {
+      return res.status(400).json({ msg: "invalid input" });
+    }
     page = await Page.findOne({
       where: { id: pageId, userId },
       include: {
@@ -155,21 +158,31 @@ const read = async (req, res, next) => {
       }
     });
   }
+
   logger.info('get page success');
   return res.status(200).json(page);
 }
 
 const render = async (req, res, next) => {
   const pid = req.params.id;
-  console.log(pid);
+  if (Number.isNaN(pid)) {
+    return res.status(400).json({ msg: "invalid input" });
+  }
+
   const page = await Page.findOne({
     where: { pid }
   });
 
   const file = await File.findOne({
     where: { pageId: page.id }
-  })
-  return res.render(page.name, { title: page.title, content: page.content });
+  });
+
+  return res.render(page.name, {
+    name: page.name,
+    title: page.title,
+    content: page.content,
+    image: file.filename
+  });
 }
 
 module.exports = {
