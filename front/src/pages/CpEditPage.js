@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import Fade from 'react-reveal/Fade';
-import { Container } from 'react-bootstrap';
+import { Container, Form } from 'react-bootstrap';
 import axios from 'axios';
 import Button from '../components/Button';
 import ContentHeader from '../components/ContentHeader';
@@ -11,12 +10,18 @@ const title = {
   padding: '0',
 };
 
-const div = {
+const cont = {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+  marginTop: '2rem',
+  marginBottom: '1rem',
   width: '80%',
+};
+
+const formLable = {
+  marginTop: '1rem',
 };
 
 const textArea = {
@@ -30,6 +35,7 @@ const input = {
 };
 
 const CpEditPage = (props) => {
+  const [id, setId] = useState(null);
   const [state, setState] = useState(false);
   const [inputTitle, setInputTitle] = useState('');
   const [inputContent, setInputContent] = useState('');
@@ -38,33 +44,9 @@ const CpEditPage = (props) => {
 
   useEffect(() => {
     axios
-      .get('/api/user/session', {}, { withCredentials: true })
+      .get('/user/session', {}, { withCredentials: true })
       .then((res) => {})
       .catch((err) => {
-        window.location.href = '/';
-      });
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get('/api/cp/component')
-      .then((res) => {
-        if (res.data === null) {
-          setState(false);
-        } else {
-          setState(true);
-          setInputTitle(res.data.title);
-          setInputContent(res.data.content);
-          if (res.data.file === null) {
-            // 파일 없음
-          } else {
-            setImage(res.data.file.filename);
-            console.log(image);
-          }
-        }
-      })
-      .catch((err) => {
-        alert('로그인이 필요합니다.');
         window.location.href = '/';
       });
   }, []);
@@ -82,15 +64,36 @@ const CpEditPage = (props) => {
     setInputImage(img);
   };
 
+  useEffect(() => {
+    setId(props.id);
+    axios
+      .get('/cp/page/' + id)
+      .then((res) => {
+        if (res.data === null) {
+          setState(false);
+        } else {
+          setState(true);
+          setInputTitle(res.data.title);
+          setInputContent(res.data.content);
+          if (res.data.file === null) {
+            // 파일 없음
+          } else {
+            setImage(res.data.file.filename);
+            console.log(image);
+          }
+        }
+      })
+      .catch((err) => {
+        alert('로그인이 필요합니다.');
+        // window.location.href = '/';
+      });
+  }, []);
+
   const onClickButton = () => {
     if (inputTitle === '') {
       alert('제목을 입력하세요');
     } else if (inputContent === '') {
       alert('내용을 입력하세요');
-      const formData = new FormData();
-      formData.append('title', inputTitle);
-      formData.append('content', inputContent);
-      formData.append('img', inputImage);
     } else {
       if (state === true) {
         // 이미 컴포넌트 존재 patch
@@ -101,7 +104,7 @@ const CpEditPage = (props) => {
 
         axios({
           method: 'patch',
-          url: '/api/cp/component',
+          url: '/cp/page/' + id,
           data: formData,
           headers: { 'Content-Type': 'multipart/form-data' },
         })
@@ -112,7 +115,6 @@ const CpEditPage = (props) => {
           .catch((err) => {
             console.log(err.data);
           });
-        alert('post');
       } else {
         // 컴포넌트 새로 작성 post
         const formData = new FormData();
@@ -122,7 +124,7 @@ const CpEditPage = (props) => {
 
         axios({
           method: 'post',
-          url: '/api/cp/component',
+          url: '/cp/page',
           data: formData,
           headers: { 'Content-Type': 'multipart/form-data' },
         })
@@ -141,43 +143,46 @@ const CpEditPage = (props) => {
       <ContentHeader title="Captive Portal" content=" 을 꾸며보세요 !" />
       <Container>
         <div className="faqCont">
-          <div style={div}>
-            <div style={title}>제목</div>
+          <div style={cont}>
+            <Form>
+              <Form.Label style={formLable}>제목</Form.Label>
+              <Form.Control
+                type="text"
+                id="title"
+                required="true"
+                value={inputTitle}
+                onChange={handleInputTItle}
+              />
+              <Form.Label style={formLable}>내용</Form.Label>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlTextarea1"
+                id="content"
+                required="true"
+                value={inputContent}
+                onChange={handleInputContent}
+              >
+                <Form.Control as="textarea" rows={3} />
+              </Form.Group>
+              <Form.Group
+                controlId="formFile"
+                className="mb-3"
+                name="img"
+                id="img"
+                accept="image/*"
+                onChange={handleImageChange}
+              >
+                <Form.Label>이미지</Form.Label>
+                <Form.Control type="file" />
+              </Form.Group>
+            </Form>
 
-            <input
-              style={{ width: '100%' }}
-              type="text"
-              name="title"
-              id="title"
-              required="true"
-              value={inputTitle}
-              onChange={handleInputTItle}
-            />
-
-            <div style={title}>내용</div>
-            <textarea
-              style={textArea}
-              name="content"
-              id="content"
-              required="true"
-              value={inputContent}
-              onChange={handleInputContent}
-            ></textarea>
-
-            <img
-              src={`http://localhost:3001/uploads/${image}`}
-              alt="미리보기"
-            />
-
-            <div style={title}>이미지</div>
-            <input
-              style={input}
-              type="file"
-              name="img"
-              id="img"
-              accept="image/*"
-              onChange={handleImageChange}
-            />
+            {state ? (
+              <img
+                src={`http://localhost:3001/uploads/${image}`}
+                alt="미리보기"
+              />
+            ) : null}
             <Button style={{ marginBottom: '1rem' }} onClick={onClickButton}>
               저장
             </Button>
