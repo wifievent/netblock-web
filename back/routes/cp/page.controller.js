@@ -1,15 +1,24 @@
 const path = require('path');
-const { User, File, Page, sequelize } = require(path.resolve(__dirname, '..', '..', 'models'));
+const { User, File, Page, Template, sequelize } = require(path.resolve(__dirname, '..', '..', 'models'));
 const { getHash } = require(path.resolve(__dirname, '..', '..', 'hashing'));
-const logger = require('../../config/winston');
+const logger = require(path.resolve(__dirname, '..', '..', 'config', 'winston'));
 
 const create = async (req, res, next) => {
   const userId = req.user.id;
-  const { title, content } = req.body;
+  const { title, content, name, templateId } = req.body;
 
-  if (!title || !content) {
+  if (!title || !content || !name || !templateId) {
     logger.error('invalid input');
     return res.status(400).json({ msg: 'invalid input' });
+  }
+
+  const template = await Template.findByPk(templateId).catch((err) => {
+    console.error(err);
+    logger.error(err);
+    return next(err);
+  });
+  if (!template) {
+    return res.status(403).json({ msg: "invalid access" })
   }
 
   await sequelize.transaction(async t => {
@@ -19,15 +28,17 @@ const create = async (req, res, next) => {
       return next(err);
     });
 
+    const pid = getHash(name + userId + Date.now(), user.salt);
+
     const page = await Page.create({
-      title, content, userId
+      title, content, name, pid, userId, templateId
     }).catch((err) => {
       logger.error(err);
       console.error(err);
       return next(err);
     });
 
-    if (req.file) {// 이미지가 존재한다면
+    if (req.file) {
       const src = req.file.originalname;
       const size = req.file.size;
       const filename = req.file.filename;
@@ -50,29 +61,29 @@ const create = async (req, res, next) => {
   });
   logger.info('page create success');
   return res.status(201).json({ msg: 'page create success' });
-
 }
 
 const update = async (req, res, next) => {
   const userId = req.user.id;
-  const { title, content } = req.body;
-  if (!title || !content) {
+  const pageId = req.params.id;
+  const { title, content, name } = req.body;
+  if (!title || !content || !name) {
     logger.error('invalid input');
     return res.status(400).json({ msg: 'invalid input' });
   }
   
-  const page = await Page.findOne({
-    where: { userId }
+  const page = await Page.count({
+    where: { id: pageId, userId }
   }).catch((err) => {
     logger.error(err);
     console.error(err);
     return next(err);
   });
-
   if (!page) {
     logger.error('invalid access');
     return res.status(403).json({ msg: 'invalid access' });
   }
+
   await sequelize.transaction(async t => {
     const user = await User.findByPk(userId).catch((err) => {
       logger.error(err);
@@ -80,7 +91,7 @@ const update = async (req, res, next) => {
       return next(err);
     });
 
-    await Page.update({ title, content }, {
+    await Page.update({ title, content, name }, {
       where: { id: page.id }
     }).catch((err) => {
       logger.error(err);
@@ -133,19 +144,61 @@ const update = async (req, res, next) => {
 }
 
 const read = async (req, res, next) => {
+  const pageId = req.params.id;
   const userId = req.user.id;
+
+  let page;
+  if (!pageId) {
+    page = await Page.findAll({
+      where: { userId },
+      include: {
+        model: File
+      }
+    });
+  } else {
+    if (Number.isNaN(pageId)) {
+      return res.status(400).json({ msg: "invalid input" });
+    }
+    page = await Page.findOne({
+      where: { id: pageId, userId },
+      include: {
+        model: File
+      }
+    });
+  }
+
+  logger.info('get page success');
+  return res.status(200).json(page);
+}
+
+const render = async (req, res, next) => {
+  const pid = req.params.id;
+  if (Number.isNaN(pid)) {
+    return res.status(400).json({ msg: "invalid input" });
+  }
+
   const page = await Page.findOne({
-    where: userId,
+    where: { pid },
     include: {
-      model: File
+      model: Template,
     }
   });
-  logger.info('get component success');
-  return res.status(200).json(page);
+
+  const file = await File.findOne({
+    where: { pageId: page.id }
+  });
+
+  return res.render(page.template.name, {
+    name: page.name,
+    title: page.title,
+    content: page.content,
+    image: file.filename
+  });
 }
 
 module.exports = {
   create,
   update,
-  read
+  read,
+  render
 }

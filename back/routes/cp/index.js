@@ -12,5 +12,6 @@ router.post('/page', isLoggedIn, imgUp, pageController.create);
 router.patch('/page/:id', isLoggedIn, imgUp, pageController.update);
 router.get('/page', isLoggedIn, pageController.read);
 router.get('/page/:id', isLoggedIn, pageController.read);
+router.get('/page/render/:id', pageController.render);
 
 module.exports = router;

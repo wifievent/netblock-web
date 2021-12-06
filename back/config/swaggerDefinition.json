@@ -3,16 +3,20 @@
   "info" : {
     "version" : "1.0.0",
     "title" : "WiFiEvent_API",
-    "description" : ""
+    "description" : "<h1><b>Check Servers!!!</b></h1>"
   },
   "servers" : [ {
-    "description" : "CRUD API",
+    "description" : "3001",
+    "url" : "http://localhost:3001"
+  }, {
+    "description" : "3000",
     "url" : "http://localhost:3000"
   } ],
   "paths" : {
-    "/cp/component" : {
+    "/cp/page" : {
       "post" : {
-        "summary" : "create template component",
+        "summary" : "create page content",
+        "description" : "required login",
         "requestBody" : {
           "content" : {
             "multipart/form-data" : {
@@ -27,6 +31,14 @@
                     "type" : "string",
                     "example" : "netblock, captive portal"
                   },
+                  "name" : {
+                    "type" : "string",
+                    "example" : "wifievent page"
+                  },
+                  "templateId" : {
+                    "type" : "number",
+                    "example" : 4
+                  },
                   "img" : {
                     "type" : "string",
                     "format" : "binary"
@@ -38,7 +50,7 @@
         },
         "responses" : {
           "201" : {
-            "description" : "post success",
+            "description" : "create success",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -46,83 +58,7 @@
                   "properties" : {
                     "msg" : {
                       "type" : "string",
-                      "example" : "component create success"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "invalid input",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "object",
-                  "properties" : {
-                    "msg" : {
-                      "type" : "string",
-                      "example" : "invalid input"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "409" : {
-            "description" : "duplicated",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "object",
-                  "properties" : {
-                    "msg" : {
-                      "type" : "string",
-                      "example" : "component duplicated"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "patch" : {
-        "summary" : "update template component",
-        "requestBody" : {
-          "content" : {
-            "multipart/form-data" : {
-              "schema" : {
-                "type" : "object",
-                "properties" : {
-                  "title" : {
-                    "type" : "string",
-                    "example" : "hello! this isn't wifievent"
-                  },
-                  "content" : {
-                    "type" : "string",
-                    "example" : "whatever.."
-                  },
-                  "img" : {
-                    "type" : "string",
-                    "format" : "binary"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses" : {
-          "200" : {
-            "description" : "update success",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "object",
-                  "properties" : {
-                    "msg" : {
-                      "type" : "string",
-                      "example" : "component update success"
+                      "example" : "page create success"
                     }
                   }
                 }
@@ -148,7 +84,160 @@
         }
       },
       "get" : {
-        "summary" : "template component read",
+        "summary" : "read page list",
+        "responses" : {
+          "200" : {
+            "description" : "get page list success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "id" : {
+                        "type" : "integer",
+                        "example" : 2
+                      },
+                      "title" : {
+                        "type" : "string",
+                        "example" : "hello! this is wifievent"
+                      },
+                      "content" : {
+                        "type" : "string",
+                        "example" : "netblock, captive portal"
+                      },
+                      "name" : {
+                        "type" : "string",
+                        "example" : "wifievent"
+                      },
+                      "pid" : {
+                        "type" : "string",
+                        "example" : "40578c760d4fdf92673dc507d08de4706a98a346f0d9c48011a312f3a0300bd7d705df2bfcc7d8f010b9e8b427af3c7d0674777f9b7e01e9e013041de1f83935",
+                        "description" : "identifier to access page"
+                      },
+                      "file" : {
+                        "type" : "object",
+                        "properties" : {
+                          "id" : {
+                            "type" : "integer",
+                            "example" : 2
+                          },
+                          "src" : {
+                            "type" : "string",
+                            "example" : "cat.jpeg",
+                            "description" : "file original name"
+                          },
+                          "size" : {
+                            "type" : "integer",
+                            "example" : 1234
+                          },
+                          "sid" : {
+                            "type" : "string",
+                            "example" : "676fe334b41247b47d6c0c4d12ec8f9de37a38004a8157275099a8f6915334b98dc9c4fd7c6b8f07096ae5de436678609b87a426a469b86497635f3ec1a3efc2",
+                            "description" : "file identifier to download"
+                          },
+                          "filename" : {
+                            "type" : "string",
+                            "example" : "ac307436671757a7c4ddbece670529eee3180cca572a0d7ca6a7f32505b5318d9e031004810da429fd6e1a7b94f09f97b2476c0f04f97cffa88e941ba0408389.png",
+                            "description" : "file real path to access file"
+                          },
+                          "createdAt" : {
+                            "type" : "string",
+                            "format" : "date-time",
+                            "example" : "2021-07-21T17:32:28Z"
+                          },
+                          "updatedAt" : {
+                            "type" : "string",
+                            "format" : "date-time",
+                            "example" : "2021-07-21T17:32:28Z"
+                          },
+                          "deletedAt" : {
+                            "type" : "string",
+                            "format" : "date-time",
+                            "example" : null
+                          },
+                          "userId" : {
+                            "type" : "integer",
+                            "example" : 1,
+                            "description" : "uploader"
+                          },
+                          "pageId" : {
+                            "type" : "integer",
+                            "example" : 2,
+                            "description" : "page where image is uploaded"
+                          }
+                        }
+                      },
+                      "userId" : {
+                        "type" : "integer",
+                        "example" : 1,
+                        "description" : "writer"
+                      },
+                      "createdAt" : {
+                        "type" : "string",
+                        "format" : "date-time",
+                        "example" : "2021-07-21T17:32:28Z"
+                      },
+                      "updatedAt" : {
+                        "type" : "string",
+                        "format" : "date-time",
+                        "example" : "2021-07-21T17:32:28Z"
+                      },
+                      "deletedAt" : {
+                        "type" : "string",
+                        "format" : "date-time",
+                        "example" : null
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cp/page/{id}" : {
+      "patch" : {
+        "summary" : "update page content",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "description" : "page id",
+          "schema" : {
+            "type" : "number",
+            "example" : 1
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "title" : {
+                    "type" : "string",
+                    "example" : "hello! this isn't wifievent"
+                  },
+                  "content" : {
+                    "type" : "string",
+                    "example" : "whatever.."
+                  },
+                  "name" : {
+                    "type" : "string",
+                    "example" : "NOTWiFiEvent"
+                  },
+                  "img" : {
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses" : {
           "200" : {
             "description" : "update success",
@@ -157,28 +246,96 @@
                 "schema" : {
                   "type" : "object",
                   "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "example" : "page update success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "example" : "invalid input"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "pageId is invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "example" : "invalid access"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get" : {
+        "summary" : "read a page",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "description" : "page id",
+          "schema" : {
+            "type" : "number",
+            "example" : 1
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "get page info success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
                     "id" : {
                       "type" : "integer",
-                      "example" : 2,
-                      "description" : "component index"
+                      "example" : 2
                     },
                     "title" : {
                       "type" : "string",
-                      "example" : "hello! this is wifievent",
-                      "description" : "component title"
+                      "example" : "hello! this is wifievent"
                     },
                     "content" : {
                       "type" : "string",
-                      "example" : "netblock, captive portal",
-                      "description" : "component content"
+                      "example" : "netblock, captive portal"
+                    },
+                    "name" : {
+                      "type" : "string",
+                      "example" : "wifievent"
+                    },
+                    "pid" : {
+                      "type" : "string",
+                      "example" : "40578c760d4fdf92673dc507d08de4706a98a346f0d9c48011a312f3a0300bd7d705df2bfcc7d8f010b9e8b427af3c7d0674777f9b7e01e9e013041de1f83935",
+                      "description" : "identifier to access page"
                     },
                     "file" : {
                       "type" : "object",
                       "properties" : {
                         "id" : {
                           "type" : "integer",
-                          "example" : 2,
-                          "description" : "file index"
+                          "example" : 2
                         },
                         "src" : {
                           "type" : "string",
@@ -187,18 +344,17 @@
                         },
                         "size" : {
                           "type" : "integer",
-                          "example" : 1234,
-                          "description" : "file size"
+                          "example" : 1234
                         },
                         "sid" : {
                           "type" : "string",
                           "example" : "676fe334b41247b47d6c0c4d12ec8f9de37a38004a8157275099a8f6915334b98dc9c4fd7c6b8f07096ae5de436678609b87a426a469b86497635f3ec1a3efc2",
-                          "description" : "file identifier (for download file)"
+                          "description" : "file identifier to download"
                         },
                         "filename" : {
                           "type" : "string",
                           "example" : "ac307436671757a7c4ddbece670529eee3180cca572a0d7ca6a7f32505b5318d9e031004810da429fd6e1a7b94f09f97b2476c0f04f97cffa88e941ba0408389.png",
-                          "description" : "file real path (for access file)"
+                          "description" : "file real path to access file"
                         },
                         "createdAt" : {
                           "type" : "string",
@@ -222,7 +378,8 @@
                         },
                         "pageId" : {
                           "type" : "integer",
-                          "example" : 2
+                          "example" : 2,
+                          "description" : "page where image is uploaded"
                         }
                       }
                     },
@@ -254,6 +411,39 @@
         }
       }
     },
+    "/cp/render/{id}" : {
+      "get" : {
+        "summary" : "show page",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "description" : "identifier to access page",
+          "schema" : {
+            "type" : "number",
+            "example" : "40578c760d4fdf92673dc507d08de4706a98a346f0d9c48011a312f3a0300bd7d705df2bfcc7d8f010b9e8b427af3c7d0674777f9b7e01e9e013041de1f83935"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "render page",
+            "content" : {
+              "text/html" : {
+                "schema" : {
+                  "type" : "string"
+                },
+                "examples" : {
+                  "html" : {
+                    "summary" : "page including title, content, image, button",
+                    "value" : "<html>\n<body>\n  <h1 class='title'>hello! this is wifievent</h1>\n  <div class='content'>netblock, captive portal</div>\n  <img src='image.png' />\n</body>\n</html>\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/uploads/{filename}" : {
       "get" : {
         "summary" : "access file to url",
@@ -261,7 +451,7 @@
           "name" : "filename",
           "in" : "path",
           "required" : true,
-          "description" : "filename",
+          "description" : "filename to access file",
           "schema" : {
             "type" : "string",
             "example" : "ac307436671757a7c4ddbece670529eee3180cca572a0d7ca6a7f32505b5318d9e031004810da429fd6e1a7b94f09f97b2476c0f04f97cffa88e941ba0408389.png"
@@ -269,229 +459,22 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "file access"
-          }
-        }
-      }
-    },
-    "/feedback" : {
-      "get" : {
-        "summary" : "Return All FeedBack of specific user information",
-        "responses" : {
-          "200" : {
-            "description" : "OK",
+            "description" : "file",
             "content" : {
-              "application/json" : {
+              "image/*" : {
                 "schema" : {
-                  "type" : "object",
-                  "properties" : {
-                    "id" : {
-                      "type" : "integer",
-                      "description" : "The Feedback ID."
-                    },
-                    "title" : {
-                      "type" : "string",
-                      "description" : "The title of Feedback."
-                    },
-                    "createdAt" : {
-                      "type" : "object",
-                      "description" : "The time of created."
-                    }
-                  }
+                  "type" : "string",
+                  "format" : "binary"
                 }
               }
             }
-          },
-          "400" : {
-            "description" : "cannot find comment"
-          },
-          "500" : {
-            "description" : "server error"
-          }
-        }
-      },
-      "post" : {
-        "summary" : "post a comment",
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "type" : "object",
-                "properties" : {
-                  "title" : {
-                    "type" : "string",
-                    "description" : "The title of Feedback"
-                  },
-                  "comment" : {
-                    "type" : "string",
-                    "description" : "The content of comment."
-                  },
-                  "version" : {
-                    "type" : "string",
-                    "description" : "The version of program using."
-                  },
-                  "os" : {
-                    "type" : "string",
-                    "description" : "The type of os using."
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses" : {
-          "201" : {
-            "description" : "post success"
-          },
-          "500" : {
-            "description" : "server error"
-          }
-        }
-      }
-    },
-    "/feedback/{id}" : {
-      "get" : {
-        "summary" : "Return specific FeedBack information",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "description" : "The ID of the Feedback to read",
-          "schema" : {
-            "type" : "integer"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "object",
-                  "properties" : {
-                    "title" : {
-                      "type" : "string",
-                      "description" : "The title of Feedback."
-                    },
-                    "comment" : {
-                      "type" : "string",
-                      "description" : "The content of comment."
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "cannot find comment"
-          },
-          "500" : {
-            "description" : "server error"
-          }
-        }
-      },
-      "patch" : {
-        "summary" : "Modify comment",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "description" : "The ID of the Feedback to patch",
-          "schema" : {
-            "type" : "integer"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "type" : "object",
-                "properties" : {
-                  "title" : {
-                    "type" : "string",
-                    "description" : "The title of Feedback."
-                  },
-                  "comment" : {
-                    "type" : "string",
-                    "description" : "The content of comment."
-                  },
-                  "version" : {
-                    "type" : "string",
-                    "description" : "The version of program using."
-                  },
-                  "os" : {
-                    "type" : "string",
-                    "description" : "The type of os using."
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "object",
-                  "properties" : {
-                    "title" : {
-                      "type" : "string",
-                      "description" : "The title of Feedback."
-                    },
-                    "comment" : {
-                      "type" : "string",
-                      "description" : "The content of comment."
-                    },
-                    "version" : {
-                      "type" : "string",
-                      "description" : "The version of program using."
-                    },
-                    "os" : {
-                      "type" : "string",
-                      "description" : "The type of os using."
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "cannot find comment"
-          },
-          "500" : {
-            "description" : "Server error"
-          }
-        }
-      },
-      "delete" : {
-        "summary" : "Remove comment",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "description" : "The ID of the Feedback to remove",
-          "schema" : {
-            "type" : "integer"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK"
-          },
-          "400" : {
-            "description" : "cannot find comment"
-          },
-          "500" : {
-            "description" : "Server error"
           }
         }
       }
     },
     "/user/login" : {
       "post" : {
-        "summary" : "login function",
+        "summary" : "login",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -501,12 +484,12 @@
                   "uid" : {
                     "type" : "string",
                     "example" : "test",
-                    "description" : "The user id."
+                    "description" : "user id"
                   },
                   "pw" : {
                     "type" : "string",
                     "example" : "test",
-                    "description" : "The user pw."
+                    "description" : "user password"
                   }
                 }
               }
@@ -515,17 +498,43 @@
         },
         "responses" : {
           "200" : {
-            "description" : "login success"
+            "description" : "login success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "example" : "login success"
+                    }
+                  }
+                }
+              }
+            }
           },
           "401" : {
-            "description" : "No Authentication"
+            "description" : "invalid login info",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "example" : "No Authentication"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
     "/user/register" : {
       "post" : {
-        "summary" : "register function",
+        "summary" : "register",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -535,22 +544,20 @@
                   "uid" : {
                     "type" : "string",
                     "example" : "test",
-                    "description" : "The user id."
+                    "description" : "user id"
                   },
                   "pw" : {
                     "type" : "string",
                     "example" : "test",
-                    "description" : "The user pw."
+                    "description" : "user password"
                   },
                   "name" : {
                     "type" : "string",
-                    "example" : "test",
-                    "description" : "The user name."
+                    "example" : "test"
                   },
                   "email" : {
                     "type" : "string",
-                    "example" : "test@test.com",
-                    "description" : "The user email."
+                    "example" : "test@test.com"
                   }
                 }
               }
@@ -559,10 +566,36 @@
         },
         "responses" : {
           "201" : {
-            "description" : "register success"
+            "description" : "register success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "example" : "register success"
+                    }
+                  }
+                }
+              }
+            }
           },
-          "304" : {
-            "description" : "userid already exist"
+          "400" : {
+            "description" : "invalid input",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "example" : "invalid input"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -579,25 +612,63 @@
     },
     "/user/{id}" : {
       "delete" : {
-        "summary" : "Remove comment",
+        "summary" : "remove user",
+        "description" : "require admin auth or own account",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
           "required" : true,
-          "description" : "loginId(uid) of user",
+          "description" : "user index",
           "schema" : {
-            "type" : "string"
+            "type" : "number"
           }
         } ],
         "responses" : {
           "200" : {
-            "description" : "Remove success"
+            "description" : "Remove success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "example" : "invalid input"
+                    }
+                  }
+                }
+              }
+            }
           },
           "400" : {
-            "description" : "cannot find id"
+            "description" : "invalid input",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "example" : "invalid input"
+                    }
+                  }
+                }
+              }
+            }
           },
           "403" : {
-            "description" : "No Authentication"
+            "description" : "check Schema (2 reponses)",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "oneOf" : [ {
+                    "$ref" : "#/components/schemas/no_authentication"
+                  }, {
+                    "$ref" : "#/components/schemas/invalid_access"
+                  } ]
+                }
+              }
+            }
           }
         }
       }
@@ -605,6 +676,7 @@
     "/user/session" : {
       "get" : {
         "summary" : "check session",
+        "description" : "require login",
         "responses" : {
           "200" : {
             "description" : "session ok",
@@ -613,13 +685,24 @@
                 "schema" : {
                   "type" : "string",
                   "properties" : {
-                    "message" : {
+                    "msg" : {
                       "type" : "string",
-                      "description" : "session Ok"
+                      "description" : "session OK"
+                    },
+                    "id" : {
+                      "type" : "number",
+                      "description" : "user identifier",
+                      "example" : 2
+                    },
+                    "uid" : {
+                      "type" : "string",
+                      "description" : "user id",
+                      "example" : "test"
                     },
                     "admin" : {
                       "type" : "string",
-                      "description" : "Is user admin?"
+                      "description" : "isAdmin",
+                      "example" : 0
                     },
                     "session" : {
                       "type" : "string",
@@ -653,10 +736,30 @@
         },
         "responses" : {
           "200" : {
-            "description" : "Send email success"
+            "description" : "send email success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "description" : "send email success"
+                    }
+                  }
+                }
+              }
+            }
           },
-          "500" : {
-            "description" : "server error"
+          "400" : {
+            "description" : "invalid input",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/invalid_input"
+                }
+              }
+            }
           }
         }
       }
@@ -681,10 +784,46 @@
         },
         "responses" : {
           "200" : {
-            "description" : "Email authentication success"
+            "description" : "email authentication success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "description" : "email authentication success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/invalid_input"
+                }
+              }
+            }
           },
           "401" : {
-            "description" : "Wrong number"
+            "description" : "wrong number",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "description" : "wrong number"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -709,13 +848,46 @@
         },
         "responses" : {
           "200" : {
-            "description" : "Available uid"
+            "description" : "valid id",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "description" : "valid id"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/invalid_input"
+                }
+              }
+            }
           },
           "409" : {
-            "description" : "userid already exist"
-          },
-          "500" : {
-            "description" : "server error"
+            "description" : "userid already exist",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "description" : "userid already exist"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -798,52 +970,34 @@
           }
         }
       }
-    },
-    "/admin/feedback" : {
-      "get" : {
-        "summary" : "Return user information",
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "object",
-                  "properties" : {
-                    "commenter" : {
-                      "type" : "integer",
-                      "description" : "The user id."
-                    },
-                    "title" : {
-                      "type" : "string",
-                      "description" : "The comment's title."
-                    },
-                    "comment" : {
-                      "type" : "string",
-                      "description" : "The user's comment."
-                    },
-                    "version" : {
-                      "type" : "string",
-                      "description" : "The version of program using."
-                    },
-                    "os" : {
-                      "type" : "string",
-                      "description" : "The type of os using."
-                    },
-                    "createdAt" : {
-                      "type" : "object",
-                      "description" : "The time of created."
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "cannot find feedback"
-          },
-          "500" : {
-            "description" : "server error"
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "no_authentication" : {
+        "type" : "object",
+        "properties" : {
+          "msg" : {
+            "type" : "string",
+            "example" : "no authentication"
+          }
+        }
+      },
+      "invalid_access" : {
+        "type" : "object",
+        "properties" : {
+          "msg" : {
+            "type" : "string",
+            "example" : "invalid access"
+          }
+        }
+      },
+      "invalid_input" : {
+        "type" : "object",
+        "properties" : {
+          "msg" : {
+            "type" : "string",
+            "example" : "invalid access"
           }
         }
       }
