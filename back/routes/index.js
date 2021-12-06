@@ -3,7 +3,6 @@ const router = express.Router();
 const path = require('path');
 
 const nb = require('./nb');
-const feedback = require('./feedback');
 const user = require('./user');
 const cp = require('./cp');
 
@@ -14,7 +13,6 @@ const adminFeedback = require('./admin/feedBack');
 router.use('/images', express.static(path.resolve(__dirname, '..', 'uploads')))
 
 router.use('/netblock', nb)
-router.use('/feedback', feedback)
 router.use('/user', user)
 router.use('/cp', cp)
 

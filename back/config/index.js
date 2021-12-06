@@ -8,6 +8,7 @@ const development = {
   "database": env.DB_NAME,
   "host": env.DB_HOST,
   "dialect": env.DB_TYPE,
+  "port": env.DB_PORT,
   "define": {
     "underscored": false,
     "freezeTableName": false,
@@ -26,6 +27,7 @@ const production = {
   "database": env.DB_NAME,
   "host": env.DB_HOST,
   "dialect": env.DB_TYPE,
+  "port": env.DB_PORT,
   "define": {
     "underscored": false,
     "freezeTableName": false,
