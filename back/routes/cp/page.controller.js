@@ -1,15 +1,24 @@
 const path = require('path');
-const { User, File, Page, sequelize } = require(path.resolve(__dirname, '..', '..', 'models'));
+const { User, File, Page, Template, sequelize } = require(path.resolve(__dirname, '..', '..', 'models'));
 const { getHash } = require(path.resolve(__dirname, '..', '..', 'hashing'));
-const logger = require('../../config/winston');
+const logger = require(path.resolve(__dirname, '..', '..', 'config', 'winston'));
 
 const create = async (req, res, next) => {
   const userId = req.user.id;
-  const { title, content, name } = req.body;
+  const { title, content, name, templateId } = req.body;
 
-  if (!title || !content || !name) {
+  if (!title || !content || !name || !templateId) {
     logger.error('invalid input');
     return res.status(400).json({ msg: 'invalid input' });
+  }
+
+  const template = await Template.findByPk(templateId).catch((err) => {
+    console.error(err);
+    logger.error(err);
+    return next(err);
+  });
+  if (!template) {
+    return res.status(403).json({ msg: "invalid access" })
   }
 
   await sequelize.transaction(async t => {
@@ -22,7 +31,7 @@ const create = async (req, res, next) => {
     const pid = getHash(name + userId + Date.now(), user.salt);
 
     const page = await Page.create({
-      title, content, name, pid, userId
+      title, content, name, pid, userId, templateId
     }).catch((err) => {
       logger.error(err);
       console.error(err);
@@ -169,14 +178,17 @@ const render = async (req, res, next) => {
   }
 
   const page = await Page.findOne({
-    where: { pid }
+    where: { pid },
+    include: {
+      model: Template,
+    }
   });
 
   const file = await File.findOne({
     where: { pageId: page.id }
   });
 
-  return res.render(page.name, {
+  return res.render(page.template.name, {
     name: page.name,
     title: page.title,
     content: page.content,
