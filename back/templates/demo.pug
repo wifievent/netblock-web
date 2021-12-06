@@ -1,0 +1,46 @@
+doctype html 
+html(lang='ko')
+  head
+    title 수능
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='/static/css/demo.css')
+  body 
+    div(class='container')
+      div(class='header')
+        div(class='head') 수험생 할인 음료 목록
+        div(class='sub') 수험생 여러분 모두 고생하셨습니다
+      div(class='main')
+        div(class='menu-container')
+          div(class='menu')
+            div(class='menu-img')
+            div(class='menu-text')
+              | 커피
+              br
+              del 4500
+              | 3500
+          div(class='menu')
+            div(class='menu-img')
+            div(class='menu-text')
+              | 레몬에이드
+              br
+              del 4500
+              | 3500
+          div(class='menu')
+            div(class='menu-img')
+            div(class='menu-text')
+              | 아이스티
+              br
+              del 4000
+              | 3000
+          div(class='menu')
+            div(class='menu-img')
+            div(class='menu-text')
+              | 초코스무디
+              br
+              del 5000
+              | 4000
+      form(class='infected-button-form', method='post')
+        input(type='hidden', name='infected' value='false')
+        button(class='infected-button', type='submit') 확인
+    div(class='footer') https://wifievent.io
