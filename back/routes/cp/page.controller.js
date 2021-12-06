@@ -52,7 +52,6 @@ const create = async (req, res, next) => {
   });
   logger.info('page create success');
   return res.status(201).json({ msg: 'page create success' });
-
 }
 
 const update = async (req, res, next) => {
