@@ -4,7 +4,6 @@ const { getRandom, getHash } = require('../../hashing');
 const { smtpTransport } = require('../../config/email');
 const logger = require('../../config/winston');
 
-// 로그인
 const login = async (req, res, next) => {
   passport.authenticate('local', (authError, user) => {
     if (authError) {
@@ -28,10 +27,13 @@ const login = async (req, res, next) => {
   })(req, res, next);
 }
 
-// 회원가입
 const register = async (req, res, next) => {
-  const { uid, pw, name, email } = req.body;
   const isAdmin = false;
+  const { uid, pw, name, email } = req.body;
+  if (Number.isNaN(uid) || !pw || !name || !email) {
+    logger.error('invalid input');
+    return res.status(400).json({ msg: "invalid input" });
+  }
 
   const salt = getRandom();
   await User.create({
@@ -50,18 +52,25 @@ const register = async (req, res, next) => {
   return res.status(201).json({ msg: "register success" });
 }
 
-// 유저 삭제
-const remove = async (req, res, next) => {
-  const uid = req.user.dataValues.uid; // 현재 로그인된 아이디
-  const id = req.params.id;
+const logout = async (req, res) => {
+  req.logout();
+  req.session.destroy();
+  logger.info("Logout success");
+  return res.status(200).json({ msg: "Logout success" });
+}
 
-  // 관리자도 아니고 해당 유저가 아니라면
-  if (uid != id && !req.user.dataValues.isAdmin) {
+const remove = async (req, res, next) => {
+  const userId = req.user.id;
+  const deletedUserId = req.params.id;
+  if (Number.isNaN(deletedUserId)) {
+    return res.status(400).json({ msg: "invalid input" })
+  }
+
+  if (userId !== deletedUserId || !req.user.isAdmin) {
     logger.error("No Authentication");
     return res.status(403).json({ msg: "No Authentication" });
   }
 
-  // 유저 삭제
   const result = User.destroy({
     where: { uid: id }
   }).catch((err) => {
@@ -72,44 +81,18 @@ const remove = async (req, res, next) => {
 
   if (!result) {
     logger.error("cannot find id");
-    return res.status(400).json({ msg: "cannot find id" });
+    return res.status(403).json({ msg: "invalid access" });
   }
   logger.info('Remove success');
   return res.status(200).json({ msg: "Remove success" });
 }
 
-// 아이디 중복체크
-const check = async (req, res, next) => {
-  const { uid } = req.body;
-  const already = await User.count({ where: { uid } }).catch((err) => {
-    console.error(err);
-    logger.error(err);
-    return next(err);
-  });
-  if (already) {
-    logger.error("userid already exist");
-    return res.status(409).json({ msg: "userid already exist" });
-  }
-  logger.info('Available uid');
-  return res.status(200).json({ msg: "Available uid" });
-}
-
-// 로그아웃
-const logout = async (req, res) => {
-  req.logout();
-  req.session.destroy(); // 세션 파괴
-  logger.info("Logout success");
-  return res.status(200).json({ msg: "Logout success" });
-}
-
-// 세션 체크
 const session = async (req, res) => {
-  const user = req.user;
-  console.log(req.session)
-  res.json({
-    type: 'info',
-    message: 'session OK!',
-    admin: user.dataValues.isAdmin,
+  return res.json({
+    msg: 'session OK',
+    id: req.user.id,
+    uid: req.user.uid,
+    admin: req.user.dataValues.isAdmin,
     session: req.session
   })
 }
@@ -119,10 +102,12 @@ var generateRandom = function (min, max) {
   return ranNum;
 }
 
-// router.post('/email', isNotLoggedIn, controller.email);
 const email = async (req, res) => {
   const number = generateRandom(111111, 999999)
   const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({ msg: 'invalid input '});
+  }
   const mailOptions = {
     from: smtpTransport.options.auth.user,
     to: email,
@@ -139,18 +124,38 @@ const email = async (req, res) => {
   smtpTransport.close();
 
   logger.info('Send email success');
-  return res.status(200).json({ msg: "Send email success" });
+  return res.status(200).json({ msg: "send email success" });
 }
 
-// router.post('/auth', isNotLoggedIn, controller.auth);
 const auth = async (req, res) => {
   const { number } = req.body;
-  if (number == smtpTransport.options.auth.number) {
-    logger.info('Email authentication success');
-    return res.status(200).json({ msg: "Email authentication success" });
+  if (Number.isNaN(number)) {
+    return res.status(400).json({ msg: "invalid input" });
   }
-  logger.error("Wrong number");
-  return res.status(401).json({ msg: "Wrong number" });
+  if (number !== smtpTransport.options.auth.number) {
+    logger.error("Wrong number");
+    return res.status(401).json({ msg: "wrong number" });
+  }
+  logger.info('Email authentication success');
+  return res.status(200).json({ msg: "email authentication success" });
+}
+
+const check = async (req, res, next) => {
+  const { uid } = req.body;
+  if (!uid) {
+    return res.status(400).json({ msg: "invalid input" });
+  }
+  const already = await User.count({ where: { uid } }).catch((err) => {
+    console.error(err);
+    logger.error(err);
+    return next(err);
+  });
+  if (already) {
+    logger.error("userid already exist");
+    return res.status(409).json({ msg: "userid already exist" });
+  }
+  logger.info('Valid uid');
+  return res.status(200).json({ msg: "Valid uid" });
 }
 
 module.exports = {

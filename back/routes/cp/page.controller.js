@@ -5,9 +5,9 @@ const logger = require('../../config/winston');
 
 const create = async (req, res, next) => {
   const userId = req.user.id;
-  const { title, content } = req.body;
+  const { title, content, name } = req.body;
 
-  if (!title || !content) {
+  if (!title || !content || !name) {
     logger.error('invalid input');
     return res.status(400).json({ msg: 'invalid input' });
   }
@@ -19,15 +19,17 @@ const create = async (req, res, next) => {
       return next(err);
     });
 
+    const pid = getHash(name + userId + Date.now(), user.salt);
+
     const page = await Page.create({
-      title, content, userId
+      title, content, name, pid, userId
     }).catch((err) => {
       logger.error(err);
       console.error(err);
       return next(err);
     });
 
-    if (req.file) {// 이미지가 존재한다면
+    if (req.file) {
       const src = req.file.originalname;
       const size = req.file.size;
       const filename = req.file.filename;
@@ -56,8 +58,8 @@ const create = async (req, res, next) => {
 const update = async (req, res, next) => {
   const userId = req.user.id;
   const pageId = req.params.id;
-  const { title, content } = req.body;
-  if (!title || !content) {
+  const { title, content, name } = req.body;
+  if (!title || !content || !name) {
     logger.error('invalid input');
     return res.status(400).json({ msg: 'invalid input' });
   }
@@ -81,7 +83,7 @@ const update = async (req, res, next) => {
       return next(err);
     });
 
-    await Page.update({ title, content }, {
+    await Page.update({ title, content, name }, {
       where: { id: page.id }
     }).catch((err) => {
       logger.error(err);
@@ -153,7 +155,7 @@ const read = async (req, res, next) => {
       }
     });
   }
-  logger.info('get component success');
+  logger.info('get page success');
   return res.status(200).json(page);
 }
 
