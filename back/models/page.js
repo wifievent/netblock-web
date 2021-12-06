@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
 	page.associate = (models) => {
 		page.hasOne(models.File);
 		page.belongsTo(models.User);
-		page.hasOne(models.Template);
+		page.belongsTo(models.Template);
 	}
 	return page
 }
