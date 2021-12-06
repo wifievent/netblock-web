@@ -5,11 +5,6 @@ import axios from 'axios';
 import Button from '../components/Button';
 import ContentHeader from '../components/ContentHeader';
 
-const title = {
-  width: '100%',
-  padding: '0',
-};
-
 const cont = {
   display: 'flex',
   flexDirection: 'column',
@@ -24,19 +19,10 @@ const formLable = {
   marginTop: '1rem',
 };
 
-const textArea = {
-  width: '100%',
-  height: '200px',
-};
-
-const input = {
-  width: '100%',
-  marginBottom: '1rem',
-};
-
 const CpEditPage = (props) => {
   const [id, setId] = useState(null);
   const [state, setState] = useState(false);
+  const [inputName, setInputName] = useState('');
   const [inputTitle, setInputTitle] = useState('');
   const [inputContent, setInputContent] = useState('');
   const [inputImage, setInputImage] = useState('');
@@ -50,6 +36,10 @@ const CpEditPage = (props) => {
         window.location.href = '/';
       });
   }, []);
+
+  const handleInputName = (e) => {
+    setInputName(e.target.value);
+  };
 
   const handleInputTItle = (e) => {
     setInputTitle(e.target.value);
@@ -73,6 +63,7 @@ const CpEditPage = (props) => {
           setState(false);
         } else {
           setState(true);
+          setInputName(res.data.name);
           setInputTitle(res.data.title);
           setInputContent(res.data.content);
           if (res.data.file === null) {
@@ -90,7 +81,9 @@ const CpEditPage = (props) => {
   }, []);
 
   const onClickButton = () => {
-    if (inputTitle === '') {
+    if (inputName === '') {
+      alert('페이지 이름을 입력하세요');
+    } else if (inputTitle === '') {
       alert('제목을 입력하세요');
     } else if (inputContent === '') {
       alert('내용을 입력하세요');
@@ -98,6 +91,7 @@ const CpEditPage = (props) => {
       if (state === true) {
         // 이미 컴포넌트 존재 patch
         const formData = new FormData();
+        formData.append('name', inputName);
         formData.append('title', inputTitle);
         formData.append('content', inputContent);
         formData.append('img', inputImage);
@@ -118,6 +112,7 @@ const CpEditPage = (props) => {
       } else {
         // 컴포넌트 새로 작성 post
         const formData = new FormData();
+        formData.append('name', inputName);
         formData.append('title', inputTitle);
         formData.append('content', inputContent);
         formData.append('img', inputImage);
@@ -145,6 +140,14 @@ const CpEditPage = (props) => {
         <div className="faqCont">
           <div style={cont}>
             <Form>
+              <Form.Label style={formLable}>페이지 이름</Form.Label>
+              <Form.Control
+                type="text"
+                id="name"
+                required="true"
+                value={inputName}
+                onChange={handleInputName}
+              />
               <Form.Label style={formLable}>제목</Form.Label>
               <Form.Control
                 type="text"
@@ -183,7 +186,10 @@ const CpEditPage = (props) => {
                 alt="미리보기"
               />
             ) : null}
-            <Button style={{ marginBottom: '1rem' }} onClick={onClickButton}>
+            <Button
+              style={{ marginTop: '1rem', marginBottom: '1rem' }}
+              onClick={onClickButton}
+            >
               저장
             </Button>
           </div>
