@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router';
 import { Container, Form } from 'react-bootstrap';
 import axios from 'axios';
 import Button from '../components/Button';
@@ -19,7 +20,9 @@ const formLable = {
   marginTop: '1rem',
 };
 
-const CpEditPage = (props) => {
+const CpEditPage = () => {
+  const history = useHistory();
+  const location = useLocation();
   const [id, setId] = useState(null);
   const [state, setState] = useState(false);
   const [inputName, setInputName] = useState('');
@@ -35,6 +38,34 @@ const CpEditPage = (props) => {
       .catch((err) => {
         window.location.href = '/';
       });
+  }, []);
+
+  useEffect(() => {
+    if (location.state.state === true) {
+      setId(location.state.id);
+      axios
+        .get('/cp/page/' + id)
+        .then((res) => {
+          if (res.data === null) {
+            setState(false);
+          } else {
+            setState(true);
+            setInputName(res.data.name);
+            setInputTitle(res.data.title);
+            setInputContent(res.data.content);
+            if (res.data.file === null) {
+              // 파일 없음
+            } else {
+              setImage(res.data.file.filename);
+              console.log(image);
+            }
+          }
+        })
+        .catch((err) => {
+          alert('로그인이 필요합니다.');
+          // window.location.href = '/';
+        });
+    }
   }, []);
 
   const handleInputName = (e) => {
@@ -54,32 +85,6 @@ const CpEditPage = (props) => {
     setInputImage(img);
   };
 
-  useEffect(() => {
-    setId(props.id);
-    axios
-      .get('/cp/page/' + id)
-      .then((res) => {
-        if (res.data === null) {
-          setState(false);
-        } else {
-          setState(true);
-          setInputName(res.data.name);
-          setInputTitle(res.data.title);
-          setInputContent(res.data.content);
-          if (res.data.file === null) {
-            // 파일 없음
-          } else {
-            setImage(res.data.file.filename);
-            console.log(image);
-          }
-        }
-      })
-      .catch((err) => {
-        alert('로그인이 필요합니다.');
-        // window.location.href = '/';
-      });
-  }, []);
-
   const onClickButton = () => {
     if (inputName === '') {
       alert('페이지 이름을 입력하세요');
@@ -88,48 +93,17 @@ const CpEditPage = (props) => {
     } else if (inputContent === '') {
       alert('내용을 입력하세요');
     } else {
-      if (state === true) {
-        // 이미 컴포넌트 존재 patch
-        const formData = new FormData();
-        formData.append('name', inputName);
-        formData.append('title', inputTitle);
-        formData.append('content', inputContent);
-        formData.append('img', inputImage);
-
-        axios({
-          method: 'patch',
-          url: '/cp/page/' + id,
-          data: formData,
-          headers: { 'Content-Type': 'multipart/form-data' },
-        })
-          .then((res) => {
-            alert('저장되었습니다');
-            window.location.href = '/template';
-          })
-          .catch((err) => {
-            console.log(err.data);
-          });
-      } else {
-        // 컴포넌트 새로 작성 post
-        const formData = new FormData();
-        formData.append('name', inputName);
-        formData.append('title', inputTitle);
-        formData.append('content', inputContent);
-        formData.append('img', inputImage);
-
-        axios({
-          method: 'post',
-          url: '/cp/page',
-          data: formData,
-          headers: { 'Content-Type': 'multipart/form-data' },
-        })
-          .then((res) => {
-            window.location.href = '/template';
-          })
-          .catch((err) => {
-            console.log(err.data);
-          });
-      }
+      history.push({
+        pathname: '/template',
+        state: {
+          name: inputName,
+          title: inputTitle,
+          content: inputContent,
+          image: inputImage,
+          state: state,
+          id: location.state.id,
+        },
+      });
     }
   };
 
