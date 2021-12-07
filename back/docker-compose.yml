@@ -20,7 +20,8 @@ services:
       - bash
       - -c
       - |
-        /wait-for-it.sh db:3306 -t 15
+        npm run sequelize db:seed:all
+        /wait-for-it.sh db:3307 -t 10
         npm run dev
     restart: unless-stopped
   db:
