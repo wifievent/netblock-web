@@ -18,7 +18,7 @@ const LogoutPage = () => {
     })
     .catch((e) => {
       console.log(e.data);
-      // window.location.href = '/';
+      window.location.href = '/';
     });
 
   return <div></div>;
