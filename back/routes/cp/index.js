@@ -3,6 +3,7 @@ const router = express.Router();
 const path = require('path');
 const controller = require('./cp.controller');
 const pageController = require('./page.controller');
+const templateController = require('./template.controller');
 const { isLoggedIn } = require(path.resolve(__dirname, '..', 'middlewares', 'middlewares'));
 const { imgUp } = require(path.resolve(__dirname, '..', '..', 'multer'));
 
@@ -13,5 +14,7 @@ router.patch('/page/:id', isLoggedIn, imgUp, pageController.update);
 router.get('/page', isLoggedIn, pageController.read);
 router.get('/page/:id', isLoggedIn, pageController.read);
 router.get('/page/render/:id', pageController.render);
+
+router.get('/template', isLoggedIn, templateController.read);
 
 module.exports = router;

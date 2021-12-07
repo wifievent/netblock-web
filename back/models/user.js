@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
 	user.associate = (models) => {
 		user.hasMany(models.File);
 		user.hasOne(models.Page);
+		user.hasMany(models.Template);
 	};
 	return user
 }
