@@ -6,6 +6,10 @@ import axios from 'axios';
 import Button from '../components/Button';
 import ContentHeader from '../components/ContentHeader';
 
+const wrapper = {
+  minHeight: '90vh',
+};
+
 const cont = {
   display: 'flex',
   flexDirection: 'column',
@@ -41,15 +45,20 @@ const CpEditPage = () => {
   }, []);
 
   useEffect(() => {
-    if (location.state.state === true) {
-      setId(location.state.id);
+    const locationState = location.state.state;
+    const locationId = location.state.id;
+    if (locationState === true) {
+      console.log('state : ' + locationState);
+      console.log('id : ' + locationId);
       axios
-        .get('/cp/page/' + id)
+        .get('/cp/page/' + locationId)
         .then((res) => {
           if (res.data === null) {
             setState(false);
+            console.log('res.data is NULL');
           } else {
             setState(true);
+            setId(locationId);
             setInputName(res.data.name);
             setInputTitle(res.data.title);
             setInputContent(res.data.content);
@@ -101,14 +110,14 @@ const CpEditPage = () => {
           content: inputContent,
           image: inputImage,
           state: state,
-          id: location.state.id,
+          id: id,
         },
       });
     }
   };
 
   return (
-    <div>
+    <div style={wrapper}>
       <ContentHeader title="Captive Portal" content=" 을 꾸며보세요 !" />
       <Container>
         <div className="faqCont">
@@ -131,15 +140,15 @@ const CpEditPage = () => {
                 onChange={handleInputTItle}
               />
               <Form.Label style={formLable}>내용</Form.Label>
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlTextarea1"
-                id="content"
-                required="true"
-                value={inputContent}
-                onChange={handleInputContent}
-              >
-                <Form.Control as="textarea" rows={3} />
+              <Form.Group className="mb-3">
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  id="content"
+                  required="true"
+                  value={inputContent}
+                  onChange={handleInputContent}
+                />
               </Form.Group>
               <Form.Group
                 controlId="formFile"

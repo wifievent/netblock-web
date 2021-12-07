@@ -5,9 +5,11 @@ import { useHistory } from 'react-router';
 import axios from 'axios';
 import ContentHeader from '../components/ContentHeader';
 import Button from '../components/Button';
+import styled from 'styled-components';
+import palette from '../styles/palette';
 
 const wrapper = {
-  minHeight: '85vh',
+  minHeight: '90vh',
 };
 
 const cont = {
@@ -18,10 +20,33 @@ const cont = {
   alignItems: 'center',
 };
 
-const Page = ({ id, title }) => {
+const listDiv = {
+  marginTop: '1rem',
+  marginBottom: '1rem',
+};
+
+const StyledLi = styled.li`
+  list-style-type: none;
+  border: none;
+  border-top: 0.5px solid ${palette.lightGrayHover};
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 1rem 1rem;
+  color: ${palette.darkSlateGray};
+  text-align: center;
+  outline: none;
+  cursor: pointer;
+  background: ${palette.lightGray};
+  &:hover {
+    background: ${palette.lightGrayHover};
+  }
+`;
+
+const PageList = ({ id, name }) => {
   const history = useHistory();
   return (
-    <ListGroup.item
+    <StyledLi
       onClick={() => {
         history.push({
           pathname: '/cpedit',
@@ -32,8 +57,8 @@ const Page = ({ id, title }) => {
         });
       }}
     >
-      {title}
-    </ListGroup.item>
+      {name}
+    </StyledLi>
   );
 };
 
@@ -59,12 +84,13 @@ const MyPage = () => {
         console.log(res.data.length);
         if (res.data.length !== 0) {
           setLoading(true);
-          console.log(res);
+          console.log(res.data);
           setList(res.data);
         }
       })
       .catch((err) => {
         console.log(err.data);
+        setLoading(false);
       });
   }, []);
 
@@ -82,17 +108,22 @@ const MyPage = () => {
       <ContentHeader title="Captive Portal" content=" 을 꾸며보세요 !" />
       <Container style={cont}>
         {loading ? (
-          <ListGroup>
-            {list.map(() => {
-              return <Page id={list.id} title={list.title} />;
-            })}
-          </ListGroup>
+          <div>
+            <h4 style={{ textAlign: 'center', margin: '2rem' }}>페이지 목록</h4>
+            <div style={listDiv}>
+              {list.map((e) => {
+                return <PageList id={e.id} name={e.name} />;
+              })}
+            </div>
+          </div>
         ) : (
-          <h3 style={{ textAlign: 'center', margin: '1rem' }}>
+          <h4 style={{ textAlign: 'center', margin: '2rem' }}>
             생성한 페이지가 없습니다.
-          </h3>
+          </h4>
         )}
-        <Button onClick={onClickCreate}>만들기</Button>
+        <Button style={{ margin: '2rem 2rem' }} onClick={onClickCreate}>
+          만들기
+        </Button>
       </Container>
     </div>
   );
