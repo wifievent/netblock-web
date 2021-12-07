@@ -1,9 +1,7 @@
 # WifiEvent Backend
 
 ## Requirements
-npm
-
-docker (option)
+docker
 
 ## Before Launch
 
@@ -24,12 +22,6 @@ MAIL_PW=mailpw
 
 ## Launch
 
-### First
-
-```
-npm install
-```
-
 ### Docker
 
 ```
@@ -38,4 +30,10 @@ docker compose up -d --build node
 
 # end
 docker compose down
+```
+
+### Dummy data
+
+```
+npm run sequelize db:seed:all
 ```
