@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     }
 	}, {})
 	template.associate = (models) => {
-    template.belongsTo(models.Page);
+    template.hasMany(models.Page);
 	}
 	return template
 }

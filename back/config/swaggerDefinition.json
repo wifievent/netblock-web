@@ -35,6 +35,10 @@
                     "type" : "string",
                     "example" : "wifievent page"
                   },
+                  "templateId" : {
+                    "type" : "number",
+                    "example" : 4
+                  },
                   "img" : {
                     "type" : "string",
                     "format" : "binary"
@@ -732,10 +736,30 @@
         },
         "responses" : {
           "200" : {
-            "description" : "Send email success"
+            "description" : "send email success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "description" : "send email success"
+                    }
+                  }
+                }
+              }
+            }
           },
-          "500" : {
-            "description" : "server error"
+          "400" : {
+            "description" : "invalid input",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/invalid_input"
+                }
+              }
+            }
           }
         }
       }
@@ -760,10 +784,46 @@
         },
         "responses" : {
           "200" : {
-            "description" : "Email authentication success"
+            "description" : "email authentication success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "description" : "email authentication success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/invalid_input"
+                }
+              }
+            }
           },
           "401" : {
-            "description" : "Wrong number"
+            "description" : "wrong number",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "description" : "wrong number"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -788,13 +848,46 @@
         },
         "responses" : {
           "200" : {
-            "description" : "Available uid"
+            "description" : "valid id",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "description" : "valid id"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid input",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/invalid_input"
+                }
+              }
+            }
           },
           "409" : {
-            "description" : "userid already exist"
-          },
-          "500" : {
-            "description" : "server error"
+            "description" : "userid already exist",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "properties" : {
+                    "msg" : {
+                      "type" : "string",
+                      "description" : "userid already exist"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -871,55 +964,6 @@
           },
           "400" : {
             "description" : "cannot find user"
-          },
-          "500" : {
-            "description" : "server error"
-          }
-        }
-      }
-    },
-    "/admin/feedback" : {
-      "get" : {
-        "summary" : "Return user information",
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "object",
-                  "properties" : {
-                    "commenter" : {
-                      "type" : "integer",
-                      "description" : "The user id."
-                    },
-                    "title" : {
-                      "type" : "string",
-                      "description" : "The comment's title."
-                    },
-                    "comment" : {
-                      "type" : "string",
-                      "description" : "The user's comment."
-                    },
-                    "version" : {
-                      "type" : "string",
-                      "description" : "The version of program using."
-                    },
-                    "os" : {
-                      "type" : "string",
-                      "description" : "The type of os using."
-                    },
-                    "createdAt" : {
-                      "type" : "object",
-                      "description" : "The time of created."
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "cannot find feedback"
           },
           "500" : {
             "description" : "server error"

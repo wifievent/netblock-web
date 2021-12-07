@@ -40,6 +40,12 @@ html(lang='ko')
               br
               del 5000
               | 4000
+          div(class='menu')
+            div(class='menu-img' style=`background-image: url('/images/${image}')`)
+            div(class='menu-text')
+              | 비매품
+              br
+              | XXXX
       form(class='infected-button-form', method='post')
         input(type='hidden', name='infected' value='false')
         button(class='infected-button', type='submit') 확인
