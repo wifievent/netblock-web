@@ -1,9 +1,7 @@
 # WifiEvent Backend
 
 ## Requirements
-npm
-
-docker (option)
+docker
 
 ## Before Launch
 
@@ -16,19 +14,14 @@ DB_HOST=db
 DB_TYPE=mariadb
 DB_PORT=3306
 NODE_ENV=development
-NETBLOCK_VERSION=v0.8.0.1
+NETBLOCK_VERSION=v0.9.1.1
+CP_VERSION=v0.8.1.0
 COOKIE_SECRET=secret
 MAIL_ID=mailid
 MAIL_PW=mailpw
 ```
 
 ## Launch
-
-### First
-
-```
-npm install
-```
 
 ### Docker
 
@@ -38,4 +31,10 @@ docker compose up -d --build node
 
 # end
 docker compose down
+```
+
+### Dummy data
+
+```
+npm run sequelize db:seed:all
 ```
