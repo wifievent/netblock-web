@@ -11,8 +11,62 @@
   }, {
     "description" : "3000",
     "url" : "http://localhost:3000"
+  }, {
+    "description" : "test",
+    "url" : "http://192.168.35.243:3001"
   } ],
   "paths" : {
+    "/cp/template" : {
+      "get" : {
+        "summary" : "read template list",
+        "description" : "required login",
+        "responses" : {
+          "200" : {
+            "description" : "read template success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "id" : {
+                        "type" : "integer",
+                        "example" : 1
+                      },
+                      "name" : {
+                        "type" : "string",
+                        "example" : "demo"
+                      },
+                      "createdAt" : {
+                        "type" : "string",
+                        "format" : "date-time",
+                        "example" : "2021-07-21T17:32:28Z"
+                      },
+                      "updatedAt" : {
+                        "type" : "string",
+                        "format" : "date-time",
+                        "example" : "2021-07-21T17:32:28Z"
+                      },
+                      "deletedAt" : {
+                        "type" : "string",
+                        "format" : "date-time",
+                        "example" : null
+                      },
+                      "userId" : {
+                        "type" : "number",
+                        "example" : 1,
+                        "description" : "user identifier that create this template"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/cp/page" : {
       "post" : {
         "summary" : "create page content",
