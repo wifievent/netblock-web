@@ -67,7 +67,7 @@ module.exports = async ({ app }) => {
 
   if (process.env.NODE_ENV === 'development') {
     app.use(cors({
-      origin: '*',
+      origin: true,
       credentials: true
     }));
   } else {
