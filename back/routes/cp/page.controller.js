@@ -67,12 +67,12 @@ const update = async (req, res, next) => {
   const userId = req.user.id;
   const pageId = req.params.id;
   const { title, content, name } = req.body;
-  if (!title || !content || !name) {
+  if (!title || !content || !name || Number.isNaN(pageId)) {
     logger.error('invalid input');
     return res.status(400).json({ msg: 'invalid input' });
   }
-  
-  const page = await Page.count({
+
+  const page = await Page.findOne({
     where: { id: pageId, userId }
   }).catch((err) => {
     logger.error(err);
