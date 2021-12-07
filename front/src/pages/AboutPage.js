@@ -40,6 +40,13 @@ const col = {
   alignItems: 'center',
 };
 
+const donationRow = {
+  textAlign: 'center',
+  margin: '2rem 0 2rem 0',
+  fontWeight: '600',
+  fontSize: '1.3rem',
+};
+
 const Person = (props) => {
   return (
     <div style={card}>
@@ -83,6 +90,14 @@ const AboutPage = () => {
               img={Kyh}
             />
           </Col>
+        </Row>
+        <Row style={donationRow}>
+          <div>
+            You can give a free donation on the account number
+            <br />
+            <span style={{ color: '#00D288' }}>IBK 973-043757-01-011,</span>
+            <br /> on name of the Lee Sungjin (Core Developer)
+          </div>
         </Row>
       </Container>
     </div>

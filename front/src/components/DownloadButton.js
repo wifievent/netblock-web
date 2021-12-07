@@ -11,13 +11,13 @@ const DownloadButton = (props) => {
   const redirect = () => {
     // 모달 띄운 후 리다이렉트
     if (props.name === 'nbWindows') {
-      window.location.href = '/api/netblock/?os=windows';
+      window.location.href = '/netblock/?os=windows';
     } else if (props.name === 'nbLinux') {
-      window.location.href = '/api/netblock/?os=linux';
+      window.location.href = '/netblock/?os=linux';
     } else if (props.name === 'cpWindows') {
-      window.location.href = '/api/cp/?os=windows';
+      window.location.href = '/cp/?os=windows';
     } else if (props.name === 'cpLinux') {
-      window.location.href = '/api/cp/?os=linux';
+      window.location.href = '/cp/?os=linux';
     }
   };
   return (

@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Form } from 'react-bootstrap';
 import StyledCard from '../components/StyledCard';
 import Button from '../components/Button';
 import '../styles/style.css';
@@ -10,6 +10,15 @@ import '../styles/style.css';
 const StyledA = styled.a`
   margin: 0 20px 0 0;
 `;
+
+const form = {
+  textAlign: 'left',
+  marginBottom: '1rem',
+};
+
+const formLable = {
+  marginTop: '10px',
+};
 
 const LoginPage = () => {
   const [inputId, setInputId] = useState('');
@@ -25,7 +34,7 @@ const LoginPage = () => {
 
   const onClickLogin = () => {
     axios
-      .post('/api/user/login', {
+      .post('/user/login', {
         uid: inputId,
         pw: inputPw,
       })
@@ -42,34 +51,27 @@ const LoginPage = () => {
   return (
     <StyledCard type="login">
       <h2>로그인</h2>
-      <Row>
-        <Col>
-          <label htmlFor="input_id">ID&nbsp;</label>
-        </Col>
-        <Col>
-          <input
-            className="inputCom"
-            type="text"
-            name="input_id"
-            value={inputId}
-            onChange={handleInputId}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <label htmlFor="input_pw">PW&nbsp;</label>
-        </Col>
-        <Col>
-          <input
-            className="inputCom"
-            type="password"
-            name="input_pw"
-            value={inputPw}
-            onChange={handleInputPw}
-          />
-        </Col>
-      </Row>
+
+      <Form style={form}>
+        <Form.Label style={formLable}>ID</Form.Label>
+        <Form.Control
+          type="text"
+          id="name"
+          required="true"
+          placeholder="ID"
+          value={inputId}
+          onChange={handleInputId}
+        />
+        <Form.Label style={formLable}>비밀번호</Form.Label>
+        <Form.Control
+          type="password"
+          id="title"
+          required="true"
+          placeholder="Password"
+          value={inputPw}
+          onChange={handleInputPw}
+        />
+      </Form>
       <Row>
         <Col>
           <StyledA href="/register/terms">Sign up</StyledA>

@@ -24,11 +24,9 @@ const Header = () => {
   const [session, setSession] = useState(false);
 
   useEffect(() => {
-    axios
-      .get('/api/user/session', {}, { withCredentials: true })
-      .then((res) => {
-        setSession(true);
-      });
+    axios.get('/user/session', {}, { withCredentials: true }).then((res) => {
+      setSession(true);
+    });
     console.log('useEffect');
     console.log(session);
   });
@@ -79,6 +77,12 @@ const Header = () => {
                     Captive Portal
                   </NavDropdown.Item>
                 </NavDropdown>
+                {session ? (
+                  <Nav.Link href="/mypage" className="navItem" style={link}>
+                    MyPage
+                  </Nav.Link>
+                ) : null}
+
                 <Nav.Link href="/help" className="navItem" style={link}>
                   Help
                 </Nav.Link>
@@ -141,6 +145,13 @@ const Header = () => {
                     Captive Portal
                   </NavDropdown.Item>
                 </NavDropdown>
+
+                {session ? (
+                  <Nav.Link href="/mypage" style={link}>
+                    MyPage
+                  </Nav.Link>
+                ) : null}
+
                 <Nav.Link href="/help" style={link}>
                   Help
                 </Nav.Link>
@@ -149,7 +160,7 @@ const Header = () => {
                   FAQ
                 </Nav.Link>
 
-                <Nav.Link href={session ? 'logout' : 'login'} style={link}>
+                <Nav.Link href={session ? '/logout' : '/login'} style={link}>
                   {session ? 'logout' : 'login'}
                 </Nav.Link>
               </Nav>

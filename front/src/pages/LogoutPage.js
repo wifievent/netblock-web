@@ -10,10 +10,16 @@ const delCookie = (name) => {
 };
 
 const LogoutPage = () => {
-  axios.get('/api/user/logout').then((res) => {
-    delCookie('connect.sid');
-    window.location.href = '/';
-  });
+  axios
+    .get('/user/logout')
+    .then((res) => {
+      delCookie('connect.sid');
+      window.location.href = '/';
+    })
+    .catch((e) => {
+      console.log(e.data);
+      // window.location.href = '/';
+    });
 
   return <div></div>;
 };

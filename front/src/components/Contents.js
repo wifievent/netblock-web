@@ -8,18 +8,7 @@ import noWifi from '../img/no-wifi.png';
 import AdYoutube from './AdYoutube';
 import ImgHead from './ImgHead';
 import ImgContent from './ImgContent';
-
-const contentHead = {
-  width: '100%',
-  height: '220px',
-  backgroundColor: '#080D2B',
-  color: '#DADBDF',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  fontWeight: '500',
-  fontSize: '28px',
-};
+import ContentHeader from './ContentHeader';
 
 const landingH1 = {
   color: '#767676',
@@ -162,7 +151,7 @@ const VpnYoutube = () => {
         >
           VPN 이용 ipTIME Bypass
         </span>
-        <AdYoutube style={youtube} vId="2tO8WUUYu00" />
+        <AdYoutube style={youtube} vId="2tO8WUUYu00" auto="0" />
       </div>
     </div>
   );
@@ -171,14 +160,10 @@ const VpnYoutube = () => {
 const Contents = () => {
   return (
     <div>
-      <Fade>
-        <div style={contentHead}>
-          <div>
-            <span style={{ color: '#31ECA9' }}>WiFiEvent</span> 의 제품을 지금
-            바로 만나보세요 !
-          </div>
-        </div>
-      </Fade>
+      <ContentHeader
+        title="WiFiEvent"
+        content=" 의 제품을 지금 바로 만나보세요 !"
+      />
       <div>
         <Container className="mt-5" style={{ textAlign: 'center' }}>
           <NoteBookSvg />
@@ -189,9 +174,9 @@ const Contents = () => {
       <Fade bottom>
         <CompTable />
       </Fade>
-      <ImgHead />
       <ImgContent />
       <VpnYoutube />
+      <ImgHead />
     </div>
   );
 };
