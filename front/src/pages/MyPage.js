@@ -68,7 +68,7 @@ const MyPage = () => {
   const [list, setList] = useState([]);
   useEffect(() => {
     axios
-      .get('/user/session', {}, { withCredentials: true })
+      .get('/api/user/session', {}, { withCredentials: true })
       .then((res) => {})
       .catch((err) => {
         alert('로그인이 필요합니다.');
@@ -79,7 +79,7 @@ const MyPage = () => {
   // 클릭 시 해당 페이지 수정하는 cpedit 으로 이동
   useEffect(() => {
     axios
-      .get('/cp/page', {}, { withCredentials: true })
+      .get('/api/cp/page', {}, { withCredentials: true })
       .then((res) => {
         console.log(res.data.length);
         if (res.data.length !== 0) {

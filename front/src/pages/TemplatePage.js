@@ -49,7 +49,7 @@ const TemplatePage = () => {
     } else {
       console.log(location.state);
       axios
-        .get('/user/session', {}, { withCredentials: true })
+        .get('/api/user/session', {}, { withCredentials: true })
         .then((res) => {})
         .catch((err) => {
           alert('로그인 후 이용해주세요.');
@@ -81,7 +81,7 @@ const TemplatePage = () => {
       const id = location.state.id;
       axios({
         method: 'patch',
-        url: '/cp/page/' + id,
+        url: '/api/cp/page/' + id,
         data: formData,
         headers: { 'Content-Type': 'multipart/form-data' },
       })
@@ -96,7 +96,7 @@ const TemplatePage = () => {
       // 페이지 생성 -> post
       axios({
         method: 'post',
-        url: '/cp/page',
+        url: '/api/cp/page',
         data: formData,
         headers: { 'Content-Type': 'multipart/form-data' },
       })

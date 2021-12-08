@@ -24,9 +24,11 @@ const Header = () => {
   const [session, setSession] = useState(false);
 
   useEffect(() => {
-    axios.get('/user/session', {}, { withCredentials: true }).then((res) => {
-      setSession(true);
-    });
+    axios
+      .get('/api/user/session', {}, { withCredentials: true })
+      .then((res) => {
+        setSession(true);
+      });
     console.log('useEffect');
     console.log(session);
   });
