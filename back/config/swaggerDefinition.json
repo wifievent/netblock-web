@@ -91,7 +91,7 @@
                   },
                   "templateId" : {
                     "type" : "number",
-                    "example" : 4
+                    "example" : 1
                   },
                   "img" : {
                     "type" : "string",
@@ -282,6 +282,10 @@
                   "name" : {
                     "type" : "string",
                     "example" : "NOTWiFiEvent"
+                  },
+                  "templateId" : {
+                    "type" : "number",
+                    "example" : 1
                   },
                   "img" : {
                     "type" : "string",
