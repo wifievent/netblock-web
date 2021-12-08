@@ -37,7 +37,7 @@ const CpEditPage = () => {
 
   useEffect(() => {
     axios
-      .get('/user/session', {}, { withCredentials: true })
+      .get('/api/user/session', {}, { withCredentials: true })
       .then((res) => {})
       .catch((err) => {
         window.location.href = '/';
@@ -51,7 +51,7 @@ const CpEditPage = () => {
       console.log('state : ' + locationState);
       console.log('id : ' + locationId);
       axios
-        .get('/cp/page/' + locationId)
+        .get('/api/cp/page/' + locationId)
         .then((res) => {
           if (res.data === null) {
             setState(false);
@@ -165,7 +165,7 @@ const CpEditPage = () => {
 
             {state ? (
               <img
-                src={`http://localhost:3001/uploads/${image}`}
+                src={`https://wifievent.io/api/images/${image}`}
                 alt="미리보기"
               />
             ) : null}
