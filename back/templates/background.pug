@@ -1,0 +1,17 @@
+doctype html 
+html(lang='ko')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='/static/css/reset.css')
+    link(rel='stylesheet', href='/static/css/background.css')
+    title #{name}
+  body 
+    div(class='container', style=`background-image: url('/images/${image}')`)
+      div(class='title')
+        p #{title}
+      div(class='content')
+        p #{content}
+      form(class='infected-button-form', method='post')
+        input(type='hidden', name='infected' value='false')
+        button(class='infected-button', type='submit') OK
