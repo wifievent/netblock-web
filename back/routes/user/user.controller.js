@@ -132,7 +132,7 @@ const auth = async (req, res) => {
   if (!number || Number.isNaN(number)) {
     return res.status(400).json({ msg: "invalid input" });
   }
-  if (number !== smtpTransport.options.auth.number) {
+  if (number !== smtpTransport.options.auth.number.toString()) {
     logger.error("Wrong number");
     return res.status(401).json({ msg: "wrong number" });
   }
