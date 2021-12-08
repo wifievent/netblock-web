@@ -194,7 +194,7 @@ const render = async (req, res, next) => {
     title: page.title,
     content: page.content,
     image: file.filename,
-    prefix: process.env.NODE_ENV === 'production' ? '/api/' : ''
+    prefix: process.env.NODE_ENV === 'production' ? '/api' : ''
   });
 }
 
