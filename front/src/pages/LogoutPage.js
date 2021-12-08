@@ -11,7 +11,7 @@ const delCookie = (name) => {
 
 const LogoutPage = () => {
   axios
-    .get('/user/logout')
+    .get('/api/user/logout')
     .then((res) => {
       delCookie('connect.sid');
       window.location.href = '/';
