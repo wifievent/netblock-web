@@ -1,3 +1,4 @@
+require('dotenv').config();
 const path = require('path');
 const { User, File, Page, Template, sequelize } = require(path.resolve(__dirname, '..', '..', 'models'));
 const { getHash } = require(path.resolve(__dirname, '..', '..', 'hashing'));
@@ -66,8 +67,8 @@ const create = async (req, res, next) => {
 const update = async (req, res, next) => {
   const userId = req.user.id;
   const pageId = req.params.id;
-  const { title, content, name } = req.body;
-  if (!title || !content || !name || Number.isNaN(pageId)) {
+  const { title, content, name, templateId } = req.body;
+  if (!title || !content || !name || !templateId || Number.isNaN(templateId) || Number.isNaN(pageId)) {
     logger.error('invalid input');
     return res.status(400).json({ msg: 'invalid input' });
   }
@@ -91,7 +92,7 @@ const update = async (req, res, next) => {
       return next(err);
     });
 
-    await Page.update({ title, content, name }, {
+    await Page.update({ title, content, name, templateId }, {
       where: { id: page.id }
     }).catch((err) => {
       logger.error(err);
@@ -192,7 +193,8 @@ const render = async (req, res, next) => {
     name: page.name,
     title: page.title,
     content: page.content,
-    image: file.filename
+    image: file.filename,
+    prefix: process.env.NODE_ENV === 'production' ? '/api/' : ''
   });
 }
 

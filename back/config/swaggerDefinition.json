@@ -498,7 +498,7 @@
         }
       }
     },
-    "/uploads/{filename}" : {
+    "/images/{filename}" : {
       "get" : {
         "summary" : "access file to url",
         "parameters" : [ {
