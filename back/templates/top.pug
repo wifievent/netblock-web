@@ -5,6 +5,8 @@ html(lang='ko')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(rel='stylesheet', href='/static/css/reset.css')
     link(rel='stylesheet', href='/static/css/top.css')
+    link(rel='preconnect', href='https://fonts.googleapis.com')
+    link(href='https://fonts.googleapis.com/css2?family=Montserrat&display=swap', rel='stylesheet')
     title #{name}
   body 
     div(class='container')
@@ -12,7 +14,7 @@ html(lang='ko')
           input(type='hidden', name='infected' value='false')
           button(class='infected-button', type='submit') OK
       div(class='content')
-        p #{content}
+        p !{content}
       div(class='title')
         p #{title}
       div(class='image', style=`background-image: url('/images/${image}')`)

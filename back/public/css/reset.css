@@ -41,3 +41,8 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+p, infected-button {
+	font-family: "Montserrat", sans-serif;
+	word-break: break-all;
+}
