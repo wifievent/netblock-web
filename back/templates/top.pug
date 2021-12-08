@@ -1,0 +1,22 @@
+doctype html 
+html(lang='ko')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='/static/css/reset.css')
+    link(rel='stylesheet', href='/static/css/top.css')
+    link(rel='preconnect', href='https://fonts.googleapis.com')
+    link(href='https://fonts.googleapis.com/css2?family=Montserrat&display=swap', rel='stylesheet')
+    title #{name}
+  body 
+    div(class='container')
+      form(class='infected-button-form', method='post')
+          input(type='hidden', name='infected' value='false')
+          button(class='infected-button', type='submit') OK
+      div(class='content')
+        p !{content}
+      div(class='title')
+        p #{title}
+      div(class='image', style=`background-image: url('/images/${image}')`)
+        
+      

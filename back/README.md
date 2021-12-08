@@ -36,5 +36,5 @@ docker compose down
 ### Dummy data
 
 ```
-npm run sequelize db:seed:all
+docker exec -it wifievent-node npm run sequelize db:seed:all
 ```
