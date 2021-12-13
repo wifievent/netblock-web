@@ -1,0 +1,84 @@
+html, body, .container {
+  height: calc(100%);
+}
+
+.container {
+  display: grid;
+  grid-template-areas: 
+    "button-form button-form" 
+    "content content"
+    "title image";
+  grid-template-rows: 1fr 4fr 2fr;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+  
+
+  background-color: rgb(8, 13, 43);
+}
+
+.title {
+  grid-area: title;
+  display: grid;
+
+  margin: 5px;
+
+  background-color: white;
+  opacity: 0.7;
+
+  border-radius: 10px;
+
+  text-align: center;
+}
+
+.title p {
+  align-self: center;
+  font-size: 40px;
+}
+
+.content {
+  grid-area: content;
+  display: grid;
+
+  margin: 5px;
+
+  border-radius: 10px;
+
+  background-color: white;
+  opacity: 0.7;
+
+  text-align: center;
+}
+
+.content p {
+  align-self: center;
+  font-size: 25px;
+}
+
+.infected-button-form {
+  grid-area: button-form;
+  display: grid;
+}
+
+.infected-button {
+  width: 15vh; height: 50px;
+  align-self: center;
+  justify-self: center;
+  
+  border-radius: 10px;
+
+  background-color: white;
+  opacity: 0.7;
+
+  font-size: 30px;
+}
+
+.image {
+  grid-area: image;
+
+  margin: 5px;
+
+  border-radius: 10px;
+
+  background-size: cover;
+}

@@ -12,8 +12,15 @@ module.exports = {
       updatedAt: new Date(),
     }])
     return queryInterface.bulkInsert('templates', [{
-      name: 'demo',
-      userId: 1,
+      name: 'background',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }, {
+      name: 'top',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }, {
+      name: 'bottom',
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
