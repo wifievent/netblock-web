@@ -165,6 +165,7 @@ const CpEditPage = () => {
 
             {state ? (
               <img
+                style={{ width: '100px' }}
                 src={`https://wifievent.io/api/images/${image}`}
                 alt="미리보기"
               />
