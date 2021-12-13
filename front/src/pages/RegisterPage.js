@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Row } from 'react-bootstrap';
+import Loader from 'react-loader-spinner';
 import Button from '../components/Button';
 
 const container = {
@@ -25,6 +26,12 @@ const row = {
   width: '100%',
 };
 
+const Loading = () => {
+  return (
+    <Loader type="Oval" color="#3d66ba" height={20} width={20} timeout={3000} />
+  );
+};
+
 const RegisterPage = () => {
   const [submit, setSubmit] = useState({
     inputId: '',
@@ -38,6 +45,7 @@ const RegisterPage = () => {
   const [inputState, setInputState] = useState(false); // 다 차있는지 체크
   const [pwChk, setPwChk] = useState(false); // 비번과 확인 같은지 체크
   const [idChk, setIdChk] = useState(false); // id 중복체크 완료 여부 체크
+  const [loading, setLoading] = useState(null);
 
   useEffect(() => {
     let count = Object.keys(submit)
@@ -63,12 +71,14 @@ const RegisterPage = () => {
   };
 
   const emailHandler = () => {
+    setLoading(true);
     axios
       .post('/api/user/email', {
         email: submit.inputEmail,
       })
       .then((res) => {
         alert('해당 이메일로 인증번호를 발송하였습니다.');
+        setLoading(false);
       })
       .catch((err) => {
         console.log();
@@ -202,7 +212,9 @@ const RegisterPage = () => {
             onChange={handleInput}
           />
 
-          <Button onClick={emailHandler}>보내기</Button>
+          <Button onClick={emailHandler} disabled={loading}>
+            {loading ? <Loading /> : '보내기'}
+          </Button>
         </div>
       </Row>
       <Row style={row}>

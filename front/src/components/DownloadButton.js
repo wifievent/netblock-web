@@ -17,7 +17,7 @@ const DownloadButton = (props) => {
     } else if (props.name === 'cpWindows') {
       window.location.href = '/api/cp/?os=windows';
     } else if (props.name === 'cpLinux') {
-      window.location.href = '/api.cp/?os=linux';
+      window.location.href = '/api/cp/?os=linux';
     }
   };
   return (
