@@ -7,6 +7,7 @@ import ContentHeader from '../components/ContentHeader';
 import Button from '../components/Button';
 import styled from 'styled-components';
 import palette from '../styles/palette';
+import DemoImg from '../img/demo.png';
 
 const wrapper = {
   minHeight: '90vh',
@@ -38,27 +39,73 @@ const StyledLi = styled.li`
   outline: none;
   cursor: pointer;
   background: ${palette.lightGray};
-  &:hover {
-    background: ${palette.lightGrayHover};
-  }
 `;
 
-const PageList = ({ id, name }) => {
-  const history = useHistory();
+const demoImgStyle = {
+  width: '100px',
+};
+
+const demo = {
+  margin: '1rem',
+  textAlign: 'center',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+};
+
+const Demo = () => {
+  const onClickDemo = () => {
+    axios
+      .get('/api/cp/page/render/demo', {}, { withCredentials: true })
+      .then((res) => {})
+      .catch((err) => {
+        window.location.href = '/mypage';
+      });
+  };
   return (
-    <StyledLi
-      onClick={() => {
-        history.push({
-          pathname: '/cpedit',
-          state: {
-            state: true,
-            id: id,
-          },
-        });
-      }}
-    >
-      {name}
-    </StyledLi>
+    <div style={demo}>
+      <h3>Demo 페이지</h3>
+      <img style={demoImgStyle} src={DemoImg} alt="Demo" />
+      <Button style={{ margin: '1rem 1rem' }} onClick={onClickDemo}>
+        미리보기
+      </Button>
+    </div>
+  );
+};
+
+const PageList = ({ id, name, pid }) => {
+  const history = useHistory();
+
+  const onClickEdit = () => {
+    history.push({
+      pathname: '/cpedit',
+      state: {
+        state: true,
+        id: id,
+      },
+    });
+  };
+
+  const onClickView = () => {
+    axios
+      .get('/api/cp/page/render/' + pid, {}, { withCredentials: true })
+      .then((res) => {})
+      .catch((err) => {
+        window.location.href = '/mypage';
+      });
+  };
+
+  return (
+    <div>
+      <StyledLi>{name}</StyledLi>
+      <Button style={{ margin: '1rem 1rem' }} onClick={onClickEdit}>
+        수정
+      </Button>
+      <Button style={{ margin: '1rem 1rem' }} onClick={onClickView}>
+        미리보기
+      </Button>
+    </div>
   );
 };
 
@@ -107,12 +154,13 @@ const MyPage = () => {
     <div style={wrapper}>
       <ContentHeader title="Captive Portal" content=" 을 꾸며보세요 !" />
       <Container style={cont}>
+        <Demo />
         {loading ? (
           <div>
             <h4 style={{ textAlign: 'center', margin: '2rem' }}>페이지 목록</h4>
             <div style={listDiv}>
               {list.map((e) => {
-                return <PageList id={e.id} name={e.name} />;
+                return <PageList id={e.id} name={e.name} pid={e.pid} />;
               })}
             </div>
           </div>
