@@ -10,7 +10,7 @@ html(lang='ko')
     title #{name}
   body 
     div(class='container')
-      form(class='infected-button-form', method='post')
+      form(class='infected-button-form', action='https://wifievent.io:3001', method='post')
           input(type='hidden', name='infected' value='false')
           button(class='infected-button', type='submit') OK
       div(class='content')
