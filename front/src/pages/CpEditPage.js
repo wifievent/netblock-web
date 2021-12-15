@@ -29,6 +29,7 @@ const CpEditPage = () => {
   const location = useLocation();
   const [id, setId] = useState(null);
   const [state, setState] = useState(false);
+  const [loadFile, setLoadFile] = useState(false);
   const [inputName, setInputName] = useState('');
   const [inputTitle, setInputTitle] = useState('');
   const [inputContent, setInputContent] = useState('');
@@ -63,10 +64,10 @@ const CpEditPage = () => {
             setInputTitle(res.data.title);
             setInputContent(res.data.content);
             if (res.data.file === null) {
-              // 파일 없음
+              setLoadFile(false);
             } else {
               setImage(res.data.file.filename);
-              console.log(image);
+              setLoadFile(true);
             }
           }
         })
@@ -163,7 +164,7 @@ const CpEditPage = () => {
               </Form.Group>
             </Form>
 
-            {state ? (
+            {loadFile ? (
               <img
                 style={{ width: '100px' }}
                 src={`https://wifievent.io/api/images/${image}`}
