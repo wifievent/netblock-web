@@ -56,12 +56,7 @@ const demo = {
 
 const Demo = () => {
   const onClickDemo = () => {
-    axios
-      .get('/api/cp/page/render/demo', {}, { withCredentials: true })
-      .then((res) => {})
-      .catch((err) => {
-        window.location.href = '/mypage';
-      });
+    window.location.href = '/api/cp/page/render/demo';
   };
   return (
     <div style={demo}>
@@ -88,12 +83,7 @@ const PageList = ({ id, name, pid }) => {
   };
 
   const onClickView = () => {
-    axios
-      .get('/api/cp/page/render/' + pid, {}, { withCredentials: true })
-      .then((res) => {})
-      .catch((err) => {
-        window.location.href = '/mypage';
-      });
+    window.location.href = '/api/cp/page/render/' + pid;
   };
 
   return (
