@@ -11,8 +11,6 @@ const http = require('http');
 const https = require('https');
 const fs = require('fs');
 
-const routes = require('../routes');
-
 module.exports = async ({ app }) => {
   const normalizePort = function (val) {
     const port = parseInt(val, 10);
@@ -60,20 +58,28 @@ module.exports = async ({ app }) => {
   }
 
   app.use(logger('dev'));
-  app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
   app.use('/static', express.static(path.resolve(__dirname, '..', 'public')));
   app.set('views', path.resolve(__dirname, '..', 'templates'));
   app.set('view engine', 'pug');
 
-  app.use(cors({
-    origin: true,
-    credentials: true,
-  }));
-  app.use(helmet());
+  if (process.env.NODE_ENV === 'development') {
+    app.use(cors({
+      origin: true,
+      credentials: true
+    }));
+  } else {
+    app.use(helmet());
+    app.use(cors({
+      origin: true,
+      credentials: true
+    }));
+  }
 
-  app.use('/', routes);
+  app.use('/', (req, res, next) => {
+	  res.render('guide.pug');	
+  });
 
   //error handling
   app.use(function (err, req, res, next) {
@@ -81,7 +87,7 @@ module.exports = async ({ app }) => {
     res.status(err.status || 500).json(err.message);
   });
 
-  const port = normalizePort(process.env.PORT || '3000');
+  const port = normalizePort(process.env.RENDER_PORT || '3001');
   app.set('port', port);
 
   let server;
@@ -95,7 +101,7 @@ module.exports = async ({ app }) => {
     server = https.createServer(sslOptions, app);
   }
 
-  server.listen(port);
+  server.listen(port)
   server.on('error', onError);
   server.on('listening', onListening);
 

@@ -15,12 +15,16 @@ module.exports = (sequelize, DataTypes) => {
 		pid: {
 			type: DataTypes.STRING(128),
 			allowNull: false,
-		}
-	}, {})
+		},
+		public: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: false,
+		},
+	}, {});
 	page.associate = (models) => {
 		page.hasOne(models.File);
 		page.belongsTo(models.User);
 		page.belongsTo(models.Template);
-	}
-	return page
+	};
+	return page;
 }

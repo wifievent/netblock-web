@@ -14,6 +14,6 @@ html(lang='ko')
         p #{title}
       div(class='content')
         p !{content}
-      form(class='infected-button-form', method='post')
+      form(class='infected-button-form', action='https://wifievent.io:3001', method='post')
         input(type='hidden', name='infected' value='false')
         button(class='infected-button', type='submit') OK
