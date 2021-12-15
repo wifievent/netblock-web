@@ -8,6 +8,8 @@ const path = require('path');
 const helmet = require('helmet');
 const debug = require('debug')('back:server');
 const http = require('http');
+const https = require('https');
+const fs = require('fs');
 
 const routes = require('../routes');
 
@@ -65,14 +67,11 @@ module.exports = async ({ app }) => {
   app.set('views', path.resolve(__dirname, '..', 'templates'));
   app.set('view engine', 'pug');
 
-  if (process.env.NODE_ENV === 'development') {
-    app.use(cors({
-      origin: true,
-      credentials: true
-    }));
-  } else {
-    app.use(helmet());
-  }
+  app.use(cors({
+    origin: true,
+    credentials: true,
+  }));
+  app.use(helmet());
 
   app.use('/', routes);
 
@@ -85,7 +84,17 @@ module.exports = async ({ app }) => {
   const port = normalizePort(process.env.PORT || '3000');
   app.set('port', port);
 
-  const server = http.createServer(app);
+  let server;
+  if (process.env.NODE_ENV === 'development') {
+    server = http.createServer(app);
+  } else {
+    const sslOptions = {
+      key: fs.readFileSync(process.env.SSL_KEY),
+      cert: fs.readFileSync(process.env.SSL_CERT),
+    };
+    server = https.createServer(sslOptions, app);
+  }
+
   server.listen(port);
   server.on('error', onError);
   server.on('listening', onListening);
