@@ -469,7 +469,7 @@
         }
       }
     },
-    "/cp/render/{id}" : {
+    "/cp/page/render/{id}" : {
       "get" : {
         "summary" : "show page",
         "parameters" : [ {

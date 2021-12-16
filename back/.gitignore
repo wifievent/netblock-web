@@ -5,4 +5,5 @@ data/
 restClient.http/
 uploads/*
 !uploads/.gitkeep/
+!uploads/wf_logo.png
 logs

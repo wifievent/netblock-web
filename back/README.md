@@ -5,6 +5,8 @@ docker
 
 ## Before Launch
 
+create .env file in backend root directory
+
 ### .env
 ```
 DB_USER=dev
