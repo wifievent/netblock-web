@@ -198,9 +198,40 @@ const render = async (req, res, next) => {
   });
 }
 
+const remove = async (req, res, next) => {
+  const pageId = req.params.id;
+  const userId = req.user.id;
+
+  const page = await Page.findOne({
+    where: { id: pageId, userId }
+  }).catch((err) => {
+    logger.error(err);
+    console.error(err);
+    return next(err);
+  });
+
+  if (!page) {
+    logger.error('invalid access');
+    return res.status(403).json({ msg: 'invalid access' });
+  }
+
+  await sequelize.transaction(async t => {
+    await Page.destroy({
+      where: { id: page.id }
+    }).catch((err) => {
+      logger.error(err);
+      console.error(err);
+      return next(err);
+    });
+  });
+  logger.info('page delete success');
+  return res.status(200).json({ msg: 'page delete success' });
+}
+
 module.exports = {
   create,
   update,
   read,
-  render
+  render,
+  remove
 }
