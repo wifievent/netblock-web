@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { Container, ListGroup } from 'react-bootstrap';
+import { Container, Modal } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import axios from 'axios';
 import ContentHeader from '../components/ContentHeader';
@@ -69,8 +69,14 @@ const Demo = () => {
   );
 };
 
+// /api/cp/page/render/pid
+
 const PageList = ({ id, name, pid }) => {
   const history = useHistory();
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const onClickEdit = () => {
     history.push({
@@ -80,6 +86,18 @@ const PageList = ({ id, name, pid }) => {
         id: id,
       },
     });
+  };
+
+  const onClickDel = () => {
+    axios
+      .delete('/api/cp/page/render/' + pid, {}, { withCredentials: true })
+      .then((res) => {
+        alert('삭제되었습니다.');
+        window.location.href = '/mypage';
+      })
+      .catch((err) => {
+        window.location.href = '/';
+      });
   };
 
   const onClickView = () => {
@@ -95,6 +113,26 @@ const PageList = ({ id, name, pid }) => {
       <Button style={{ margin: '1rem 1rem' }} onClick={onClickView}>
         미리보기
       </Button>
+      <Button style={{ margin: '1rem 1rem' }} onClick={handleShow}>
+        삭제
+      </Button>
+
+      <Modal
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        show={show}
+        onHide={handleClose}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter"></Modal.Title>
+        </Modal.Header>
+        <Modal.Body>정말로 페이지를 삭제하시겠습니까 ?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={onClickDel}>
+            삭제
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
