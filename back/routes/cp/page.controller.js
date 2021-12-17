@@ -199,15 +199,13 @@ const render = async (req, res, next) => {
 }
 
 const remove = async (req, res, next) => {
-  const pageId = req.params.id;
-  const userId = req.user.id;
+  const pid = req.params.id;
+  if (Number.isNaN(pid)) {
+    return res.status(400).json({ msg: "invalid input" });
+  }
 
   const page = await Page.findOne({
-    where: { id: pageId, userId }
-  }).catch((err) => {
-    logger.error(err);
-    console.error(err);
-    return next(err);
+    where: { pid }
   });
 
   if (!page) {
